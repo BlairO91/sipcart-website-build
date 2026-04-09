@@ -220,6 +220,7 @@
   font-weight: 700;
   color: var(--sc-cream);
   line-height: 1.15;
+  text-transform: uppercase;
   margin-bottom: 24px;
 }
 .sc-hero__sub {
