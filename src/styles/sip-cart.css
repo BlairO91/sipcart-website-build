@@ -680,7 +680,7 @@ img.event-photo {
 .sc-brand-col {
   position: absolute;
   top: 0;
-  width: min(16vw, 260px);
+  width: min(22vw, 340px);
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -696,7 +696,7 @@ img.event-photo {
 .sc-brand-col--left .sc-brand-photo:nth-child(2) { transform: rotate(4deg); margin-left: 80px; }
 .sc-brand-col--left .sc-brand-photo:nth-child(3) { transform: rotate(-3deg); margin-left: -40px; }
 .sc-brand-col--right .sc-brand-photo:nth-child(1) { transform: rotate(6deg); margin-right: -70px; }
-.sc-brand-col--right .sc-brand-photo:nth-child(2) { transform: rotate(-4deg); margin-right: 75px; }
+.sc-brand-col--right .sc-brand-photo:nth-child(2) { transform: rotate(-4deg); margin-right: -120px; }
 .sc-brand-col--right .sc-brand-photo:nth-child(3) { transform: rotate(3deg); margin-right: -50px; }
 .sc-brand-photo img {
   display: block;
