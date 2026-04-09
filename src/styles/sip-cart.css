@@ -673,21 +673,10 @@ img.event-photo {
   background: var(--sc-espresso);
 }
 .sc-brand-pin {
-  position: absolute;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
   height: 100vh;
   z-index: 1;
-}
-.sc-brand-pin--fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-.sc-brand-pin--bottom {
-  position: absolute;
-  top: auto;
-  bottom: 0;
 }
 .sc-brand-stage {
   position: relative;
