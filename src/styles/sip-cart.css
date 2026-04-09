@@ -261,7 +261,7 @@
 }
 .sc-how__title {
   font-family: var(--sc-serif);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--sc-espresso);
   margin-bottom: 12px;
@@ -303,7 +303,7 @@
 .sc-services__card-body h3 {
   font-family: var(--sc-serif);
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: var(--sc-espresso);
   margin-bottom: 8px;
 }
@@ -375,7 +375,7 @@
 }
 .sc-pkg__name {
   font-family: var(--sc-serif);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--sc-espresso);
   margin-bottom: 8px;
@@ -420,7 +420,7 @@
 }
 .sc-custom__item h3 {
   font-family: var(--sc-serif);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--sc-espresso);
   margin-bottom: 8px;
