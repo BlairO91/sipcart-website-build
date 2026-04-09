@@ -102,21 +102,21 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
-      // Brand gallery scroll — images start below viewport, slide up through
-      if (brandSectionRef.current && brandColLeftRef.current && brandColRightRef.current) {
+      // Brand gallery scroll — photos slide upward through sticky panel
+      if (brandSectionRef.current && brandColLeftRef.current) {
         const bRect = brandSectionRef.current.getBoundingClientRect();
         const sectionH = brandSectionRef.current.offsetHeight;
         const vh = window.innerHeight;
         const scrollable = sectionH - vh;
         const scrolledAmt = -bRect.top;
         const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
-        // Total travel: start fully below (100vh) → end above (-totalColumnHeight)
-        const colHeight = brandColLeftRef.current.scrollHeight;
-        const startY = vh;
-        const endY = -colHeight;
-        const travel = startY - endY;
-        brandColLeftRef.current.style.transform = `translate3d(0, ${startY - p * travel}px, 0)`;
-        brandColRightRef.current.style.transform = `translate3d(0, ${startY + vh * 0.3 - p * travel * 0.85}px, 0)`;
+        const photos = brandColLeftRef.current.querySelectorAll('.sc-brand-photo') as NodeListOf<HTMLElement>;
+        photos.forEach((photo) => {
+          const startOffset = parseFloat(photo.style.getPropertyValue('--start')) || 0;
+          const totalTravel = vh + startOffset + 500;
+          const y = startOffset + vh - p * totalTravel;
+          photo.style.transform = `translate3d(0, ${y}px, 0) rotate(var(--rot))`;
+        });
       }
 
       if (!ticking) {

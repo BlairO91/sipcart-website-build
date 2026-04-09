@@ -627,7 +627,7 @@ img.event-photo {
 
 /* ── Brand Statement / Scroll Gallery ── */
 .sc-brand-scroll {
-  height: 400vh;
+  height: 350vh;
   position: relative;
   background: var(--sc-espresso);
 }
@@ -651,34 +651,29 @@ img.event-photo {
   z-index: 1;
   padding: 0 24px;
   pointer-events: none;
+  max-width: 900px;
 }
-.sc-brand-gallery {
+.sc-brand-photos {
   position: absolute;
   inset: 0;
-  display: flex;
-  gap: 40px;
-  justify-content: center;
   z-index: 2;
-  padding: 0 10vw;
   pointer-events: none;
 }
-.sc-brand-col {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-  width: 36%;
+.sc-brand-photo {
+  position: absolute;
+  width: 320px;
   will-change: transform;
 }
-.sc-brand-col img {
+.sc-brand-photo img {
   width: 100%;
-  border-radius: var(--sc-radius);
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+  border-radius: 6px;
+  border: 4px solid rgba(0,0,0,0.15);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.4);
 }
 @media (max-width: 768px) {
   .sc-brand-text { font-size: 2.8rem; }
-  .sc-brand-gallery { padding: 0 16px; gap: 16px; }
-  .sc-brand-col { gap: 28px; width: 44%; }
-  .sc-brand-scroll { height: 350vh; }
+  .sc-brand-photo { width: 200px; }
+  .sc-brand-scroll { height: 300vh; }
 }
