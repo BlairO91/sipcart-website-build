@@ -188,7 +188,7 @@
 }
 .sc-hero__overlay {
   position: absolute; inset: 0;
-  background: rgba(237, 184, 182, 0.4);
+  background: rgba(237, 184, 182, 0.7);
   z-index: 1;
 }
 .sc-hero__content {
