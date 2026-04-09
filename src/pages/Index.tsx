@@ -104,7 +104,7 @@ const Index = () => {
       {/* ── HERO ── */}
       <section className="sc-hero">
         <video className="hero-video" autoPlay muted loop playsInline>
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src="/hero-bg-v2.mp4" type="video/mp4" />
         </video>
         <div className="sc-hero__overlay" />
         <div className="sc-hero__content">
