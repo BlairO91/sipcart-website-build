@@ -660,7 +660,7 @@ img.event-photo {
 }
 .sc-brand-text {
   position: relative;
-  z-index: 3;
+  z-index: 1;
   max-width: 900px;
   padding: 0 24px;
   text-align: center;
