@@ -60,7 +60,6 @@ const Index = () => {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const brandSectionRef = useRef<HTMLDivElement>(null);
   const brandColLeftRef = useRef<HTMLDivElement>(null);
-  const brandColRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
