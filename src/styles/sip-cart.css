@@ -2,33 +2,6 @@
    THE SIP CART — Brand Stylesheet
    ═══════════════════════════════════════════ */
 
-@font-face {
-  font-family: 'Le Jour Serif';
-  src: url('/fonts/LeJourSerif-final.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Disable stylistic alternates for Le Jour Serif */
-.sc-section__heading,
-.sc-hero__headline,
-.sc-how__title,
-.sc-how__num,
-.sc-services__card-body h3,
-.sc-mid-cta h2,
-.sc-pkg__name,
-.sc-custom__item h3,
-.sc-testimonial__quote,
-.sc-faq__q {
-  font-feature-settings: "salt" off, "ss01" off, "ss02" off, "liga" off;
-}
-
-/* Punctuation fallback — Le Jour Serif has decorative glyphs for , . & ' etc. */
-.sc-punct {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;600;700&display=swap');
 
 :root {
@@ -39,7 +12,7 @@
   --sc-cream: #F5EFE8;
   --sc-white: #FFFDF9;
   --sc-overlay: rgba(30, 15, 5, 0.35);
-  --sc-serif: 'Le Jour Serif', 'Cormorant Garamond', Georgia, serif;
+  --sc-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --sc-body: 'Nunito', 'Century Gothic', sans-serif;
   --sc-radius: 12px;
 }
@@ -112,7 +85,6 @@
   text-align: center;
   margin-bottom: 16px;
   color: var(--sc-espresso);
-  text-transform: uppercase;
 }
 .sc-section__sub {
   text-align: center;
@@ -239,7 +211,6 @@
   font-weight: 700;
   color: var(--sc-cream);
   line-height: 1.15;
-  text-transform: uppercase;
   margin-bottom: 24px;
 }
 .sc-hero__sub {
@@ -292,7 +263,6 @@
   font-weight: 600;
   color: var(--sc-espresso);
   margin-bottom: 12px;
-  text-transform: uppercase;
 }
 .sc-how__desc { color: #6b5b50; font-size: 1.1rem; }
 
@@ -339,7 +309,6 @@ img.event-photo {
   font-size: 2rem;
   color: var(--sc-espresso);
   margin-bottom: 8px;
-  text-transform: uppercase;
 }
 .sc-services__card-body p {
   font-size: 1.1rem;
@@ -362,7 +331,6 @@ img.event-photo {
   font-size: 2.8rem;
   font-weight: 700;
   color: var(--sc-cream);
-  text-transform: uppercase;
   margin-bottom: 12px;
 }
 .sc-mid-cta p {
@@ -415,7 +383,6 @@ img.event-photo {
   color: var(--sc-espresso);
   margin-bottom: 8px;
   margin-top: 8px;
-  text-transform: uppercase;
 }
 .sc-pkg__best {
   font-size: 0.88rem;
@@ -460,7 +427,6 @@ img.event-photo {
   font-size: 2rem;
   font-weight: 600;
   color: var(--sc-espresso);
-  text-transform: uppercase;
   margin-bottom: 8px;
 }
 .sc-custom__item p { font-size: 1.1rem; color: #6b5b50; }
@@ -520,7 +486,7 @@ img.event-photo {
   font-weight: 600 !important;
   color: var(--sc-espresso) !important;
   text-decoration: none !important;
-  text-transform: uppercase !important;
+  
 }
 .sc-faq__q:hover { text-decoration: none !important; }
 .sc-faq__a {
