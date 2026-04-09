@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -14,8 +14,10 @@ import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
+import gallery9 from "@/assets/gallery-9.jpg";
+import gallery10 from "@/assets/gallery-10.jpg";
 
-const galleryImages = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8];
+const galleryImages = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8, gallery9, gallery10];
 
 const faqData = [
   { q: "Do I need to provide my own alcohol?", a: "Yes — clients supply all alcohol. We provide everything else: bartenders, bar setup, custom menus, mixers, garnishes, cups, napkins, ice, and straws. We also send you a customized shopping list so you know exactly what to buy." },
@@ -46,10 +48,26 @@ const testimonials = [
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const photoBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+
+      // Scroll-driven photo bar shift
+      if (photoBarRef.current) {
+        const rect = photoBarRef.current.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        // progress 0→1 as section scrolls through viewport
+        const progress = Math.min(Math.max((viewH - rect.top) / (viewH + rect.height), 0), 1);
+        const track = photoBarRef.current.querySelector('.sc-photo-bar__track') as HTMLElement;
+        if (track) {
+          const maxShift = track.scrollWidth - window.innerWidth;
+          track.style.transform = `translateX(-${progress * maxShift}px)`;
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -93,10 +111,12 @@ const Index = () => {
       </section>
 
       {/* ── PHOTO BAR ── */}
-      <section className="sc-photo-bar">
-        {galleryImages.map((src, i) => (
-          <img key={i} src={src} alt={`Event gallery ${i + 1}`} loading="lazy" />
-        ))}
+      <section className="sc-photo-bar" ref={photoBarRef}>
+        <div className="sc-photo-bar__track">
+          {galleryImages.map((src, i) => (
+            <img key={i} src={src} alt={`Event gallery ${i + 1}`} loading="lazy" />
+          ))}
+        </div>
       </section>
 
       {/* ── HOW IT WORKS ── */}
