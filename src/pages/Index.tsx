@@ -58,6 +58,9 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const brandSectionRef = useRef<HTMLDivElement>(null);
+  const brandColLeftRef = useRef<HTMLDivElement>(null);
+  const brandColRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -299,9 +302,23 @@ const Index = () => {
       </section>
 
       {/* ── BRAND STATEMENT ── */}
-      <section className="sc-brand-statement">
-        <h2>Elevated Experiences,<br />One Sip at a Time</h2>
-      </section>
+      <div className="sc-brand-scroll" ref={brandSectionRef}>
+        <div className="sc-brand-sticky">
+          <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
+          <div className="sc-brand-gallery">
+            <div className="sc-brand-col sc-brand-col--left" ref={brandColLeftRef}>
+              <img src={gallery1} alt="Event 1" />
+              <img src={gallery3} alt="Event 3" />
+              <img src={gallery5} alt="Event 5" />
+            </div>
+            <div className="sc-brand-col sc-brand-col--right" ref={brandColRightRef}>
+              <img src={gallery2} alt="Event 2" />
+              <img src={gallery4} alt="Event 4" />
+              <img src={gallery6} alt="Event 6" />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ── FAQ ── */}
       <section id="faq" className="sc-section sc-faq">
