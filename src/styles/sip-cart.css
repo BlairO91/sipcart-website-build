@@ -87,8 +87,10 @@
   text-align: center;
   margin-bottom: 16px;
   color: var(--sc-espresso);
-  will-change: font-size;
-  transition: font-size 0.05s linear;
+  transition: font-size 200ms ease-out;
+}
+.sc-section__heading.sc-heading--in {
+  font-size: var(--sc-heading-base-size);
 }
 .sc-section__sub {
   text-align: center;
