@@ -51,20 +51,25 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
 
-      // Scroll-driven photo bar shift
-      if (photoBarRef.current) {
-        const rect = photoBarRef.current.getBoundingClientRect();
-        const viewH = window.innerHeight;
-        // progress 0→1 as section scrolls through viewport
-        const progress = Math.min(Math.max((viewH - rect.top) / (viewH + rect.height), 0), 1);
-        const track = photoBarRef.current.querySelector('.sc-photo-bar__track') as HTMLElement;
-        if (track) {
-          const maxShift = track.scrollWidth - window.innerWidth;
-          track.style.transform = `translateX(-${progress * maxShift * 0.4}px)`;
-        }
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (photoBarRef.current) {
+            const rect = photoBarRef.current.getBoundingClientRect();
+            const viewH = window.innerHeight;
+            const progress = Math.min(Math.max((viewH - rect.top) / (viewH + rect.height), 0), 1);
+            const track = photoBarRef.current.querySelector('.sc-photo-bar__track') as HTMLElement;
+            if (track) {
+              const maxShift = track.scrollWidth - window.innerWidth;
+              track.style.transform = `translate3d(-${progress * maxShift * 0.33}px, 0, 0)`;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
