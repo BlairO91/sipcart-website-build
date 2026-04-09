@@ -340,7 +340,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
-  align-items: start;
+  align-items: stretch;
 }
 .sc-pkg {
   background: #fff;
@@ -388,6 +388,7 @@
   text-align: left;
   width: 100%;
   margin-bottom: 28px;
+  flex: 1;
 }
 .sc-pkg__list li {
   padding: 8px 0;
