@@ -236,20 +236,11 @@
 .sc-how__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: 2rem;
 }
 .sc-how__step {
   text-align: center;
   padding: 40px 32px;
-  position: relative;
-}
-.sc-how__step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0; top: 20%; height: 60%;
-  width: 1px;
-  background: var(--sc-olive);
-  opacity: 0.3;
 }
 .sc-how__num {
   font-family: var(--sc-serif);
