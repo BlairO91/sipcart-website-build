@@ -466,7 +466,7 @@ const Index = () => {
           </div>
         </div>
         <div className="sc-footer__bottom">
-          <p>© 2025 The Sip Cart. All rights reserved. · Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
+          <p>© 2025 The Sip Cart. All rights reserved. Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
         </div>
       </footer>
     </div>
