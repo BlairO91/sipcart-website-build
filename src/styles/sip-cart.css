@@ -677,12 +677,22 @@ img.event-photo {
   z-index: 2;
   pointer-events: none;
 }
-.sc-brand-photo {
+.sc-brand-col {
   position: absolute;
-  width: 320px;
+  top: 0;
+  width: min(21vw, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   will-change: transform;
 }
+.sc-brand-col--left { left: 4%; }
+.sc-brand-col--right { right: 6%; }
+.sc-brand-photo {
+  width: 100%;
+}
 .sc-brand-photo img {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
@@ -691,7 +701,9 @@ img.event-photo {
   box-shadow: 0 16px 50px hsl(22 28% 16% / 0.4);
 }
 @media (max-width: 768px) {
-  .sc-brand-scroll { height: 300vh; }
+  .sc-brand-scroll { height: 360vh; }
   .sc-brand-text { font-size: 2.8rem; }
-  .sc-brand-photo { width: 180px; }
+  .sc-brand-col { width: min(38vw, 180px); gap: 0.75rem; }
+  .sc-brand-col--left { left: 4%; }
+  .sc-brand-col--right { right: 4%; }
 }
