@@ -80,12 +80,15 @@
   margin-right: auto;
 }
 .sc-section__heading {
+  --sc-heading-base-size: 2.8rem;
   font-family: var(--sc-serif);
   font-weight: 700;
-  font-size: 2.8rem;
+  font-size: calc(var(--sc-heading-base-size) + 2rem);
   text-align: center;
   margin-bottom: 16px;
   color: var(--sc-espresso);
+  will-change: font-size;
+  transition: font-size 0.05s linear;
 }
 .sc-section__sub {
   text-align: center;
