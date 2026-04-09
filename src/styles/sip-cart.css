@@ -172,13 +172,24 @@
    HERO
    ═══════════════════════════════════ */
 .sc-hero {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  z-index: 0;
+}
+.sc-hero-spacer {
+  min-height: 100vh;
+}
+.sc-hero ~ *:not(.sc-hero-spacer) {
+  position: relative;
+  z-index: 1;
 }
 .hero-video {
   position: absolute; inset: 0;
