@@ -132,13 +132,17 @@ const Index = () => {
 
         // Brand text fade handled by IntersectionObserver below
 
-        if (sectionRect.top <= 0 && sectionRect.bottom >= viewportHeight) {
+        if (sectionRect.top <= 0 && sectionRect.bottom > viewportHeight) {
+          brandPinRef.current.style.top = '';
           brandPinRef.current.classList.add("sc-brand-pin--fixed");
           brandPinRef.current.classList.remove("sc-brand-pin--bottom");
-        } else if (sectionRect.bottom < viewportHeight) {
+        } else if (sectionRect.bottom <= viewportHeight) {
+          brandPinRef.current.style.top = '';
           brandPinRef.current.classList.remove("sc-brand-pin--fixed");
           brandPinRef.current.classList.add("sc-brand-pin--bottom");
         } else {
+          // Before section reaches top — pin element tracks with section
+          brandPinRef.current.style.top = '0';
           brandPinRef.current.classList.remove("sc-brand-pin--fixed", "sc-brand-pin--bottom");
         }
 
