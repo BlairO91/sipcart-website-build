@@ -659,6 +659,7 @@ img.event-photo {
   justify-content: center;
 }
 .sc-brand-text {
+  opacity: 0;
   position: relative;
   z-index: 1;
   max-width: 900px;
