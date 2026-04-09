@@ -44,7 +44,7 @@
 }
 .sc-btn--primary {
   background: var(--sc-gold);
-  color: var(--sc-espresso);
+  color: #fff;
 }
 .sc-btn--primary:hover { opacity: 0.88; transform: translateY(-1px); }
 .sc-btn--outline {
