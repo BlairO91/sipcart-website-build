@@ -115,7 +115,7 @@ const Index = () => {
         <div className="sc-hero__overlay" />
         <div className="sc-hero__content">
           <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
-          <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
+          <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences<br />One Sip at a Time</h1>
           <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
           <div className="sc-hero__btns">
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
@@ -140,7 +140,7 @@ const Index = () => {
           {[
             { n: "01", t: "Tell Us About Your Event", d: "You share your event details and we handle everything from there." },
             { n: "02", t: "We Set Up, You Relax", d: "We arrive, set up your custom bar, and handle the full service start to finish." },
-            { n: "03", t: "Sip & Celebrate", d: "You enjoy the party while we make every drink a moment." },
+            { n: "03", t: <span>Sip <span style={{fontFamily: 'Cormorant Garamond, serif'}}>&</span> Celebrate</span>, d: "You enjoy the party while we make every drink a moment." },
           ].map((s, i) => (
             <div className="sc-how__step" key={i}>
               <span className="sc-how__num">{s.n}</span>
