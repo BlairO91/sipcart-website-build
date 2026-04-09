@@ -93,6 +93,12 @@ const Index = () => {
         heroContentRef.current.style.opacity = String(opacity);
       }
 
+      // Hero video parallax (slow upward drift)
+      if (heroVideoRef.current) {
+        const videoShift = window.scrollY * 0.15;
+        heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
+      }
+
       if (!ticking) {
         requestAnimationFrame(() => {
           if (photoBarRef.current) {
@@ -141,7 +147,7 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <section className="sc-hero">
-        <video className="hero-video" autoPlay muted loop playsInline>
+        <video className="hero-video" autoPlay muted loop playsInline ref={heroVideoRef}>
           <source src="/hero-bg-v2.mp4" type="video/mp4" />
         </video>
         <div className="sc-hero__overlay" />
