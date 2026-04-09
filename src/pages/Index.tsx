@@ -57,6 +57,7 @@ const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -90,6 +91,12 @@ const Index = () => {
         const opacity = Math.max(1 - scrollY / (window.innerHeight * 0.6), 0);
         heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
         heroContentRef.current.style.opacity = String(opacity);
+      }
+
+      // Hero video parallax (slow upward drift)
+      if (heroVideoRef.current) {
+        const videoShift = window.scrollY * 0.15;
+        heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
       if (!ticking) {
@@ -140,7 +147,7 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <section className="sc-hero">
-        <video className="hero-video" autoPlay muted loop playsInline>
+        <video className="hero-video" autoPlay muted loop playsInline ref={heroVideoRef}>
           <source src="/hero-bg-v2.mp4" type="video/mp4" />
         </video>
         <div className="sc-hero__overlay" />
