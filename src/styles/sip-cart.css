@@ -40,7 +40,7 @@
   letter-spacing: 0.02em;
   transition: all 0.25s ease;
   text-decoration: none;
-  border: 1px solid #fff;
+  border: 1px solid #fff !important;
 }
 .sc-btn--primary {
   background: var(--sc-gold);
