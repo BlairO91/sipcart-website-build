@@ -59,7 +59,8 @@ const Index = () => {
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const brandSectionRef = useRef<HTMLDivElement>(null);
-  const brandColLeftRef = useRef<HTMLDivElement>(null);
+  const brandPinRef = useRef<HTMLDivElement>(null);
+  const brandPhotosRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -101,19 +102,30 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
-      // Brand gallery scroll — photos slide upward through sticky panel
-      if (brandSectionRef.current && brandColLeftRef.current) {
-        const bRect = brandSectionRef.current.getBoundingClientRect();
-        const sectionH = brandSectionRef.current.offsetHeight;
-        const vh = window.innerHeight;
-        const scrollable = sectionH - vh;
-        const scrolledAmt = -bRect.top;
-        const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
-        const photos = brandColLeftRef.current.querySelectorAll('.sc-brand-photo') as NodeListOf<HTMLElement>;
+      // Brand gallery scroll — pin the 100vh scene while photos travel through it
+      if (brandSectionRef.current && brandPinRef.current && brandPhotosRef.current) {
+        const sectionRect = brandSectionRef.current.getBoundingClientRect();
+        const sectionHeight = brandSectionRef.current.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollable = Math.max(sectionHeight - viewportHeight, 1);
+        const progress = Math.min(Math.max(-sectionRect.top / scrollable, 0), 1);
+
+        if (sectionRect.top <= 0 && sectionRect.bottom >= viewportHeight) {
+          brandPinRef.current.classList.add("sc-brand-pin--fixed");
+          brandPinRef.current.classList.remove("sc-brand-pin--bottom");
+        } else if (sectionRect.bottom < viewportHeight) {
+          brandPinRef.current.classList.remove("sc-brand-pin--fixed");
+          brandPinRef.current.classList.add("sc-brand-pin--bottom");
+        } else {
+          brandPinRef.current.classList.remove("sc-brand-pin--fixed", "sc-brand-pin--bottom");
+        }
+
+        const photos = brandPhotosRef.current.querySelectorAll(".sc-brand-photo") as NodeListOf<HTMLElement>;
         photos.forEach((photo) => {
-          const startOffset = parseFloat(photo.style.getPropertyValue('--start')) || 0;
-          const totalTravel = vh + startOffset + 500;
-          const y = startOffset + vh - p * totalTravel;
+          const startVh = Number(photo.dataset.start ?? 0);
+          const startOffset = (startVh / 100) * viewportHeight;
+          const travel = viewportHeight + startOffset + photo.offsetHeight + 160;
+          const y = startOffset + viewportHeight - progress * travel;
           photo.style.transform = `translate3d(0, ${y}px, 0) rotate(var(--rot))`;
         });
       }
@@ -136,8 +148,13 @@ const Index = () => {
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const scrollTo = (id: string) => {
