@@ -336,27 +336,27 @@ const Index = () => {
 
       {/* ── BRAND STATEMENT ── */}
       <div className="sc-brand-scroll" ref={brandSectionRef}>
-        <div className="sc-brand-sticky">
-          <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
-          <div className="sc-brand-photos" ref={brandColLeftRef}>
-            <div className="sc-brand-photo" style={{ left: '5%', '--rot': '-6deg', '--start': '0' } as React.CSSProperties}>
-              <img src={gallery1} alt="Event 1" />
-            </div>
-            <div className="sc-brand-photo" style={{ right: '8%', '--rot': '5deg', '--start': '15vh' } as React.CSSProperties}>
-              <img src={gallery2} alt="Event 2" />
-            </div>
-            <div className="sc-brand-photo" style={{ left: '25%', '--rot': '4deg', '--start': '55vh' } as React.CSSProperties}>
-              <img src={gallery3} alt="Event 3" />
-            </div>
-            <div className="sc-brand-photo" style={{ right: '5%', '--rot': '-5deg', '--start': '80vh' } as React.CSSProperties}>
-              <img src={gallery4} alt="Event 4" />
-            </div>
-            <div className="sc-brand-photo" style={{ left: '8%', '--rot': '3deg', '--start': '120vh' } as React.CSSProperties}>
-              <img src={gallery5} alt="Event 5" />
-            </div>
-            <div className="sc-brand-photo" style={{ right: '15%', '--rot': '-4deg', '--start': '145vh' } as React.CSSProperties}>
-              <img src={gallery6} alt="Event 6" />
-            </div>
+        <div className="sc-brand-pin" ref={brandPinRef}>
+          <div className="sc-brand-stage">
+            <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
+              <div className="sc-brand-photo" data-start="0" style={{ left: '4%', top: 0, ['--rot' as '--rot']: '-6deg' }}>
+                <img src={gallery1} alt="Event 1" />
+              </div>
+              <div className="sc-brand-photo" data-start="12" style={{ right: '6%', top: 0, ['--rot' as '--rot']: '5deg' }}>
+                <img src={gallery2} alt="Event 2" />
+              </div>
+              <div className="sc-brand-photo" data-start="42" style={{ left: '22%', top: 0, ['--rot' as '--rot']: '4deg' }}>
+                <img src={gallery3} alt="Event 3" />
+              </div>
+              <div className="sc-brand-photo" data-start="62" style={{ right: '8%', top: 0, ['--rot' as '--rot']: '-5deg' }}>
+                <img src={gallery4} alt="Event 4" />
+              </div>
+              <div className="sc-brand-photo" data-start="94" style={{ left: '10%', top: 0, ['--rot' as '--rot']: '3deg' }}>
+                <img src={gallery5} alt="Event 5" />
+              </div>
+              <div className="sc-brand-photo" data-start="114" style={{ right: '16%', top: 0, ['--rot' as '--rot']: '-4deg' }}>
+                <img src={gallery6} alt="Event 6" />
+              </div>
           </div>
         </div>
       </div>
