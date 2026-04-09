@@ -83,7 +83,7 @@
   --sc-heading-base-size: 2.8rem;
   font-family: var(--sc-serif);
   font-weight: 700;
-  font-size: calc(var(--sc-heading-base-size) + 2rem);
+  font-size: calc(var(--sc-heading-base-size) + 0.5rem);
   text-align: center;
   margin-bottom: 16px;
   color: var(--sc-espresso);
