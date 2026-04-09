@@ -56,6 +56,7 @@ const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const photoBarRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -64,6 +65,16 @@ const Index = () => {
         const barTop = photoBarRef.current.getBoundingClientRect().top;
         setScrolled(barTop <= 80);
       }
+
+      // Hero content parallax — move up slowly as user scrolls
+      if (heroContentRef.current) {
+        const scrollY = window.scrollY;
+        const shift = scrollY * 0.35;
+        const opacity = Math.max(1 - scrollY / (window.innerHeight * 0.6), 0);
+        heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
+        heroContentRef.current.style.opacity = String(opacity);
+      }
+
       if (!ticking) {
         requestAnimationFrame(() => {
           if (photoBarRef.current) {
@@ -115,7 +126,7 @@ const Index = () => {
           <source src="/hero-bg-v2.mp4" type="video/mp4" />
         </video>
         <div className="sc-hero__overlay" />
-        <div className="sc-hero__content">
+        <div className="sc-hero__content" ref={heroContentRef}>
           <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
           <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
           <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
