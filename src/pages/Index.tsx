@@ -58,6 +58,9 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const brandSectionRef = useRef<HTMLDivElement>(null);
+  const brandColLeftRef = useRef<HTMLDivElement>(null);
+  const brandColRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -97,6 +100,19 @@ const Index = () => {
       if (heroVideoRef.current) {
         const videoShift = window.scrollY * 0.22;
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
+      }
+
+      // Brand gallery scroll
+      if (brandSectionRef.current && brandColLeftRef.current && brandColRightRef.current) {
+        const bRect = brandSectionRef.current.getBoundingClientRect();
+        const sectionH = brandSectionRef.current.offsetHeight;
+        const vh = window.innerHeight;
+        const scrollable = sectionH - vh;
+        const scrolledAmt = -bRect.top;
+        const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
+        const maxSlide = vh * 1.2;
+        brandColLeftRef.current.style.transform = `translate3d(0, ${maxSlide * 0.15 - p * maxSlide}px, 0)`;
+        brandColRightRef.current.style.transform = `translate3d(0, ${maxSlide * 0.45 - p * maxSlide * 0.7}px, 0)`;
       }
 
       if (!ticking) {
@@ -299,9 +315,23 @@ const Index = () => {
       </section>
 
       {/* ── BRAND STATEMENT ── */}
-      <section className="sc-brand-statement">
-        <h2>Elevated Experiences,<br />One Sip at a Time</h2>
-      </section>
+      <div className="sc-brand-scroll" ref={brandSectionRef}>
+        <div className="sc-brand-sticky">
+          <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
+          <div className="sc-brand-gallery">
+            <div className="sc-brand-col sc-brand-col--left" ref={brandColLeftRef}>
+              <img src={gallery1} alt="Event 1" />
+              <img src={gallery3} alt="Event 3" />
+              <img src={gallery5} alt="Event 5" />
+            </div>
+            <div className="sc-brand-col sc-brand-col--right" ref={brandColRightRef}>
+              <img src={gallery2} alt="Event 2" />
+              <img src={gallery4} alt="Event 4" />
+              <img src={gallery6} alt="Event 6" />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ── FAQ ── */}
       <section id="faq" className="sc-section sc-faq">
