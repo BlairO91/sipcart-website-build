@@ -107,7 +107,7 @@ const Index = () => {
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    animateHeadings(); // run once on mount
+    
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
