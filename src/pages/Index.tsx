@@ -60,8 +60,10 @@ const Index = () => {
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 60);
-
+      if (photoBarRef.current) {
+        const barTop = photoBarRef.current.getBoundingClientRect().top;
+        setScrolled(barTop <= 80);
+      }
       if (!ticking) {
         requestAnimationFrame(() => {
           if (photoBarRef.current) {
