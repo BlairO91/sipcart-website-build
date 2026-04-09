@@ -322,15 +322,23 @@ const Index = () => {
       <div className="sc-brand-scroll" ref={brandSectionRef}>
         <div className="sc-brand-sticky">
           <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
-          <div className="sc-brand-gallery">
-            <div className="sc-brand-col sc-brand-col--left" ref={brandColLeftRef}>
+          <div className="sc-brand-photos" ref={brandColLeftRef}>
+            <div className="sc-brand-photo" style={{ left: '5%', '--rot': '-6deg', '--start': '0' } as React.CSSProperties}>
               <img src={gallery1} alt="Event 1" />
+            </div>
+            <div className="sc-brand-photo" style={{ right: '8%', '--rot': '5deg', '--start': '15vh' } as React.CSSProperties}>
+              <img src={gallery2} alt="Event 2" />
+            </div>
+            <div className="sc-brand-photo" style={{ left: '25%', '--rot': '4deg', '--start': '55vh' } as React.CSSProperties}>
               <img src={gallery3} alt="Event 3" />
+            </div>
+            <div className="sc-brand-photo" style={{ right: '5%', '--rot': '-5deg', '--start': '80vh' } as React.CSSProperties}>
+              <img src={gallery4} alt="Event 4" />
+            </div>
+            <div className="sc-brand-photo" style={{ left: '8%', '--rot': '3deg', '--start': '120vh' } as React.CSSProperties}>
               <img src={gallery5} alt="Event 5" />
             </div>
-            <div className="sc-brand-col sc-brand-col--right" ref={brandColRightRef}>
-              <img src={gallery2} alt="Event 2" />
-              <img src={gallery4} alt="Event 4" />
+            <div className="sc-brand-photo" style={{ right: '15%', '--rot': '-4deg', '--start': '145vh' } as React.CSSProperties}>
               <img src={gallery6} alt="Event 6" />
             </div>
           </div>
