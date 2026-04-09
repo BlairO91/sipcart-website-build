@@ -106,7 +106,7 @@ const Index = () => {
         <div className="sc-hero__overlay" />
         <div className="sc-hero__content">
           <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
-          <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences, One Sip at a Time</h1>
+          <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
           <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
           <div className="sc-hero__btns">
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
