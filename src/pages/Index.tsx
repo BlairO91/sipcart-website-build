@@ -132,7 +132,19 @@ const Index = () => {
 
         // Brand text fade handled by IntersectionObserver below
 
-        // Sticky handles pinning natively — no class toggling needed
+        if (sectionRect.top <= 0 && sectionRect.bottom > viewportHeight) {
+          brandPinRef.current.style.top = '';
+          brandPinRef.current.classList.add("sc-brand-pin--fixed");
+          brandPinRef.current.classList.remove("sc-brand-pin--bottom");
+        } else if (sectionRect.bottom <= viewportHeight) {
+          brandPinRef.current.style.top = '';
+          brandPinRef.current.classList.remove("sc-brand-pin--fixed");
+          brandPinRef.current.classList.add("sc-brand-pin--bottom");
+        } else {
+          // Before section reaches top — pin element tracks with section
+          brandPinRef.current.style.top = '0';
+          brandPinRef.current.classList.remove("sc-brand-pin--fixed", "sc-brand-pin--bottom");
+        }
 
         const photos = brandPhotosRef.current.querySelectorAll(".sc-brand-photo") as NodeListOf<HTMLElement>;
         // Each photo gets a slightly different parallax speed
