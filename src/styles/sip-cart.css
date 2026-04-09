@@ -552,22 +552,33 @@ img.event-photo {
 .sc-footer {
   background: var(--sc-espresso);
   color: var(--sc-cream);
-  padding: 60px 24px 0;
+  padding: 100px 24px 0;
+  position: relative;
+}
+.sc-footer__brand-overlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+.sc-footer__brand-overlay p {
+  font-family: var(--sc-serif);
+  font-style: italic;
+  margin-top: 12px;
+  font-size: 1.1rem;
+  color: var(--sc-cream);
+  opacity: 0.85;
+  white-space: nowrap;
 }
 .sc-footer__inner {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
   padding-bottom: 40px;
-}
-.sc-footer__brand p {
-  font-family: var(--sc-serif);
-  font-style: italic;
-  margin-top: 12px;
-  font-size: 1.1rem;
-  opacity: 0.85;
 }
 .sc-footer__links {
   display: flex;
