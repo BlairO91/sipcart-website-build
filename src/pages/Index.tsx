@@ -60,6 +60,19 @@ const Index = () => {
 
   useEffect(() => {
     let ticking = false;
+
+    const animateHeadings = () => {
+      const headings = document.querySelectorAll('.sc-section__heading') as NodeListOf<HTMLElement>;
+      const viewH = window.innerHeight;
+      headings.forEach((h) => {
+        const rect = h.getBoundingClientRect();
+        // Progress from 0 (just entering bottom) to 1 (at ~40% from top)
+        const progress = Math.min(Math.max((viewH - rect.top) / (viewH * 0.6), 0), 1);
+        const extraRem = 2 * (1 - progress);
+        h.style.fontSize = `calc(var(--sc-heading-base-size) + ${extraRem}rem)`;
+      });
+    };
+
     const onScroll = () => {
       if (photoBarRef.current) {
         const barTop = photoBarRef.current.getBoundingClientRect().top;
@@ -74,6 +87,8 @@ const Index = () => {
         heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
         heroContentRef.current.style.opacity = String(opacity);
       }
+
+      animateHeadings();
 
       if (!ticking) {
         requestAnimationFrame(() => {
@@ -93,6 +108,7 @@ const Index = () => {
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    animateHeadings(); // run once on mount
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
