@@ -63,6 +63,7 @@
 /* ── Section defaults ── */
 .sc-section {
   padding: 100px 4%;
+  background: var(--sc-cream);
 }
 .sc-section > .sc-section__heading,
 .sc-section > .sc-section__sub,
