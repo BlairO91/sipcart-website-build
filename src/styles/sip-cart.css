@@ -625,23 +625,60 @@ img.event-photo {
   .sc-footer__contact { flex-direction: column; align-items: center; gap: 8px; }
 }
 
-/* ── Brand Statement ── */
-.sc-brand-statement {
-  min-height: 100vh;
+/* ── Brand Statement / Scroll Gallery ── */
+.sc-brand-scroll {
+  height: 350vh;
+  position: relative;
+}
+.sc-brand-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: var(--sc-espresso);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--sc-espresso);
-  text-align: center;
-  padding: 48px 24px;
+  overflow: hidden;
 }
-.sc-brand-statement h2 {
+.sc-brand-text {
   font-family: var(--sc-serif);
-  font-size: 4rem;
+  font-size: 5.5rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--sc-blush);
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  padding: 0 24px;
+  pointer-events: none;
+}
+.sc-brand-gallery {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 2;
+  padding: 0 8vw;
+}
+.sc-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 38%;
+  will-change: transform;
+}
+.sc-brand-col img {
+  width: 100%;
+  border-radius: var(--sc-radius);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 @media (max-width: 768px) {
-  .sc-brand-statement h2 { font-size: 2.4rem; }
+  .sc-brand-text { font-size: 2.8rem; }
+  .sc-brand-gallery { padding: 0 16px; gap: 16px; }
+  .sc-brand-col { gap: 24px; width: 45%; }
+  .sc-brand-scroll { height: 300vh; }
 }
