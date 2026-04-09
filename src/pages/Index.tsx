@@ -139,7 +139,7 @@ const Index = () => {
         <div className="sc-how__grid">
           {[
             { n: "01", t: "Tell Us About Your Event", d: "You share your event details and we handle everything from there." },
-            { n: "02", t: "We Set Up, You Relax", d: "We arrive, set up your custom bar, and handle the full service start to finish." },
+            { n: "02", t: <span>We Set Up<span className="sc-punct">,</span> You Relax</span>, d: "We arrive, set up your custom bar, and handle the full service start to finish." },
             { n: "03", t: <span>Sip <span style={{fontFamily: 'Cormorant Garamond, serif'}}>&</span> Celebrate</span>, d: "You enjoy the party while we make every drink a moment." },
           ].map((s, i) => (
             <div className="sc-how__step" key={i}>
@@ -228,7 +228,7 @@ const Index = () => {
         <div className="sc-custom__grid">
           <div className="sc-custom__item">
             <svg className="sc-custom__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="10" y="8" width="28" height="32" rx="3"/><path d="M18 16h12M18 22h12M18 28h8"/></svg>
-            <h3>Custom Cups &amp; Napkins</h3>
+            <h3>Custom Cups <span className="sc-punct">&amp;</span> Napkins</h3>
             <p>Branded barware that doubles as a keepsake.</p>
           </div>
           <div className="sc-custom__item">
@@ -277,7 +277,7 @@ const Index = () => {
 
       {/* ── FINAL CTA + QUOTE FORM ── */}
       <section id="quote" className="sc-section sc-quote">
-        <h2 className="sc-section__heading">Let's Make Your Event Unforgettable</h2>
+        <h2 className="sc-section__heading">Let<span className="sc-punct">'</span>s Make Your Event Unforgettable</h2>
         <p className="sc-section__sub">Tell us about your event and we'll craft the perfect bar experience for you.</p>
         <div className="sc-quote__btns">
           <button className="sc-btn sc-btn--outline" onClick={() => scrollTo("services")}>Explore Our Services</button>
@@ -297,7 +297,7 @@ const Index = () => {
         <div className="sc-footer__inner">
           <div className="sc-footer__brand">
             <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 40 }} />
-            <p>Elevated Experiences, One Sip at a Time</p>
+            <p>Elevated Experiences<span className="sc-punct">,</span> One Sip at a Time</p>
           </div>
           <div className="sc-footer__links">
             <button onClick={() => scrollTo("services")}>Services</button>
