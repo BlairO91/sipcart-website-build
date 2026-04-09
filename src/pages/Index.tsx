@@ -126,7 +126,7 @@ const Index = () => {
           <source src="/hero-bg-v2.mp4" type="video/mp4" />
         </video>
         <div className="sc-hero__overlay" />
-        <div className="sc-hero__content">
+        <div className="sc-hero__content" ref={heroContentRef}>
           <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
           <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
           <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
