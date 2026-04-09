@@ -344,6 +344,7 @@ const Index = () => {
             <button onClick={() => scrollTo("faq")}>FAQ</button>
             <button onClick={() => scrollTo("quote")}>Request a Quote</button>
           </div>
+          <div className="sc-footer__divider" />
           <div className="sc-footer__contact">
             <p>Instagram: <a href="https://instagram.com/thesipcart.to" target="_blank" rel="noreferrer">@thesipcart.to</a></p>
             <p>Phone: <a href="tel:+16479899353">+1 (647) 989-9353</a></p>
