@@ -559,9 +559,12 @@ img.event-photo {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
   text-align: center;
   z-index: 2;
+}
+.sc-footer__brand-overlay img {
+  transform: translateY(-50%);
 }
 .sc-footer__brand-overlay p {
   font-family: var(--sc-serif);
