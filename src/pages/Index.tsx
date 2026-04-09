@@ -102,7 +102,7 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
-      // Brand gallery scroll — pin the 100vh scene while photos travel through it
+      // Brand gallery scroll — move whole columns so photos keep a fixed gap
       if (brandSectionRef.current && brandPinRef.current && brandPhotosRef.current) {
         const sectionRect = brandSectionRef.current.getBoundingClientRect();
         const sectionHeight = brandSectionRef.current.offsetHeight;
@@ -120,14 +120,13 @@ const Index = () => {
           brandPinRef.current.classList.remove("sc-brand-pin--fixed", "sc-brand-pin--bottom");
         }
 
-        const photos = brandPhotosRef.current.querySelectorAll(".sc-brand-photo") as NodeListOf<HTMLElement>;
-        photos.forEach((photo) => {
-          const startVh = Number(photo.dataset.start ?? 0);
-          const rotation = Number(photo.dataset.rot ?? 0);
+        const columns = brandPhotosRef.current.querySelectorAll(".sc-brand-col") as NodeListOf<HTMLElement>;
+        columns.forEach((column) => {
+          const startVh = Number(column.dataset.start ?? 0);
           const startOffset = (startVh / 100) * viewportHeight;
-          const travel = viewportHeight + startOffset + photo.offsetHeight + 160;
+          const travel = viewportHeight + startOffset + column.offsetHeight + 160;
           const y = startOffset + viewportHeight - progress * travel;
-          photo.style.transform = `translate3d(0, ${y}px, 0) rotate(${rotation}deg)`;
+          column.style.transform = `translate3d(0, ${y}px, 0)`;
         });
       }
 
@@ -341,23 +340,15 @@ const Index = () => {
           <div className="sc-brand-stage">
             <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
             <div className="sc-brand-photos" ref={brandPhotosRef}>
-              <div className="sc-brand-photo" data-start="0" data-rot="-6" style={{ left: '4%', top: 0 }}>
-                <img src={gallery1} alt="Event 1" />
+              <div className="sc-brand-col sc-brand-col--left" data-start="0">
+                <div className="sc-brand-photo"><img src={gallery1} alt="Event 1" /></div>
+                <div className="sc-brand-photo"><img src={gallery3} alt="Event 3" /></div>
+                <div className="sc-brand-photo"><img src={gallery5} alt="Event 5" /></div>
               </div>
-              <div className="sc-brand-photo" data-start="30" data-rot="5" style={{ right: '6%', top: 0 }}>
-                <img src={gallery2} alt="Event 2" />
-              </div>
-              <div className="sc-brand-photo" data-start="70" data-rot="4" style={{ left: '22%', top: 0 }}>
-                <img src={gallery3} alt="Event 3" />
-              </div>
-              <div className="sc-brand-photo" data-start="100" data-rot="-5" style={{ right: '8%', top: 0 }}>
-                <img src={gallery4} alt="Event 4" />
-              </div>
-              <div className="sc-brand-photo" data-start="140" data-rot="3" style={{ left: '10%', top: 0 }}>
-                <img src={gallery5} alt="Event 5" />
-              </div>
-              <div className="sc-brand-photo" data-start="170" data-rot="-4" style={{ right: '16%', top: 0 }}>
-                <img src={gallery6} alt="Event 6" />
+              <div className="sc-brand-col sc-brand-col--right" data-start="28">
+                <div className="sc-brand-photo"><img src={gallery2} alt="Event 2" /></div>
+                <div className="sc-brand-photo"><img src={gallery4} alt="Event 4" /></div>
+                <div className="sc-brand-photo"><img src={gallery6} alt="Event 6" /></div>
               </div>
             </div>
           </div>
