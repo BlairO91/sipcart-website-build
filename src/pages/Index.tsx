@@ -58,6 +58,22 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const headings = document.querySelectorAll('.sc-section__heading');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('sc-heading--in');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '-10% 0px 0px 0px' }
+    );
+    headings.forEach((h) => observer.observe(h));
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let ticking = false;
