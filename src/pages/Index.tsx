@@ -102,6 +102,19 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
+      // Brand gallery scroll
+      if (brandSectionRef.current && brandColLeftRef.current && brandColRightRef.current) {
+        const bRect = brandSectionRef.current.getBoundingClientRect();
+        const sectionH = brandSectionRef.current.offsetHeight;
+        const vh = window.innerHeight;
+        const scrollable = sectionH - vh;
+        const scrolledAmt = -bRect.top;
+        const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
+        const maxSlide = vh * 1.2;
+        brandColLeftRef.current.style.transform = `translate3d(0, ${maxSlide * 0.15 - p * maxSlide}px, 0)`;
+        brandColRightRef.current.style.transform = `translate3d(0, ${maxSlide * 0.45 - p * maxSlide * 0.7}px, 0)`;
+      }
+
       if (!ticking) {
         requestAnimationFrame(() => {
           if (photoBarRef.current) {
