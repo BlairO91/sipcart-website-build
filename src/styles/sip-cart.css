@@ -346,15 +346,19 @@ img.event-photo {
 .sc-mid-cta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 600px;
+  height: 80vh;
 }
 .sc-mid-cta-grid__img {
-  overflow: hidden;
+  background: var(--sc-blush);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
 }
 .sc-mid-cta-grid__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
 }
 .sc-mid-cta-grid__content {
