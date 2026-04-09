@@ -347,6 +347,7 @@ img.event-photo {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 80vh;
+  overflow: hidden;
 }
 .sc-mid-cta-grid__img {
   background: var(--sc-blush);
@@ -354,6 +355,7 @@ img.event-photo {
   align-items: center;
   justify-content: center;
   padding: 48px;
+  height: 80vh;
 }
 .sc-mid-cta-grid__img img {
   max-width: 100%;
