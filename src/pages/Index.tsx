@@ -79,6 +79,25 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Brand text fade-in on scroll into view
+  useEffect(() => {
+    const brandText = document.querySelector('.sc-brand-text');
+    if (!brandText) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('sc-brand-text--visible');
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(brandText);
+    return () => obs.disconnect();
+  }, []);
+
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -110,12 +129,7 @@ const Index = () => {
         const scrollable = Math.max(sectionHeight - viewportHeight, 1);
         const progress = Math.min(Math.max(-sectionRect.top / scrollable, 0), 1);
 
-        // Fade in brand text as section scrolls into view (0 at bottom of viewport, 1 when section top reaches viewport top)
-        const brandText = brandPinRef.current.querySelector(".sc-brand-text") as HTMLElement;
-        if (brandText) {
-          const fadeProgress = Math.min(Math.max((viewportHeight - sectionRect.top) / viewportHeight, 0), 1);
-          brandText.style.opacity = String(fadeProgress);
-        }
+        // Brand text fade handled by IntersectionObserver below
 
         if (sectionRect.top <= 0 && sectionRect.bottom >= viewportHeight) {
           brandPinRef.current.classList.add("sc-brand-pin--fixed");
