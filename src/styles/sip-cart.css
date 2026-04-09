@@ -2,33 +2,6 @@
    THE SIP CART — Brand Stylesheet
    ═══════════════════════════════════════════ */
 
-@font-face {
-  font-family: 'Le Jour Serif';
-  src: url('/fonts/LeJourSerif-final.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Disable stylistic alternates for Le Jour Serif */
-.sc-section__heading,
-.sc-hero__headline,
-.sc-how__title,
-.sc-how__num,
-.sc-services__card-body h3,
-.sc-mid-cta h2,
-.sc-pkg__name,
-.sc-custom__item h3,
-.sc-testimonial__quote,
-.sc-faq__q {
-  font-feature-settings: "salt" off, "ss01" off, "ss02" off, "liga" off;
-}
-
-/* Punctuation fallback — Le Jour Serif has decorative glyphs for , . & ' etc. */
-.sc-punct {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;600;700&display=swap');
 
 :root {
@@ -39,7 +12,7 @@
   --sc-cream: #F5EFE8;
   --sc-white: #FFFDF9;
   --sc-overlay: rgba(30, 15, 5, 0.35);
-  --sc-serif: 'Le Jour Serif', 'Cormorant Garamond', Georgia, serif;
+  --sc-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --sc-body: 'Nunito', 'Century Gothic', sans-serif;
   --sc-radius: 12px;
 }
