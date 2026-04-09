@@ -289,7 +289,6 @@ const Index = () => {
         </div>
         <div className="sc-mid-cta-grid__content">
           <h2>Ready to elevate your next event?</h2>
-          <p>Let's build your perfect bar experience together. From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
           <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
         </div>
       </section>
