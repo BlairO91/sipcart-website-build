@@ -93,6 +93,7 @@
   text-align: center;
   margin-bottom: 16px;
   color: var(--sc-espresso);
+  text-transform: uppercase;
 }
 .sc-section__sub {
   text-align: center;
