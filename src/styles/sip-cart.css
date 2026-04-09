@@ -628,7 +628,7 @@ img.event-photo {
 /* ── Brand Statement / Scroll Gallery ── */
 .sc-brand-scroll {
   position: relative;
-  height: 360vh;
+  height: 450vh;
   background: var(--sc-espresso);
 }
 .sc-brand-pin {
