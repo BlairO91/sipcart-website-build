@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import logo from "@/assets/logo.png";
+import sipCartHero from "@/assets/sip-cart-hero.jpg";
 import weddingImg from "@/assets/wedding.jpg";
 import bacheloretteImg from "@/assets/bachelorette.jpg";
 import corporateImg from "@/assets/corporate.jpg";
@@ -281,11 +282,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── MID CTA ── */}
-      <section className="sc-mid-cta">
-        <h2>Ready to elevate your next event?</h2>
-        <p>Let's build your perfect bar experience together.</p>
-        <button className="sc-btn sc-btn--outline-light" onClick={() => scrollTo("quote")}>Request a Quote</button>
+      {/* ── MID CTA (2-grid) ── */}
+      <section className="sc-mid-cta-grid">
+        <div className="sc-mid-cta-grid__img">
+          <img src={sipCartHero} alt="The Sip Cart mobile bar setup" />
+        </div>
+        <div className="sc-mid-cta-grid__content">
+          <h2>Ready to elevate your next event?</h2>
+          <p>Let's build your perfect bar experience together. From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
+          <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
+        </div>
       </section>
 
       {/* ── PACKAGES ── */}
