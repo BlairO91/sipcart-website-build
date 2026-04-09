@@ -684,7 +684,7 @@ img.event-photo {
 }
 .sc-brand-col {
   position: absolute;
-  top: 0;
+  top: 15%;
   width: min(22vw, 340px);
   display: flex;
   flex-direction: column;
