@@ -341,24 +341,51 @@ img.event-photo {
 @media (max-width: 560px) { .sc-services__grid { grid-template-columns: 1fr; } }
 
 /* ═══════════════════════════════════
-   MID CTA
+   MID CTA (2-grid)
    ═══════════════════════════════════ */
-.sc-mid-cta {
-  background: var(--sc-espresso);
-  text-align: center;
-  padding: 72px 24px;
+.sc-mid-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
 }
-.sc-mid-cta h2 {
+.sc-mid-cta-grid__img {
+  overflow: hidden;
+}
+.sc-mid-cta-grid__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.sc-mid-cta-grid__content {
+  background: var(--sc-espresso);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 64px;
+}
+.sc-mid-cta-grid__content h2 {
   font-family: var(--sc-serif);
   font-size: 2.8rem;
   font-weight: 700;
   color: var(--sc-cream);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  text-align: left;
 }
-.sc-mid-cta p {
+.sc-mid-cta-grid__content p {
   color: rgba(245,239,232,0.85);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: left;
+}
+.sc-mid-cta-grid__content .sc-btn {
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+  .sc-mid-cta-grid { grid-template-columns: 1fr; }
+  .sc-mid-cta-grid__img { min-height: 300px; }
+  .sc-mid-cta-grid__content { padding: 48px 24px; }
 }
 
 /* ═══════════════════════════════════
