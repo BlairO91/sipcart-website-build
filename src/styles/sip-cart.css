@@ -671,6 +671,10 @@ img.event-photo {
   line-height: 1.15;
   color: var(--sc-blush);
   pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+.sc-brand-text--visible {
+  opacity: 1;
 }
 .sc-brand-photos {
   position: absolute;

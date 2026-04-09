@@ -110,12 +110,7 @@ const Index = () => {
         const scrollable = Math.max(sectionHeight - viewportHeight, 1);
         const progress = Math.min(Math.max(-sectionRect.top / scrollable, 0), 1);
 
-        // Fade in brand text as section scrolls into view (0 at bottom of viewport, 1 when section top reaches viewport top)
-        const brandText = brandPinRef.current.querySelector(".sc-brand-text") as HTMLElement;
-        if (brandText) {
-          const fadeProgress = Math.min(Math.max((viewportHeight - sectionRect.top) / viewportHeight, 0), 1);
-          brandText.style.opacity = String(fadeProgress);
-        }
+        // Brand text fade handled by IntersectionObserver below
 
         if (sectionRect.top <= 0 && sectionRect.bottom >= viewportHeight) {
           brandPinRef.current.classList.add("sc-brand-pin--fixed");
