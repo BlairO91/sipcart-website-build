@@ -58,28 +58,29 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
 
+  // Heading shrink on intersection (10% into section)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('sc-heading--in');
+        });
+      },
+      { threshold: 0, rootMargin: '-10% 0px 0px 0px' }
+    );
+    document.querySelectorAll('.sc-section__heading').forEach((h) => observer.observe(h));
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     let ticking = false;
-
-    const animateHeadings = () => {
-      const headings = document.querySelectorAll('.sc-section__heading') as NodeListOf<HTMLElement>;
-      const viewH = window.innerHeight;
-      headings.forEach((h) => {
-        const rect = h.getBoundingClientRect();
-        // Progress from 0 (just entering bottom) to 1 (at ~40% from top)
-        const progress = Math.min(Math.max((viewH - rect.top) / (viewH * 0.6), 0), 1);
-        const extraRem = 2 * (1 - progress);
-        h.style.fontSize = `calc(var(--sc-heading-base-size) + ${extraRem}rem)`;
-      });
-    };
-
     const onScroll = () => {
       if (photoBarRef.current) {
         const barTop = photoBarRef.current.getBoundingClientRect().top;
         setScrolled(barTop <= 80);
       }
 
-      // Hero content parallax — move up slowly as user scrolls
+      // Hero content parallax
       if (heroContentRef.current) {
         const scrollY = window.scrollY;
         const shift = scrollY * 0.35;
@@ -87,8 +88,6 @@ const Index = () => {
         heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
         heroContentRef.current.style.opacity = String(opacity);
       }
-
-      animateHeadings();
 
       if (!ticking) {
         requestAnimationFrame(() => {
@@ -108,7 +107,7 @@ const Index = () => {
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    animateHeadings(); // run once on mount
+    
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
