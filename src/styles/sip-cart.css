@@ -62,8 +62,20 @@
 /* ── Section defaults ── */
 .sc-section {
   padding: 100px 24px;
+}
+.sc-section > .sc-section__heading,
+.sc-section > .sc-section__sub,
+.sc-section > .sc-how__grid,
+.sc-section > .sc-services__grid,
+.sc-section > .sc-packages__grid,
+.sc-section > .sc-custom__grid,
+.sc-section > .sc-testimonials__grid,
+.sc-section > .sc-faq__wrap,
+.sc-section > .sc-quote__btns,
+.sc-section > .sc-quote__form-placeholder {
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .sc-section__heading {
   font-family: var(--sc-serif);
