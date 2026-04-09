@@ -95,7 +95,7 @@ const Index = () => {
 
       // Hero video parallax (slow upward drift)
       if (heroVideoRef.current) {
-        const videoShift = window.scrollY * 0.15;
+        const videoShift = window.scrollY * 0.22;
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
