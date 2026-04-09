@@ -566,15 +566,13 @@ img.event-photo {
 .sc-footer__brand-overlay img {
   transform: translateY(-50%);
 }
-.sc-footer__brand-overlay p {
+.sc-footer__tagline {
   font-family: var(--sc-serif);
   font-style: italic;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
   font-size: 1.1rem;
   color: var(--sc-cream);
   opacity: 0.85;
-  white-space: nowrap;
+  margin-bottom: 2rem;
 }
 .sc-footer__inner {
   max-width: 1200px;
@@ -584,7 +582,6 @@ img.event-photo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
 }
 .sc-footer__links {
   display: flex;

@@ -334,9 +334,9 @@ const Index = () => {
       <footer className="sc-footer">
         <div className="sc-footer__brand-overlay">
           <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '8rem' }} />
-          <p>Elevated Experiences, One Sip at a Time</p>
         </div>
         <div className="sc-footer__inner">
+          <p className="sc-footer__tagline">Elevated Experiences, One Sip at a Time</p>
           <div className="sc-footer__links">
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("how-it-works")}>How It Works</button>
