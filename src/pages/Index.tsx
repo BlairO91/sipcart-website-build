@@ -6,6 +6,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.jpg";
+import gallery8 from "@/assets/gallery-8.jpg";
+
+const galleryImages = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8];
 
 const faqData = [
   { q: "Do I need to provide my own alcohol?", a: "Yes — clients supply all alcohol. We provide everything else: bartenders, bar setup, custom menus, mixers, garnishes, cups, napkins, ice, and straws. We also send you a customized shopping list so you know exactly what to buy." },
@@ -80,6 +90,13 @@ const Index = () => {
             <button className="sc-btn sc-btn--outline-light" onClick={() => scrollTo("services")}>Explore Services</button>
           </div>
         </div>
+      </section>
+
+      {/* ── PHOTO BAR ── */}
+      <section className="sc-photo-bar">
+        {galleryImages.map((src, i) => (
+          <img key={i} src={src} alt={`Event gallery ${i + 1}`} loading="lazy" />
+        ))}
       </section>
 
       {/* ── HOW IT WORKS ── */}
