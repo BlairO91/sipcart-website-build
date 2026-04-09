@@ -269,7 +269,9 @@ const Index = () => {
           <Accordion type="single" collapsible className="sc-faq__accordion">
             {faqData.map((f, i) => (
               <AccordionItem value={`faq-${i}`} key={i} className="sc-faq__item">
-                <AccordionTrigger className="sc-faq__q">{f.q}</AccordionTrigger>
+                <AccordionTrigger className="sc-faq__q">{f.q.split(/([&,.'?!''])/).map((part, j) => 
+                  /[&,.''?"!]/.test(part) ? <span key={j} className="sc-punct">{part}</span> : part
+                )}</AccordionTrigger>
                 <AccordionContent className="sc-faq__a">{f.a}</AccordionContent>
               </AccordionItem>
             ))}
