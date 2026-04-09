@@ -344,19 +344,19 @@ const Index = () => {
               <div className="sc-brand-photo" data-start="0" data-rot="-6" style={{ left: '4%', top: 0 }}>
                 <img src={gallery1} alt="Event 1" />
               </div>
-              <div className="sc-brand-photo" data-start="12" data-rot="5" style={{ right: '6%', top: 0 }}>
+              <div className="sc-brand-photo" data-start="25" data-rot="5" style={{ right: '6%', top: 0 }}>
                 <img src={gallery2} alt="Event 2" />
               </div>
-              <div className="sc-brand-photo" data-start="42" data-rot="4" style={{ left: '22%', top: 0 }}>
+              <div className="sc-brand-photo" data-start="55" data-rot="4" style={{ left: '22%', top: 0 }}>
                 <img src={gallery3} alt="Event 3" />
               </div>
-              <div className="sc-brand-photo" data-start="62" data-rot="-5" style={{ right: '8%', top: 0 }}>
+              <div className="sc-brand-photo" data-start="80" data-rot="-5" style={{ right: '8%', top: 0 }}>
                 <img src={gallery4} alt="Event 4" />
               </div>
-              <div className="sc-brand-photo" data-start="94" data-rot="3" style={{ left: '10%', top: 0 }}>
+              <div className="sc-brand-photo" data-start="115" data-rot="3" style={{ left: '10%', top: 0 }}>
                 <img src={gallery5} alt="Event 5" />
               </div>
-              <div className="sc-brand-photo" data-start="114" data-rot="-4" style={{ right: '16%', top: 0 }}>
+              <div className="sc-brand-photo" data-start="140" data-rot="-4" style={{ right: '16%', top: 0 }}>
                 <img src={gallery6} alt="Event 6" />
               </div>
             </div>
