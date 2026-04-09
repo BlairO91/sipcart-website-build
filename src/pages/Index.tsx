@@ -79,6 +79,25 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Brand text fade-in on scroll into view
+  useEffect(() => {
+    const brandText = document.querySelector('.sc-brand-text');
+    if (!brandText) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('sc-brand-text--visible');
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(brandText);
+    return () => obs.disconnect();
+  }, []);
+
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
