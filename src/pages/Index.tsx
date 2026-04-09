@@ -60,7 +60,6 @@ const Index = () => {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const brandSectionRef = useRef<HTMLDivElement>(null);
   const brandColLeftRef = useRef<HTMLDivElement>(null);
-  const brandColRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -102,21 +101,21 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
-      // Brand gallery scroll — images start below viewport, slide up through
-      if (brandSectionRef.current && brandColLeftRef.current && brandColRightRef.current) {
+      // Brand gallery scroll — photos slide upward through sticky panel
+      if (brandSectionRef.current && brandColLeftRef.current) {
         const bRect = brandSectionRef.current.getBoundingClientRect();
         const sectionH = brandSectionRef.current.offsetHeight;
         const vh = window.innerHeight;
         const scrollable = sectionH - vh;
         const scrolledAmt = -bRect.top;
         const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
-        // Total travel: start fully below (100vh) → end above (-totalColumnHeight)
-        const colHeight = brandColLeftRef.current.scrollHeight;
-        const startY = vh;
-        const endY = -colHeight;
-        const travel = startY - endY;
-        brandColLeftRef.current.style.transform = `translate3d(0, ${startY - p * travel}px, 0)`;
-        brandColRightRef.current.style.transform = `translate3d(0, ${startY + vh * 0.3 - p * travel * 0.85}px, 0)`;
+        const photos = brandColLeftRef.current.querySelectorAll('.sc-brand-photo') as NodeListOf<HTMLElement>;
+        photos.forEach((photo) => {
+          const startOffset = parseFloat(photo.style.getPropertyValue('--start')) || 0;
+          const totalTravel = vh + startOffset + 500;
+          const y = startOffset + vh - p * totalTravel;
+          photo.style.transform = `translate3d(0, ${y}px, 0) rotate(var(--rot))`;
+        });
       }
 
       if (!ticking) {
@@ -322,15 +321,23 @@ const Index = () => {
       <div className="sc-brand-scroll" ref={brandSectionRef}>
         <div className="sc-brand-sticky">
           <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
-          <div className="sc-brand-gallery">
-            <div className="sc-brand-col sc-brand-col--left" ref={brandColLeftRef}>
+          <div className="sc-brand-photos" ref={brandColLeftRef}>
+            <div className="sc-brand-photo" style={{ left: '5%', '--rot': '-6deg', '--start': '0' } as React.CSSProperties}>
               <img src={gallery1} alt="Event 1" />
+            </div>
+            <div className="sc-brand-photo" style={{ right: '8%', '--rot': '5deg', '--start': '15vh' } as React.CSSProperties}>
+              <img src={gallery2} alt="Event 2" />
+            </div>
+            <div className="sc-brand-photo" style={{ left: '25%', '--rot': '4deg', '--start': '55vh' } as React.CSSProperties}>
               <img src={gallery3} alt="Event 3" />
+            </div>
+            <div className="sc-brand-photo" style={{ right: '5%', '--rot': '-5deg', '--start': '80vh' } as React.CSSProperties}>
+              <img src={gallery4} alt="Event 4" />
+            </div>
+            <div className="sc-brand-photo" style={{ left: '8%', '--rot': '3deg', '--start': '120vh' } as React.CSSProperties}>
               <img src={gallery5} alt="Event 5" />
             </div>
-            <div className="sc-brand-col sc-brand-col--right" ref={brandColRightRef}>
-              <img src={gallery2} alt="Event 2" />
-              <img src={gallery4} alt="Event 4" />
+            <div className="sc-brand-photo" style={{ right: '15%', '--rot': '-4deg', '--start': '145vh' } as React.CSSProperties}>
               <img src={gallery6} alt="Event 6" />
             </div>
           </div>
