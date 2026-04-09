@@ -40,22 +40,23 @@
   letter-spacing: 0.02em;
   transition: all 0.25s ease;
   text-decoration: none;
+  border: 1px solid #fff;
 }
 .sc-btn--primary {
-  background: var(--sc-espresso);
-  color: var(--sc-cream);
+  background: var(--sc-gold);
+  color: var(--sc-espresso);
 }
 .sc-btn--primary:hover { opacity: 0.88; transform: translateY(-1px); }
 .sc-btn--outline {
   background: transparent;
   color: var(--sc-espresso);
-  border: 2px solid var(--sc-espresso);
+  border: 1px solid #fff;
 }
 .sc-btn--outline:hover { background: var(--sc-espresso); color: var(--sc-cream); }
 .sc-btn--outline-light {
   background: transparent;
   color: var(--sc-cream);
-  border: 2px solid var(--sc-cream);
+  border: 1px solid #fff;
 }
 .sc-btn--outline-light:hover { background: var(--sc-cream); color: var(--sc-espresso); }
 
