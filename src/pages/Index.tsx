@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import logo from "@/assets/logo.png";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -86,7 +87,7 @@ const Index = () => {
       {/* ── NAVBAR ── */}
       <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""}`}>
         <div className="sc-nav__inner">
-          <img src="/placeholder.svg" alt="The Sip Cart logo" className="logo-img" style={{ height: 48 }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: 48 }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("how-it-works")}>How It Works</button>
@@ -283,7 +284,7 @@ const Index = () => {
       <footer className="sc-footer">
         <div className="sc-footer__inner">
           <div className="sc-footer__brand">
-            <img src="/placeholder.svg" alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 40 }} />
+            <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 40 }} />
             <p>Elevated Experiences, One Sip at a Time</p>
           </div>
           <div className="sc-footer__links">
