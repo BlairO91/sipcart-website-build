@@ -140,7 +140,7 @@ const Index = () => {
           {[
             { n: "01", t: "Tell Us About Your Event", d: "You share your event details and we handle everything from there." },
             { n: "02", t: <span>We Set Up<span className="sc-punct">,</span> You Relax</span>, d: "We arrive, set up your custom bar, and handle the full service start to finish." },
-            { n: "03", t: <span>Sip <span style={{fontFamily: 'Cormorant Garamond, serif'}}>&</span> Celebrate</span>, d: "You enjoy the party while we make every drink a moment." },
+            { n: "03", t: <span>Sip <span className="sc-punct">&</span> Celebrate</span>, d: "You enjoy the party while we make every drink a moment." },
           ].map((s, i) => (
             <div className="sc-how__step" key={i}>
               <span className="sc-how__num">{s.n}</span>
