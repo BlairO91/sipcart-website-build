@@ -164,7 +164,9 @@ const Index = () => {
                 <div className="event-photo photo-placeholder" />
               )}
               <div className="sc-services__card-body">
-                <h3>{e.name}</h3>
+                <h3>{e.name.split(/([&,.''])/).map((part, j) => 
+                  /[&,.''"]/.test(part) ? <span key={j} className="sc-punct">{part}</span> : part
+                )}</h3>
                 <p>{e.desc}</p>
               </div>
             </div>
