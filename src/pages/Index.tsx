@@ -63,7 +63,7 @@ const Index = () => {
         const track = photoBarRef.current.querySelector('.sc-photo-bar__track') as HTMLElement;
         if (track) {
           const maxShift = track.scrollWidth - window.innerWidth;
-          track.style.transform = `translateX(-${progress * maxShift}px)`;
+          track.style.transform = `translateX(-${progress * maxShift * 0.4}px)`;
         }
       }
     };
