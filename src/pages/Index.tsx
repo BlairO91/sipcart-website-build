@@ -123,10 +123,11 @@ const Index = () => {
         const photos = brandPhotosRef.current.querySelectorAll(".sc-brand-photo") as NodeListOf<HTMLElement>;
         photos.forEach((photo) => {
           const startVh = Number(photo.dataset.start ?? 0);
+          const rotation = Number(photo.dataset.rot ?? 0);
           const startOffset = (startVh / 100) * viewportHeight;
           const travel = viewportHeight + startOffset + photo.offsetHeight + 160;
           const y = startOffset + viewportHeight - progress * travel;
-          photo.style.transform = `translate3d(0, ${y}px, 0) rotate(var(--rot))`;
+          photo.style.transform = `translate3d(0, ${y}px, 0) rotate(${rotation}deg)`;
         });
       }
 
