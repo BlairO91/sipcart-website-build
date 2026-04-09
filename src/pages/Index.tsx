@@ -9,6 +9,7 @@ import {
 import logo from "@/assets/logo.png";
 import weddingImg from "@/assets/wedding.jpg";
 import bacheloretteImg from "@/assets/bachelorette.jpg";
+import corporateImg from "@/assets/corporate.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -36,7 +37,7 @@ const faqData = [
 const events = [
   { name: "Weddings", desc: "Your most important day deserves a bar as beautiful as the moment.", img: weddingImg },
   { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg },
-  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience." },
+  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg },
   { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink." },
   { name: "Bridal Showers & Engagement Parties", desc: "Celebrate love with custom cocktails and a stunning bar setup." },
   { name: "Private Home Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered." },
