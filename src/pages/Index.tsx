@@ -102,7 +102,7 @@ const Index = () => {
         heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
       }
 
-      // Brand gallery scroll
+      // Brand gallery scroll — images start below viewport, slide up through
       if (brandSectionRef.current && brandColLeftRef.current && brandColRightRef.current) {
         const bRect = brandSectionRef.current.getBoundingClientRect();
         const sectionH = brandSectionRef.current.offsetHeight;
@@ -110,9 +110,13 @@ const Index = () => {
         const scrollable = sectionH - vh;
         const scrolledAmt = -bRect.top;
         const p = Math.min(Math.max(scrolledAmt / scrollable, 0), 1);
-        const maxSlide = vh * 1.2;
-        brandColLeftRef.current.style.transform = `translate3d(0, ${maxSlide * 0.15 - p * maxSlide}px, 0)`;
-        brandColRightRef.current.style.transform = `translate3d(0, ${maxSlide * 0.45 - p * maxSlide * 0.7}px, 0)`;
+        // Total travel: start fully below (100vh) → end above (-totalColumnHeight)
+        const colHeight = brandColLeftRef.current.scrollHeight;
+        const startY = vh;
+        const endY = -colHeight;
+        const travel = startY - endY;
+        brandColLeftRef.current.style.transform = `translate3d(0, ${startY - p * travel}px, 0)`;
+        brandColRightRef.current.style.transform = `translate3d(0, ${startY + vh * 0.3 - p * travel * 0.85}px, 0)`;
       }
 
       if (!ticking) {
