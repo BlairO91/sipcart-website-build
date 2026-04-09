@@ -57,6 +57,7 @@ const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
