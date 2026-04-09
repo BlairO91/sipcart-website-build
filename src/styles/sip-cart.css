@@ -629,6 +629,7 @@ img.event-photo {
 .sc-brand-scroll {
   height: 400vh;
   position: relative;
+  background: var(--sc-espresso);
 }
 .sc-brand-sticky {
   position: sticky;
