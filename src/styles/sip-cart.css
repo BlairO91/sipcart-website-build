@@ -552,7 +552,7 @@ img.event-photo {
 .sc-footer {
   background: var(--sc-espresso);
   color: var(--sc-cream);
-  padding: 100px 24px 0;
+  padding: 140px 24px 0;
   position: relative;
 }
 .sc-footer__brand-overlay {
@@ -566,20 +566,22 @@ img.event-photo {
 .sc-footer__brand-overlay img {
   transform: translateY(-50%);
 }
-.sc-footer__brand-overlay p {
+.sc-footer__tagline {
   font-family: var(--sc-serif);
   font-style: italic;
-  margin-top: 1rem;
   font-size: 1.1rem;
   color: var(--sc-cream);
   opacity: 0.85;
-  white-space: nowrap;
+  margin-bottom: 2rem;
 }
 .sc-footer__inner {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
   padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .sc-footer__links {
   display: flex;
