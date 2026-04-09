@@ -120,12 +120,22 @@ const Index = () => {
           brandPinRef.current.classList.remove("sc-brand-pin--fixed", "sc-brand-pin--bottom");
         }
 
+        const photos = brandPhotosRef.current.querySelectorAll(".sc-brand-photo") as NodeListOf<HTMLElement>;
+        // Each photo gets a slightly different parallax speed
+        const speeds = [0.92, 1.0, 1.08, 0.96, 1.04, 0.88];
+        photos.forEach((photo, i) => {
+          const speed = speeds[i] || 1;
+          const shift = (progress - 0.5) * 60 * (speed - 1) * 2;
+          photo.style.transform = photo.style.transform || '';
+          // Preserve rotation from CSS, add parallax Y offset
+          photo.style.setProperty('--parallax-y', `${shift}px`);
+        });
+
         const columns = brandPhotosRef.current.querySelectorAll(".sc-brand-col") as NodeListOf<HTMLElement>;
         columns.forEach((column) => {
           const startVh = Number(column.dataset.start ?? 0);
           const startOffset = (startVh / 100) * viewportHeight;
           const colHeight = column.offsetHeight;
-          // End position: last photo's bottom edge sits at viewport bottom
           const endY = viewportHeight - colHeight;
           const startY = startOffset + viewportHeight;
           const travel = startY - endY;
