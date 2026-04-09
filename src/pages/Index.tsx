@@ -11,6 +11,7 @@ import weddingImg from "@/assets/wedding.jpg";
 import bacheloretteImg from "@/assets/bachelorette.jpg";
 import corporateImg from "@/assets/corporate.jpg";
 import birthdayImg from "@/assets/birthday.jpg";
+import bridalImg from "@/assets/bridal.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -40,7 +41,7 @@ const events = [
   { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg },
   { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg },
   { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink.", img: birthdayImg },
-  { name: "Bridal Showers & Engagement Parties", desc: "Celebrate love with custom cocktails and a stunning bar setup." },
+  { name: "Bridal Showers & Engagement Parties", desc: "Celebrate love with custom cocktails and a stunning bar setup.", img: bridalImg },
   { name: "Private Home Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered." },
 ];
 
