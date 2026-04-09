@@ -531,7 +531,17 @@ img.event-photo {
    FAQ
    ═══════════════════════════════════ */
 .sc-faq { background: var(--sc-white); }
-.sc-faq__wrap { max-width: 760px; margin: 0 auto; }
+.sc-faq__wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.sc-faq__col { min-width: 0; }
+@media (max-width: 768px) {
+  .sc-faq__wrap { grid-template-columns: 1fr; gap: 0; }
+}
 .sc-faq__item { border-color: rgba(0,0,0,0.08) !important; }
 .sc-faq__q {
   font-family: var(--sc-serif) !important;
