@@ -123,7 +123,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-
+      <div className="sc-hero-spacer" />
       {/* ── PHOTO BAR ── */}
       <section className="sc-photo-bar" ref={photoBarRef}>
         <div className="sc-photo-bar__track">
