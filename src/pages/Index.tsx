@@ -58,40 +58,6 @@ const Index = () => {
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
 
-  // Heading shrink on intersection (10% into viewport)
-  useEffect(() => {
-    // Delay observer setup so headings already in view don't animate
-    const timer = setTimeout(() => {
-      const headings = document.querySelectorAll('.sc-section__heading');
-      // Immediately mark any headings already above the 90% line
-      headings.forEach((h) => {
-        const rect = h.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.9) {
-          h.classList.add('sc-heading--in');
-        }
-      });
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('sc-heading--in');
-              observer.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0, rootMargin: '-10% 0px 0px 0px' }
-      );
-      headings.forEach((h) => {
-        if (!h.classList.contains('sc-heading--in')) {
-          observer.observe(h);
-        }
-      });
-
-      return () => observer.disconnect();
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     let ticking = false;
