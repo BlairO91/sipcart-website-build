@@ -628,7 +628,7 @@ img.event-photo {
 /* ── Brand Statement / Scroll Gallery ── */
 .sc-brand-scroll {
   position: relative;
-  height: 450vh;
+  height: 400vh;
   background: var(--sc-espresso);
 }
 .sc-brand-pin {
@@ -691,6 +691,13 @@ img.event-photo {
 .sc-brand-photo {
   width: 100%;
 }
+/* Individual photo rotations & x-offsets */
+.sc-brand-col--left .sc-brand-photo:nth-child(1) { transform: rotate(-4deg); margin-left: -10px; }
+.sc-brand-col--left .sc-brand-photo:nth-child(2) { transform: rotate(3deg); margin-left: 20px; }
+.sc-brand-col--left .sc-brand-photo:nth-child(3) { transform: rotate(-2deg); margin-left: -5px; }
+.sc-brand-col--right .sc-brand-photo:nth-child(1) { transform: rotate(5deg); margin-right: -15px; }
+.sc-brand-col--right .sc-brand-photo:nth-child(2) { transform: rotate(-3deg); margin-right: 15px; }
+.sc-brand-col--right .sc-brand-photo:nth-child(3) { transform: rotate(4deg); margin-right: -10px; }
 .sc-brand-photo img {
   display: block;
   width: 100%;

@@ -124,8 +124,12 @@ const Index = () => {
         columns.forEach((column) => {
           const startVh = Number(column.dataset.start ?? 0);
           const startOffset = (startVh / 100) * viewportHeight;
-          const travel = viewportHeight + startOffset + column.offsetHeight + 160;
-          const y = startOffset + viewportHeight - progress * travel;
+          const colHeight = column.offsetHeight;
+          // End position: last photo's bottom edge sits at viewport bottom
+          const endY = viewportHeight - colHeight;
+          const startY = startOffset + viewportHeight;
+          const travel = startY - endY;
+          const y = startY - progress * travel;
           column.style.transform = `translate3d(0, ${y}px, 0)`;
         });
       }
