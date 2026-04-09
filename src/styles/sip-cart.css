@@ -10,6 +10,21 @@
   font-display: swap;
 }
 
+/* Disable color font rendering for Le Jour Serif */
+.sc-section__heading,
+.sc-hero__headline,
+.sc-how__title,
+.sc-how__num,
+.sc-services__card-body h3,
+.sc-mid-cta h2,
+.sc-pkg__name,
+.sc-custom__item h3,
+.sc-testimonial__quote,
+.sc-faq__q {
+  font-palette: normal;
+  -webkit-text-stroke: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;600;700&display=swap');
 
 :root {
