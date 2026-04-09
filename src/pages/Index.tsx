@@ -295,7 +295,12 @@ const Index = () => {
               <p className="sc-testimonial__event">{t.event}</p>
             </div>
           ))}
-        </div>
+      </div>
+      </section>
+
+      {/* ── BRAND STATEMENT ── */}
+      <section className="sc-brand-statement">
+        <h2>Elevated Experiences,<br />One Sip at a Time</h2>
       </section>
 
       {/* ── FAQ ── */}
