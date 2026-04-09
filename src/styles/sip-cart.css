@@ -277,12 +277,11 @@
   border-radius: var(--sc-radius);
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: none;
+  transition: transform 0.3s;
 }
 .sc-services__card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
 }
 .event-photo.photo-placeholder {
   background-color: var(--sc-blush);
