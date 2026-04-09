@@ -61,7 +61,7 @@
 
 /* ── Section defaults ── */
 .sc-section {
-  padding: 100px 24px;
+  padding: 100px 4%;
 }
 .sc-section > .sc-section__heading,
 .sc-section > .sc-section__sub,
@@ -73,7 +73,7 @@
 .sc-section > .sc-faq__wrap,
 .sc-section > .sc-quote__btns,
 .sc-section > .sc-quote__form-placeholder {
-  max-width: 1200px;
+  max-width: 90rem;
   margin-left: auto;
   margin-right: auto;
 }
