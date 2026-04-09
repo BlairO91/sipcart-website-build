@@ -87,7 +87,7 @@ const Index = () => {
       {/* ── NAVBAR ── */}
       <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""}`}>
         <div className="sc-nav__inner">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: 48 }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: '4rem' }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("how-it-works")}>How It Works</button>
