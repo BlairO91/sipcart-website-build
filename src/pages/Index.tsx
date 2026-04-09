@@ -56,6 +56,7 @@ const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const photoBarRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -64,6 +65,16 @@ const Index = () => {
         const barTop = photoBarRef.current.getBoundingClientRect().top;
         setScrolled(barTop <= 80);
       }
+
+      // Hero content parallax — move up slowly as user scrolls
+      if (heroContentRef.current) {
+        const scrollY = window.scrollY;
+        const shift = scrollY * 0.35;
+        const opacity = Math.max(1 - scrollY / (window.innerHeight * 0.6), 0);
+        heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
+        heroContentRef.current.style.opacity = String(opacity);
+      }
+
       if (!ticking) {
         requestAnimationFrame(() => {
           if (photoBarRef.current) {
