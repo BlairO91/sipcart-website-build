@@ -695,9 +695,9 @@ img.event-photo {
 .sc-brand-col--left .sc-brand-photo:nth-child(1) { transform: rotate(-5deg); margin-left: -60px; }
 .sc-brand-col--left .sc-brand-photo:nth-child(2) { transform: rotate(4deg); margin-left: 80px; }
 .sc-brand-col--left .sc-brand-photo:nth-child(3) { transform: rotate(-3deg); margin-left: -40px; }
-.sc-brand-col--right .sc-brand-photo:nth-child(1) { transform: rotate(6deg); margin-right: -120px; }
-.sc-brand-col--right .sc-brand-photo:nth-child(2) { transform: rotate(-4deg); margin-right: -120px; }
-.sc-brand-col--right .sc-brand-photo:nth-child(3) { transform: rotate(3deg); margin-right: 60px; }
+.sc-brand-col--right .sc-brand-photo:nth-child(1) { transform: rotate(6deg) translateX(-80px); }
+.sc-brand-col--right .sc-brand-photo:nth-child(2) { transform: rotate(-4deg) translateX(-100px); }
+.sc-brand-col--right .sc-brand-photo:nth-child(3) { transform: rotate(3deg) translateX(50px); }
 .sc-brand-photo img {
   display: block;
   width: 100%;
