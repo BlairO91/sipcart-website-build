@@ -624,3 +624,24 @@ img.event-photo {
   .sc-footer__links { flex-direction: column; align-items: center; gap: 12px; }
   .sc-footer__contact { flex-direction: column; align-items: center; gap: 8px; }
 }
+
+/* ── Brand Statement ── */
+.sc-brand-statement {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sc-espresso);
+  text-align: center;
+  padding: 48px 24px;
+}
+.sc-brand-statement h2 {
+  font-family: var(--sc-serif);
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--sc-blush);
+}
+@media (max-width: 768px) {
+  .sc-brand-statement h2 { font-size: 2.4rem; }
+}
