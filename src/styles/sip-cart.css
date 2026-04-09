@@ -691,6 +691,7 @@ img.event-photo {
 .sc-brand-photo {
   width: 100%;
   --parallax-y: 0px;
+  margin-bottom: 2rem;
 }
 /* Individual photo rotations & x-offsets + parallax */
 .sc-brand-col--left .sc-brand-photo:nth-child(1) { transform: rotate(-5deg) translateY(var(--parallax-y)); margin-left: -60px; }
