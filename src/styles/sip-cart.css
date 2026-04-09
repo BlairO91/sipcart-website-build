@@ -129,6 +129,11 @@
 .sc-nav--scrolled .sc-nav__links button { color: var(--sc-espresso); }
 .sc-nav__links button:hover { color: var(--sc-blush); }
 .sc-nav__cta { display: block; }
+.sc-nav--scrolled .sc-nav__cta {
+  background: transparent !important;
+  color: var(--sc-espresso) !important;
+  border-color: var(--sc-espresso) !important;
+}
 .sc-hamburger { display: none; flex-direction: column; gap: 5px; }
 .sc-hamburger span { display: block; width: 24px; height: 2px; background: var(--sc-cream); transition: background 0.2s; }
 .sc-nav--scrolled .sc-hamburger span { background: var(--sc-espresso); }
