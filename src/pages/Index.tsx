@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Instagram, Phone, Mail } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -223,17 +224,24 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <section className="sc-hero">
-        <video className="hero-video" autoPlay muted loop playsInline ref={heroVideoRef}>
-          <source src="/hero-bg-v2.mp4" type="video/mp4" />
-        </video>
         <div className="sc-hero__overlay" />
-        <div className="sc-hero__content" ref={heroContentRef}>
-          <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
-          <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
-          <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
-          <div className="sc-hero__btns">
-            <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
-            <button className="sc-btn sc-btn--outline-light" onClick={() => scrollTo("services")}>Explore Services</button>
+        <div className="sc-hero__grid" ref={heroContentRef}>
+          <div className="sc-hero__content">
+            <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
+            <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
+            <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
+            <div className="sc-hero__btns">
+              <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
+              <button className="sc-btn sc-btn--outline-light" onClick={() => scrollTo("services")}>Explore Services</button>
+            </div>
+          </div>
+          <div className="sc-hero__logo-col">
+            <div className="sc-hero__logo-wrap">
+              <img src={logo} alt="The Sip Cart logo" className="sc-hero__logo" />
+              <video className="sc-hero__logo-video" autoPlay muted loop playsInline ref={heroVideoRef}>
+                <source src="/hero-bg-v2.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </section>
@@ -278,7 +286,7 @@ const Index = () => {
                 <div className="event-photo photo-placeholder" />
               )}
               <div className="sc-services__card-body">
-                <h3>{e.name}</h3>
+                <h4>{e.name}</h4>
                 <p>{e.desc}</p>
               </div>
             </div>
@@ -340,25 +348,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── CUSTOM EXPERIENCE ── */}
-      <section className="sc-section sc-custom">
-        <h2 className="sc-section__heading">Your Event, Your Brand</h2>
-        <p className="sc-section__sub">Every detail is curated to match your vision — from the first sip to the last.</p>
-        <div className="sc-custom__grid">
-          <div className="sc-custom__item">
-            <svg className="sc-custom__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="10" y="8" width="28" height="32" rx="3"/><path d="M18 16h12M18 22h12M18 28h8"/></svg>
-            <h3>Custom Cups &amp; Napkins</h3>
-            <p>Branded barware that doubles as a keepsake.</p>
+      {/* ── ABOUT ── */}
+      <section className="sc-section sc-about" id="about">
+        <div className="sc-about__grid">
+          <div className="sc-about__photo">
+            <img src={gallery1} alt="Fernanda, founder of The Sip Cart" />
           </div>
-          <div className="sc-custom__item">
-            <svg className="sc-custom__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="12" width="36" height="24" rx="2"/><path d="M16 20h16M16 26h10"/></svg>
-            <h3>Signature Signage</h3>
-            <p>Menus and bar signs designed to match your event aesthetic.</p>
-          </div>
-          <div className="sc-custom__item">
-            <svg className="sc-custom__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M24 6v6M20 12h8l2 18H18l2-18zM16 36h16M20 30c1 2 3 3 4 3s3-1 4-3"/></svg>
-            <h3>Bespoke Cocktail Menus</h3>
-            <p>Drinks crafted around your theme, palette, and preferences.</p>
+          <div className="sc-about__content">
+            <h2 className="sc-about__heading">Meet Fernanda</h2>
+            <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
+            <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
+            <p>From curated cocktails to thoughtful details, every setup is designed to impress, set the tone, and keep the energy flowing all night long.</p>
+            <p>Because it's never just about the drinks — it's about the vibe, the experience, and the memories your guests take with them after the last sip.</p>
           </div>
         </div>
       </section>
@@ -460,9 +461,29 @@ const Index = () => {
           </div>
           <div className="sc-footer__divider" />
           <div className="sc-footer__contact">
-            <p>Instagram: <a href="https://instagram.com/thesipcart.to" target="_blank" rel="noreferrer">@thesipcart.to</a></p>
-            <p>Phone: <a href="tel:+16479899353">+1 (647) 989-9353</a></p>
-            <p>Email: <a href="mailto:sipnslush@gmail.com">sipnslush@gmail.com</a></p>
+            <a
+              href="https://instagram.com/thesipcart.to"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="sc-footer__social"
+            >
+              <Instagram />
+            </a>
+            <a
+              href="tel:+16479899353"
+              aria-label="Call us"
+              className="sc-footer__social"
+            >
+              <Phone />
+            </a>
+            <a
+              href="mailto:sipnslush@gmail.com"
+              aria-label="Email us"
+              className="sc-footer__social"
+            >
+              <Mail />
+            </a>
           </div>
         </div>
         <div className="sc-footer__bottom">
