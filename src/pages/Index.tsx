@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Instagram, Phone, Mail } from "lucide-react";
+import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -40,18 +40,20 @@ const faqData = [
 ];
 
 const events = [
-  { name: "Weddings", desc: "Your most important day deserves a bar as beautiful as the moment.", img: weddingImg },
-  { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg },
-  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg },
-  { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink.", img: birthdayImg },
-  { name: "Bridal Showers & Engagement Parties", desc: "Celebrate love with custom cocktails and a stunning bar setup.", img: bridalImg },
-  { name: "Private Home Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered.", img: girlsnightImg },
+  { name: "Weddings", desc: "Your most important day deserves a bar as beautiful as the moment.", img: weddingImg, icon: Heart },
+  { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg, icon: PartyPopper },
+  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg, icon: Briefcase },
+  { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink.", img: birthdayImg, icon: Cake },
+  { name: "Engagements & Showers", desc: "Celebrate love with custom cocktails and a stunning bar setup.", img: bridalImg, icon: Gem },
+  { name: "Private Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered.", img: girlsnightImg, icon: Wine },
 ];
 
 const testimonials = [
-  { quote: "The Sip Cart was the most talked-about part of our wedding. Every guest was obsessed with the setup — it was stunning.", name: "Sarah M.", event: "Wedding, Toronto" },
-  { quote: "We booked The Sip Cart for our bachelorette and it made the whole night. The custom cocktails were incredible.", name: "Jess T.", event: "Bachelorette Party, Mississauga" },
-  { quote: "Professional, stylish, and absolutely seamless. Our corporate event felt elevated in a way we didn't expect.", name: "Amanda R.", event: "Corporate Event, North York" },
+  { quote: "I had Sip Cart at my 30th birthday party, and she was such a highlight of the night. She created custom drinks that perfectly matched my party theme! They were sooo tastey and cute!!! My guests couldn't stop talking about them. It added such a fun, personalized touch to the event. Fernanda was professional and so fun to have at the party! She kept the vibes high! I'd 100% book Sip Cart again!", name: "Kristin O." },
+  { quote: "I had the pleasure of having @thesipcart.to attend my 25th birthday party. All drinks were aesthetically pleasing and absolutely delicious! Especially the mango margaritas! She went above and beyond - not only cocktailing but hosting drinks all night to all my guests. Will definitely be booking again for future events!", name: "Jen H." },
+  { quote: "The way sip and cart came into my friend's birthday party and absolutely made it so lively and so fun.. we were dancing, singing, laughing and vibing all night. Fern is an incredible bartender with such good energy and AMAZING tasting drinks and I'm not even much of a drinker but that night.. I was. I had a blast and I would 100% book and recommend to all friends!", name: "Fitore A." },
+  { quote: "If you are looking for an elevated bartending experience with delicious and beautiful looking drinks The Sip Cart is exactly what you need! Fernanda is an incredible bartender who brings all the vibes and delivers exceptional service. I can't wait to book with them for my next event!", name: "Victoria G." },
+  { quote: "If you don't have thesipcart.to at your event then you're doing it all wrong! Not only did fern make some bomb drinks but the vibes she bought too was unmatched. From the details of the drinks and ensuring everyone was loving their drinks to her engaging with the guest boosted our experience with her service. Fern made sure a drink was in hand all night long, I'm not a tequila drinker but I ended up having 3 spicy margs from how good they were. A good time was def HAD with fern as our bartender. Drinks 10/10, service 10/10, and vibes 10/10! Don't second guess it and just book, she will NOT disappoint", name: "Emily V." },
 ];
 
 const Index = () => {
@@ -103,19 +105,8 @@ const Index = () => {
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
-      if (photoBarRef.current) {
-        const barTop = photoBarRef.current.getBoundingClientRect().top;
-        setScrolled(barTop <= 80);
-      }
+      setScrolled(window.scrollY > 0);
 
-      // Hero content parallax
-      if (heroContentRef.current) {
-        const scrollY = window.scrollY;
-        const shift = scrollY * 0.35;
-        const opacity = Math.max(1 - scrollY / (window.innerHeight * 0.6), 0);
-        heroContentRef.current.style.transform = `translate3d(0, -${shift}px, 0)`;
-        heroContentRef.current.style.opacity = String(opacity);
-      }
 
       // Hero video parallax (slow upward drift)
       if (heroVideoRef.current) {
@@ -211,7 +202,6 @@ const Index = () => {
           <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: '4rem' }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
-            <button onClick={() => scrollTo("how-it-works")}>How It Works</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
             <button onClick={() => scrollTo("faq")}>FAQ</button>
           </div>
@@ -224,28 +214,20 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <section className="sc-hero">
-        <div className="sc-hero__overlay" />
-        <div className="sc-hero__grid" ref={heroContentRef}>
-          <div className="sc-hero__content">
+        <video className="hero-video" autoPlay muted loop playsInline>
+          <source src="/hero-bg-v2.mp4" type="video/mp4" />
+        </video>
+
+      </section>
+      <div className="sc-hero-spacer">
+        <div className="sc-hero__content" ref={heroContentRef}>
+          <div className="sc-hero__content-inner">
             <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
             <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
             <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
-            <div className="sc-hero__btns">
-              <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
-              <button className="sc-btn sc-btn--outline-light" onClick={() => scrollTo("services")}>Explore Services</button>
-            </div>
-          </div>
-          <div className="sc-hero__logo-col">
-            <div className="sc-hero__logo-wrap">
-              <img src={logo} alt="The Sip Cart logo" className="sc-hero__logo" />
-              <video className="sc-hero__logo-video" autoPlay muted loop playsInline ref={heroVideoRef}>
-                <source src="/hero-bg-v2.mp4" type="video/mp4" />
-              </video>
-            </div>
           </div>
         </div>
-      </section>
-      <div className="sc-hero-spacer" />
+      </div>
       {/* ── PHOTO BAR ── */}
       <section className="sc-photo-bar" ref={photoBarRef}>
         <div className="sc-photo-bar__track">
@@ -255,23 +237,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
-      <section id="how-it-works" className="sc-section sc-how">
-        <h2 className="sc-section__heading">How It Works</h2>
-        <div className="sc-how__grid">
-          {[
-            { n: "01", t: "Tell Us About Your Event", d: "You share your event details and we handle everything from there." },
-            { n: "02", t: "We Set Up, You Relax", d: "We arrive, set up your custom bar, and handle the full service start to finish." },
-            { n: "03", t: "Sip & Celebrate", d: "You enjoy the party while we make every drink a moment." },
-          ].map((s, i) => (
-            <div className="sc-how__step" key={i}>
-              <span className="sc-how__num">{s.n}</span>
-              <h3 className="sc-how__title">{s.t}</h3>
-              <p className="sc-how__desc">{s.d}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ── SERVICES ── */}
       <section id="services" className="sc-section sc-services">
@@ -280,30 +245,31 @@ const Index = () => {
         <div className="sc-services__grid">
           {events.map((e, i) => (
             <div className="sc-services__card" key={i}>
-              {e.img ? (
-                <img src={e.img} alt={e.name} className="event-photo" loading="lazy" />
-              ) : (
-                <div className="event-photo photo-placeholder" />
-              )}
-              <div className="sc-services__card-body">
-                <h4>{e.name}</h4>
+              <div className="sc-services__card-desc">
+                <e.icon className="sc-services__card-icon" />
                 <p>{e.desc}</p>
+              </div>
+              <div className="sc-services__card-front">
+                <div className="sc-services__img-wrap">
+                  {e.img ? (
+                    <img src={e.img} alt={e.name} className="event-photo" loading="lazy" />
+                  ) : (
+                    <div className="event-photo photo-placeholder" />
+                  )}
+                </div>
+                <div className="sc-services__card-body">
+                  <h5>{e.name}</h5>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── MID CTA (2-grid) ── */}
-      <section className="sc-mid-cta-grid">
-        <div className="sc-mid-cta-grid__img">
-          <img src={sipCartHero} alt="The Sip Cart mobile bar setup" />
-        </div>
-        <div className="sc-mid-cta-grid__content">
-          <h2>Ready to elevate your next event?</h2>
-          <p>From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
-          <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Request a Quote</button>
-        </div>
+      {/* ── REVIEW SNIPPET ── */}
+      <section className="sc-review-snippet">
+        <blockquote>"If you are looking for an elevated bartending experience with delicious and beautiful looking drinks, The Sip Cart is exactly what you need!"</blockquote>
+        <p className="sc-review-snippet__name">— Victoria G.</p>
       </section>
 
       {/* ── PACKAGES ── */}
@@ -348,6 +314,18 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ── MID CTA (2-grid) ── */}
+      <section className="sc-mid-cta-grid">
+        <div className="sc-mid-cta-grid__img">
+          <img src={sipCartHero} alt="The Sip Cart mobile bar setup" />
+        </div>
+        <div className="sc-mid-cta-grid__content">
+          <h2>Ready to elevate your next event?</h2>
+          <p>From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
+          <button className="sc-btn sc-btn--dark" onClick={() => scrollTo("quote")}>Request a Quote</button>
+        </div>
+      </section>
+
       {/* ── ABOUT ── */}
       <section className="sc-section sc-about" id="about">
         <div className="sc-about__grid">
@@ -372,9 +350,8 @@ const Index = () => {
           {testimonials.map((t, i) => (
             <div className="sc-testimonial" key={i}>
               <div className="sc-testimonial__stars">{"★★★★★"}</div>
-              <blockquote className="sc-testimonial__quote">"{t.quote}"</blockquote>
+              <p className="sc-testimonial__quote">"{t.quote}"</p>
               <p className="sc-testimonial__name">{t.name}</p>
-              <p className="sc-testimonial__event">{t.event}</p>
             </div>
           ))}
       </div>
@@ -454,7 +431,6 @@ const Index = () => {
           
           <div className="sc-footer__links">
             <button onClick={() => scrollTo("services")}>Services</button>
-            <button onClick={() => scrollTo("how-it-works")}>How It Works</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
             <button onClick={() => scrollTo("faq")}>FAQ</button>
             <button onClick={() => scrollTo("quote")}>Request a Quote</button>
