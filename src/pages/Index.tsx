@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote } from "lucide-react";
+import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -12,6 +12,7 @@ import sipCartHero from "@/assets/Untitled design - 2026-04-19T094229.357.png";
 import fernandaImg from "@/assets/fernanda.jpg";
 import reviewBgImg from "@/assets/Photos/luisa-azevedo-TVyAcFeuNUw-unsplash.jpg";
 import quoteIcon from "@/assets/Photos/Untitled design - 2026-04-19T182505.669.png";
+import footerTitle from "@/assets/Photos/Title (1920 x 400 px) (1920 x 250 px).png";
 import weddingImg from "@/assets/wedding.jpg";
 import bacheloretteImg from "@/assets/bachelorette.jpg";
 import corporateImg from "@/assets/corporate.jpg";
@@ -77,6 +78,8 @@ const testimonials = [
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const [testimonialModal, setTestimonialModal] = useState<number | null>(null);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -333,15 +336,30 @@ const Index = () => {
       {/* ── TESTIMONIALS ── */}
       <section className="sc-section sc-testimonials">
         <h2 className="sc-section__heading">What Our Clients Are Saying</h2>
-        <div className="sc-testimonials__grid">
-          {testimonials.map((t, i) => (
-            <div className="sc-testimonial" key={i}>
-              <div className="sc-testimonial__stars">{"★★★★★"}</div>
-              <p className="sc-testimonial__quote">"{t.quote}"</p>
-              <p className="sc-testimonial__name">{t.name}</p>
+        <div className="sc-testimonials__carousel">
+          <button className="sc-testimonials__arrow sc-testimonials__arrow--left" onClick={() => setTestimonialIdx(Math.max(0, testimonialIdx - 1))} disabled={testimonialIdx === 0}>
+            <ChevronLeft />
+          </button>
+          <div className="sc-testimonials__viewport">
+            <div className="sc-testimonials__track" style={{ transform: `translateX(-${testimonialIdx * (100 / 3)}%)` }}>
+              {testimonials.map((t, i) => (
+                <div className="sc-testimonial" key={i}>
+                  <img src={quoteIcon} className="sc-testimonial__quote-icon" alt="" />
+                  <p className="sc-testimonial__quote">
+                    "{t.quote.length <= 222 ? t.quote : `${t.quote.slice(0, 222)}...`}"
+                    {t.quote.length > 222 && (
+                      <button className="sc-testimonial__read-more" onClick={() => setTestimonialModal(i)}>Read more</button>
+                    )}
+                  </p>
+                  <p className="sc-testimonial__name">{t.name}</p>
+                </div>
+              ))}
             </div>
-          ))}
-      </div>
+          </div>
+          <button className="sc-testimonials__arrow sc-testimonials__arrow--right" onClick={() => setTestimonialIdx(Math.min(testimonials.length - 3, testimonialIdx + 1))} disabled={testimonialIdx >= testimonials.length - 3}>
+            <ChevronRight />
+          </button>
+        </div>
       </section>
 
       {/* ── PHOTO BAR ── */}
@@ -360,7 +378,7 @@ const Index = () => {
             <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
           </div>
           <div className="sc-about__content">
-            <h2 className="sc-about__heading">Meet Fernanda</h2>
+            <h2 className="sc-about__heading">Meet Your Bartender</h2>
             <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
             <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
             <p>From curated cocktails to thoughtful details, every setup is designed to impress, set the tone, and keep the energy flowing all night long.</p>
@@ -440,14 +458,14 @@ const Index = () => {
           <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '8rem' }} />
         </div>
         <div className="sc-footer__inner">
-          
-          <div className="sc-footer__links">
-            <button onClick={() => scrollTo("services")}>Services</button>
-            <button onClick={() => scrollTo("packages")}>Packages</button>
-            <button onClick={() => scrollTo("faq")}>FAQ</button>
-            <button onClick={() => scrollTo("quote")}>Request a Quote</button>
+          <div className="sc-footer__newsletter">
+            <p>Join our newsletter</p>
+            <form className="sc-footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="Enter your email" className="sc-footer__newsletter-input" />
+              <button type="submit" className="sc-btn sc-btn--gold">Subscribe</button>
+            </form>
           </div>
-          <div className="sc-footer__divider" />
+
           <div className="sc-footer__contact">
             <a
               href="https://instagram.com/thesipcart.to"
@@ -473,12 +491,40 @@ const Index = () => {
               <Mail />
             </a>
           </div>
+
+          <div className="sc-footer__links">
+            <button onClick={() => scrollTo("services")}>Services</button>
+            <button onClick={() => scrollTo("packages")}>Packages</button>
+            <button onClick={() => scrollTo("faq")}>FAQ</button>
+            <button onClick={() => scrollTo("quote")}>Request a Quote</button>
+          </div>
         </div>
+        <img src={footerTitle} alt="The Sip Cart" className="sc-footer__big-text" />
         <div className="sc-footer__bottom">
-          <p>© 2025 The Sip Cart. All rights reserved. Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
+          <p>© 2026 The Sip Cart. All rights reserved.</p>
+          <p>Terms & Conditions</p>
+          <p>Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
         </div>
-        <p className="sc-footer__big-text">The Sip Cart</p>
       </footer>
+
+      {testimonialModal !== null && (
+        <div className="sc-modal-overlay" onClick={() => setTestimonialModal(null)}>
+          <div className="sc-modal-layout" onClick={(e) => e.stopPropagation()}>
+            <button className="sc-testimonials__arrow" onClick={() => setTestimonialModal(testimonialModal - 1)} disabled={testimonialModal === 0}>
+              <ChevronLeft />
+            </button>
+            <div className="sc-modal-card">
+              <button className="sc-modal-close" onClick={() => setTestimonialModal(null)}>×</button>
+              <img src={quoteIcon} className="sc-testimonial__quote-icon" alt="" />
+              <p className="sc-testimonial__quote">"{testimonials[testimonialModal].quote}"</p>
+              <p className="sc-testimonial__name">{testimonials[testimonialModal].name}</p>
+            </div>
+            <button className="sc-testimonials__arrow" onClick={() => setTestimonialModal(testimonialModal + 1)} disabled={testimonialModal === testimonials.length - 1}>
+              <ChevronRight />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
