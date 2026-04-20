@@ -751,7 +751,7 @@ img.event-photo {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: visible;
+  overflow: clip;
 }
 .sc-footer__big-text {
   font-family: var(--sc-serif);
