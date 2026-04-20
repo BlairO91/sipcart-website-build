@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine } from "lucide-react";
+import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -8,7 +8,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import logo from "@/assets/logo.png";
-import sipCartHero from "@/assets/sip-cart-hero.jpg";
+import sipCartHero from "@/assets/Untitled design - 2026-04-19T094229.357.png";
+import fernandaImg from "@/assets/fernanda.jpg";
+import reviewBgImg from "@/assets/Photos/luisa-azevedo-TVyAcFeuNUw-unsplash.jpg";
+import quoteIcon from "@/assets/Photos/Untitled design - 2026-04-19T182505.669.png";
 import weddingImg from "@/assets/wedding.jpg";
 import bacheloretteImg from "@/assets/bachelorette.jpg";
 import corporateImg from "@/assets/corporate.jpg";
@@ -25,8 +28,23 @@ import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpg";
+import photo1 from "@/assets/photos/olivie-strauss-eUrGZhIeHao-unsplash.jpg";
+import photo2 from "@/assets/photos/pinar-kucuk-_qf7KGWyAes-unsplash.jpg";
+import photo3 from "@/assets/photos/ferals-studio-8l45X115t9E-unsplash.jpg";
+import photo4 from "@/assets/photos/toa-heftiba-FpjYO4a-PP8-unsplash.jpg";
+import photo5 from "@/assets/photos/olena-bohovyk-JjGLEN7T8xI-unsplash.jpg";
+import photo6 from "@/assets/photos/svitlana-vexxZA_JNso-unsplash.jpg";
+import photo7 from "@/assets/photos/olivie-strauss-LW0cVdFc_Yk-unsplash.jpg";
+import photo8 from "@/assets/photos/kateryna-hliznitsova-RdUYKST5clk-unsplash.jpg";
+import photo9 from "@/assets/photos/no-revisions-gA81ZTsql68-unsplash.jpg";
+import photo10 from "@/assets/photos/jacqueline-a-hernandez-MRHG1DvP46I-unsplash.jpg";
+import photo11 from "@/assets/photos/c-s-K1mPk3TBc5k-unsplash.jpg";
+import photo12 from "@/assets/photos/olivie-strauss-tZOpC47nebM-unsplash.jpg";
+import photo13 from "@/assets/photos/alyona-yankovska-7EbGkOm8pWM-unsplash.jpg";
+import photo14 from "@/assets/photos/ecaterina-tanase-9Bth_LiiMoo-unsplash.jpg";
+import photo15 from "@/assets/photos/trinh-minh-th-9cPdsa-_7PI-unsplash.jpg";
 
-const galleryImages = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8, gallery9, gallery10];
+const galleryImages = [photo3, photo8, photo1, photo5, photo9, photo11, photo4, photo14, photo2, photo7, photo15, photo6, photo12, photo10, photo13];
 
 const faqData = [
   { q: "Do I need to provide my own alcohol?", a: "Yes — clients supply all alcohol. We provide everything else: bartenders, bar setup, custom menus, mixers, garnishes, cups, napkins, ice, and straws. We also send you a customized shopping list so you know exactly what to buy." },
@@ -83,36 +101,14 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Brand text fade-in on scroll into view
+  // Brand text fade-in handled in scroll handler
   useEffect(() => {
-    const brandText = document.querySelector('.sc-brand-text');
-    if (!brandText) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('sc-brand-text--visible');
-            obs.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    obs.observe(brandText);
-    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
       setScrolled(window.scrollY > 0);
-
-
-      // Hero video parallax (slow upward drift)
-      if (heroVideoRef.current) {
-        const videoShift = window.scrollY * 0.22;
-        heroVideoRef.current.style.transform = `translate3d(0, -${videoShift}px, 0)`;
-      }
 
       // Brand gallery scroll — move whole columns so photos keep a fixed gap
       if (brandSectionRef.current && brandPinRef.current && brandPhotosRef.current) {
@@ -122,7 +118,15 @@ const Index = () => {
         const scrollable = Math.max(sectionHeight - viewportHeight, 1);
         const progress = Math.min(Math.max(-sectionRect.top / scrollable, 0), 1);
 
-        // Brand text fade handled by IntersectionObserver below
+        // Brand text fade + grow driven by scroll position
+        const brandText = brandSectionRef.current.querySelector('.sc-brand-text') as HTMLElement;
+        if (brandText) {
+          const enterProgress = Math.min(Math.max((viewportHeight - sectionRect.top) / (viewportHeight * 0.6), 0), 1);
+          const scale = 0.85 + 0.15 * enterProgress;
+          const translateY = 3 * (1 - enterProgress);
+          brandText.style.opacity = `${enterProgress}`;
+          brandText.style.transform = `scale(${scale}) translateY(${translateY}rem)`;
+        }
 
         if (sectionRect.top <= 0 && sectionRect.bottom > viewportHeight) {
           brandPinRef.current.style.top = '';
@@ -213,30 +217,21 @@ const Index = () => {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="sc-hero">
-        <video className="hero-video" autoPlay muted loop playsInline>
-          <source src="/hero-bg-v2.mp4" type="video/mp4" />
-        </video>
-
-      </section>
-      <div className="sc-hero-spacer">
+      <div className="sc-hero-split">
+        <div className="sc-hero-video-wrap">
+          <video className="hero-video" ref={heroVideoRef} autoPlay muted loop playsInline>
+            <source src="/hero-bg-v2.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className="sc-hero__content" ref={heroContentRef}>
           <div className="sc-hero__content-inner">
             <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
-            <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences,<br />One Sip at a Time</h1>
+            <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences<br />One Sip at a Time</h1>
             <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
+            <button className="sc-btn sc-btn--gold" onClick={() => scrollTo("quote")}>Request a Quote</button>
           </div>
         </div>
       </div>
-      {/* ── PHOTO BAR ── */}
-      <section className="sc-photo-bar" ref={photoBarRef}>
-        <div className="sc-photo-bar__track">
-          {galleryImages.map((src, i) => (
-            <img key={i} src={src} alt={`Event gallery ${i + 1}`} loading="lazy" />
-          ))}
-        </div>
-      </section>
-
 
       {/* ── SERVICES ── */}
       <section id="services" className="sc-section sc-services">
@@ -267,9 +262,13 @@ const Index = () => {
       </section>
 
       {/* ── REVIEW SNIPPET ── */}
-      <section className="sc-review-snippet">
-        <blockquote>"If you are looking for an elevated bartending experience with delicious and beautiful looking drinks, The Sip Cart is exactly what you need!"</blockquote>
-        <p className="sc-review-snippet__name">— Victoria G.</p>
+      <section className="sc-review-snippet" style={{ backgroundImage: `url(${reviewBgImg})` }}>
+        <div className="sc-review-snippet__card">
+          <img src={quoteIcon} className="sc-review-snippet__quote-icon" alt="" />
+          <blockquote>If you are looking for an elevated bartending experience with delicious and beautiful looking drinks, The Sip Cart is exactly what you need!</blockquote>
+          <img src={quoteIcon} className="sc-review-snippet__quote-icon sc-review-snippet__quote-icon--end" alt="" />
+          <p className="sc-review-snippet__name">— Victoria G.</p>
+        </div>
       </section>
 
       {/* ── PACKAGES ── */}
@@ -319,31 +318,19 @@ const Index = () => {
         <div className="sc-mid-cta-grid__img">
           <img src={sipCartHero} alt="The Sip Cart mobile bar setup" />
         </div>
-        <div className="sc-mid-cta-grid__content">
-          <h2>Ready to elevate your next event?</h2>
-          <p>From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
-          <button className="sc-btn sc-btn--dark" onClick={() => scrollTo("quote")}>Request a Quote</button>
-        </div>
-      </section>
-
-      {/* ── ABOUT ── */}
-      <section className="sc-section sc-about" id="about">
-        <div className="sc-about__grid">
-          <div className="sc-about__photo">
-            <img src={gallery1} alt="Fernanda, founder of The Sip Cart" />
-          </div>
-          <div className="sc-about__content">
-            <h2 className="sc-about__heading">Meet Fernanda</h2>
-            <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
-            <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
-            <p>From curated cocktails to thoughtful details, every setup is designed to impress, set the tone, and keep the energy flowing all night long.</p>
-            <p>Because it's never just about the drinks — it's about the vibe, the experience, and the memories your guests take with them after the last sip.</p>
+        <div className="sc-mid-cta-grid__content" style={{ backgroundImage: `url(${reviewBgImg})` }}>
+          <div className="sc-mid-cta-grid__inner">
+            <div className="sc-mid-cta-grid__text">
+              <Sparkles className="sc-mid-cta-icon" />
+              <h2>Ready to elevate your next event?</h2>
+              <p>From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
+              <button className="sc-btn sc-btn--dark" onClick={() => scrollTo("quote")}>Request a Quote</button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      {/* PLACEHOLDER TESTIMONIALS — replace with real testimonials */}
       <section className="sc-section sc-testimonials">
         <h2 className="sc-section__heading">What Our Clients Are Saying</h2>
         <div className="sc-testimonials__grid">
@@ -355,6 +342,31 @@ const Index = () => {
             </div>
           ))}
       </div>
+      </section>
+
+      {/* ── PHOTO BAR ── */}
+      <section className="sc-photo-bar" ref={photoBarRef}>
+        <div className="sc-photo-bar__track">
+          {galleryImages.map((src, i) => (
+            <img key={i} src={src} alt={`Event gallery ${i + 1}`} loading="lazy" />
+          ))}
+        </div>
+      </section>
+
+      {/* ── ABOUT ── */}
+      <section className="sc-section sc-about" id="about">
+        <div className="sc-about__grid">
+          <div className="sc-about__photo">
+            <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
+          </div>
+          <div className="sc-about__content">
+            <h2 className="sc-about__heading">Meet Fernanda</h2>
+            <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
+            <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
+            <p>From curated cocktails to thoughtful details, every setup is designed to impress, set the tone, and keep the energy flowing all night long.</p>
+            <p>Because it's never just about the drinks — it's about the vibe, the experience, and the memories your guests take with them after the last sip.</p>
+          </div>
+        </div>
       </section>
 
       {/* ── BRAND STATEMENT ── */}
@@ -465,6 +477,7 @@ const Index = () => {
         <div className="sc-footer__bottom">
           <p>© 2025 The Sip Cart. All rights reserved. Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
         </div>
+        <p className="sc-footer__big-text">The Sip Cart</p>
       </footer>
     </div>
   );
