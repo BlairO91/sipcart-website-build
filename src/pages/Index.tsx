@@ -455,15 +455,11 @@ const Index = () => {
       {/* ── FOOTER ── */}
       <footer className="sc-footer">
         <div className="sc-footer__brand-overlay">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '8rem' }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '12rem' }} />
         </div>
         <div className="sc-footer__inner">
-          <div className="sc-footer__newsletter">
-            <p>Join our newsletter</p>
-            <form className="sc-footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Enter your email" className="sc-footer__newsletter-input" />
-              <button type="submit" className="sc-btn sc-btn--gold">Subscribe</button>
-            </form>
+          <div className="sc-footer__about">
+            <p>Toronto & GTA's premier mobile bar service. We bring the bar to your event — from custom cocktails to stylish setups, we handle everything so you can enjoy the moment.</p>
           </div>
 
           <div className="sc-footer__contact">

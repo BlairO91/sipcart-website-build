@@ -831,8 +831,8 @@ img.event-photo {
    FOOTER
    ═══════════════════════════════════ */
 .sc-footer {
-  background: #A86B4D;
-  color: var(--sc-cream);
+  background: var(--sc-blush);
+  color: #fff;
   padding: 140px 24px 0;
   position: relative;
   display: flex;
@@ -885,6 +885,12 @@ img.event-photo {
   gap: 12px;
   text-align: left;
 }
+.sc-footer__about p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #fff;
+  opacity: 0.9;
+}
 .sc-footer__newsletter p {
   font-size: 0.95rem;
   font-weight: 600;
@@ -909,7 +915,7 @@ img.event-photo {
   color: rgba(245, 239, 232, 0.5);
 }
 .sc-footer__links button {
-  color: var(--sc-cream);
+  color: #fff;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -949,7 +955,8 @@ img.event-photo {
   font-size: 0.82rem;
   width: 100vw;
   margin: 0 -24px;
-  opacity: 0.5;
+  color: #fff;
+  opacity: 0.6;
   display: flex;
   justify-content: space-between;
   align-items: center;
