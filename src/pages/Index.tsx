@@ -9,8 +9,12 @@ import {
 } from "@/components/ui/accordion";
 import logo from "@/assets/logo.png";
 import sipCartHero from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
+import heroSlide1 from "@/assets/Photos/ferals-studio-8l45X115t9E-unsplash.jpg";
+import heroSlide2 from "@/assets/Photos/IMG_1366.jpg";
+import heroSlide3 from "@/assets/Photos/jacqueline-a-hernandez-MRHG1DvP46I-unsplash.jpg";
+import heroSlide4 from "@/assets/Photos/pinar-kucuk-_qf7KGWyAes-unsplash.webp";
 import fernandaImg from "@/assets/fernanda.webp";
-import reviewBgImg from "@/assets/Photos/luisa-azevedo-TVyAcFeuNUw-unsplash.webp";
+import reviewBgImg from "@/assets/Photos/patrycja-jadach-qpR8meHYWKc-unsplash.jpg";
 import quoteIcon from "@/assets/Photos/Untitled design - 2026-04-19T182505.669.webp";
 import footerTitle from "@/assets/Photos/Title (1920 x 400 px) (1920 x 250 px).webp";
 import weddingImg from "@/assets/wedding.webp";
@@ -25,6 +29,14 @@ import gallery3 from "@/assets/gallery-3.webp";
 import gallery4 from "@/assets/gallery-4.webp";
 import gallery5 from "@/assets/gallery-5.webp";
 import gallery6 from "@/assets/gallery-6.webp";
+import brandPhoto1 from "@/assets/Photos/ferals-studio-8l45X115t9E-unsplash.webp";
+import brandPhoto2 from "@/assets/Photos/olivie-strauss-tZOpC47nebM-unsplash.webp";
+import brandPhoto3 from "@/assets/Photos/pinar-kucuk-_qf7KGWyAes-unsplash.webp";
+import brandPhoto4 from "@/assets/Photos/jacqueline-a-hernandez-MRHG1DvP46I-unsplash.webp";
+import brandPhoto5 from "@/assets/Photos/ecaterina-tanase-9Bth_LiiMoo-unsplash.webp";
+import brandPhoto6 from "@/assets/Photos/olivie-strauss-eUrGZhIeHao-unsplash.webp";
+import brandPhoto7 from "@/assets/Photos/alyona-yankovska-7EbGkOm8pWM-unsplash.webp";
+import brandPhoto8 from "@/assets/Photos/toa-heftiba-FpjYO4a-PP8-unsplash.webp";
 import gallery7 from "@/assets/gallery-7.webp";
 import gallery8 from "@/assets/gallery-8.webp";
 import gallery9 from "@/assets/gallery-9.webp";
@@ -75,6 +87,197 @@ const testimonials = [
   { quote: "If you don't have thesipcart.to at your event then you're doing it all wrong! Not only did fern make some bomb drinks but the vibes she bought too was unmatched. From the details of the drinks and ensuring everyone was loving their drinks to her engaging with the guest boosted our experience with her service. Fern made sure a drink was in hand all night long, I'm not a tequila drinker but I ended up having 3 spicy margs from how good they were. A good time was def HAD with fern as our bartender. Drinks 10/10, service 10/10, and vibes 10/10! Don't second guess it and just book, she will NOT disappoint", name: "Emily V." },
 ];
 
+const QuoteForm = () => {
+  const [step, setStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    eventDate: "",
+    address: "",
+    eventType: "",
+    guests: "",
+    budget: "",
+    notes: "",
+    confirm: "",
+  });
+
+  const update = (field: string, value: string) =>
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+  const steps = [
+    {
+      label: "What's your name?",
+      field: "name",
+      type: "text",
+      placeholder: "Full name",
+    },
+    {
+      label: "What's your email?",
+      field: "email",
+      type: "email",
+      placeholder: "you@email.com",
+    },
+    {
+      label: "What's your phone number?",
+      field: "phone",
+      type: "tel",
+      placeholder: "+1 (___) ___-____",
+    },
+    {
+      label: "When is your event?",
+      field: "eventDate",
+      type: "date",
+      placeholder: "",
+    },
+    {
+      label: "Where is your event?",
+      field: "address",
+      type: "text",
+      placeholder: "Event address",
+    },
+    {
+      label: "What type of event is it?",
+      field: "eventType",
+      type: "select",
+      options: [
+        "Birthday Celebration",
+        "Wedding",
+        "Bridal Shower / Engagement Party",
+        "Family Celebration",
+        "Brand Activation",
+        "Corporate",
+        "Other",
+      ],
+    },
+    {
+      label: "How many guests are you expecting?",
+      field: "guests",
+      type: "text",
+      placeholder: "e.g. 50",
+    },
+    {
+      label: "What is your budget?",
+      field: "budget",
+      type: "select",
+      options: [
+        "$500 – $1,000",
+        "$1,000 – $1,500",
+        "$1,500 – $2,000",
+        "$3,000 – $4,000",
+      ],
+    },
+    {
+      label: "Anything else you'd like us to know?",
+      field: "notes",
+      type: "textarea",
+      placeholder: "Special requests, themes, drink preferences...",
+    },
+    {
+      label: "By submitting, you confirm you'd like The Sip Cart to reach out about your event.",
+      field: "confirm",
+      type: "select",
+      options: ["Yes", "No"],
+    },
+  ];
+
+  const current = steps[step];
+  const value = formData[current.field as keyof typeof formData];
+  const canNext = current.type === "textarea" || value.trim() !== "";
+
+  const next = () => {
+    if (step < steps.length - 1) setStep(step + 1);
+    else handleSubmit();
+  };
+
+  const handleSubmit = () => {
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="sc-typeform">
+        <div className="sc-typeform__step" style={{ textAlign: "center" }}>
+          <h3 style={{ fontFamily: "var(--sc-serif)", fontSize: "2rem", color: "#222", marginBottom: "1rem" }}>
+            Thank you!
+          </h3>
+          <p style={{ fontFamily: "var(--sc-body)", fontSize: "1.1rem", color: "#555" }}>
+            We'll be in touch within 24–48 hours to discuss your event.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="sc-typeform">
+      {/* Progress */}
+      <div className="sc-typeform__progress">
+        <div
+          className="sc-typeform__progress-bar"
+          style={{ width: `${((step + 1) / steps.length) * 100}%` }}
+        />
+      </div>
+
+      <div className="sc-typeform__step">
+        <p className="sc-typeform__count">
+          {step + 1} of {steps.length}
+        </p>
+        <h3 className="sc-typeform__label">{current.label}</h3>
+
+        {current.type === "select" ? (
+          <div className="sc-typeform__options">
+            {current.options!.map((opt) => (
+              <button
+                key={opt}
+                className={`sc-typeform__option ${value === opt ? "sc-typeform__option--active" : ""}`}
+                onClick={() => update(current.field, opt)}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        ) : current.type === "textarea" ? (
+          <textarea
+            className="sc-typeform__input"
+            rows={4}
+            placeholder={current.placeholder}
+            value={value}
+            onChange={(e) => update(current.field, e.target.value)}
+          />
+        ) : (
+          <input
+            className="sc-typeform__input"
+            type={current.type}
+            placeholder={current.placeholder}
+            value={value}
+            onChange={(e) => update(current.field, e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && canNext && next()}
+            autoFocus
+          />
+        )}
+
+        <div className="sc-typeform__nav">
+          {step > 0 && (
+            <button className="sc-btn sc-btn--outline" onClick={() => setStep(step - 1)}>
+              Back
+            </button>
+          )}
+          <button
+            className="sc-btn sc-btn--gold"
+            onClick={next}
+            disabled={!canNext}
+            style={{ opacity: canNext ? 1 : 0.5 }}
+          >
+            {step === steps.length - 1 ? "Submit" : "Next"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -82,10 +285,18 @@ const Index = () => {
   const [testimonialModal, setTestimonialModal] = useState<number | null>(null);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [heroSlide, setHeroSlide] = useState(0);
+  const heroSlides = [heroSlide1, heroSlide2, heroSlide3, heroSlide4];
   const brandSectionRef = useRef<HTMLDivElement>(null);
   const brandPinRef = useRef<HTMLDivElement>(null);
   const brandPhotosRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % 4);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const headings = document.querySelectorAll('.sc-section__heading');
@@ -206,7 +417,7 @@ const Index = () => {
       {/* ── NAVBAR ── */}
       <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""}`}>
         <div className="sc-nav__inner">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: '4rem' }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: '5.5rem' }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
@@ -221,15 +432,29 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <div className="sc-hero-split">
-        <div className="sc-hero-video-wrap">
-          <video className="hero-video" ref={heroVideoRef} autoPlay muted loop playsInline>
-            <source src="/hero-bg-v2.mp4" type="video/mp4" />
-          </video>
+        <div className="sc-hero-video-wrap" style={{ position: "relative" }}>
+          {heroSlides.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              className="hero-video"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: heroSlide === i ? 1 : 0,
+                transition: "opacity 1.2s ease-in-out",
+              }}
+            />
+          ))}
         </div>
         <div className="sc-hero__content" ref={heroContentRef}>
           <div className="sc-hero__content-inner">
-            <p className="sc-hero__eyebrow">Toronto &amp; GTA Mobile Bar Service</p>
-            <h1 className="sc-hero__headline sc-fade-up">Elevated Experiences<br />One Sip at a Time</h1>
+            <p className="sc-hero__eyebrow" style={{ color: "#000" }}>Toronto &amp; GTA Mobile Bar Service</p>
+            <h1 className="sc-hero__headline sc-fade-up"><span style={{ color: "var(--sc-blush)" }}>Elevated Experiences</span><br />One Sip at a Time</h1>
             <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
             <button className="sc-btn sc-btn--gold" onClick={() => scrollTo("quote")}>Request a Quote</button>
           </div>
@@ -394,14 +619,14 @@ const Index = () => {
             <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
             <div className="sc-brand-photos" ref={brandPhotosRef}>
               <div className="sc-brand-col sc-brand-col--left" data-start="0">
-                <div className="sc-brand-photo"><img src={gallery1} alt="Event 1" /></div>
-                <div className="sc-brand-photo"><img src={gallery3} alt="Event 3" /></div>
-                <div className="sc-brand-photo"><img src={gallery5} alt="Event 5" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto1} alt="Cocktail" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto3} alt="Drinks" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto5} alt="Event" /></div>
               </div>
               <div className="sc-brand-col sc-brand-col--right" data-start="28">
-                <div className="sc-brand-photo"><img src={gallery2} alt="Event 2" /></div>
-                <div className="sc-brand-photo"><img src={gallery4} alt="Event 4" /></div>
-                <div className="sc-brand-photo"><img src={gallery6} alt="Event 6" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto2} alt="Cocktail" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto4} alt="Drinks" /></div>
+                <div className="sc-brand-photo"><img src={brandPhoto6} alt="Event" /></div>
               </div>
             </div>
           </div>
@@ -439,17 +664,7 @@ const Index = () => {
       <section id="quote" className="sc-section sc-quote">
         <h2 className="sc-section__heading">Let's Make Your Event Unforgettable</h2>
         <p className="sc-section__sub">Tell us about your event and we'll craft the perfect bar experience for you.</p>
-        <div className="sc-quote__btns">
-          <button className="sc-btn sc-btn--outline" onClick={() => scrollTo("services")}>Explore Our Services</button>
-          <button className="sc-btn sc-btn--primary">Request a Quote</button>
-        </div>
-        {/* GOOGLE FORM EMBED PLACEHOLDER */}
-        <div className="sc-quote__form-placeholder">
-          <p>[ Google Form will be embedded here ]</p>
-          <p className="sc-quote__note">In the meantime, reach out directly:</p>
-          <p><a href="mailto:sipnslush@gmail.com">sipnslush@gmail.com</a></p>
-          <p><a href="tel:+16479899353">+1 (647) 989-9353</a></p>
-        </div>
+        <QuoteForm />
       </section>
 
       {/* ── FOOTER ── */}
