@@ -2,7 +2,7 @@
    THE SIP CART — Brand Stylesheet
    ═══════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
 
 @font-face {
   font-family: 'Le Jour Serif';
@@ -21,7 +21,7 @@
   --sc-white: #FFFDF9;
   --sc-overlay: rgba(30, 15, 5, 0.35);
   --sc-serif: 'Le Jour Serif', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --sc-body: 'Nunito', 'Century Gothic', sans-serif;
+  --sc-body: 'Century Gothic', 'AppleGothic', sans-serif;
   --sc-radius: 12px;
 }
 
@@ -361,9 +361,8 @@ img.event-photo {
   gap: 1rem;
 }
 .sc-services__card-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--sc-blush);
+  width: auto;
+  height: 5rem;
 }
 .sc-services__card-desc p {
   font-size: 1.3rem;
@@ -427,7 +426,7 @@ img.event-photo {
   background: inherit;
   background-size: cover;
   background-position: center;
-  transform: scaleX(-1);
+  transform: scaleY(-1);
   z-index: 0;
 }
 .sc-mid-cta-grid__inner {
@@ -452,10 +451,18 @@ img.event-photo {
   color: #222;
 }
 .sc-mid-cta-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--sc-blush);
-  margin-bottom: 1rem;
+  width: auto;
+  height: 5rem;
+  position: absolute;
+  z-index: 2;
+}
+.sc-mid-cta-icon--top-right {
+  top: 2rem;
+  left: 2rem;
+}
+.sc-mid-cta-icon--bottom-right {
+  bottom: 2rem;
+  right: 2rem;
 }
 .sc-mid-cta-grid__content h2 {
   font-family: var(--sc-serif);
@@ -613,6 +620,11 @@ img.event-photo {
   object-fit: cover;
   border-radius: var(--sc-radius);
   display: block;
+}
+.sc-about__icon {
+  width: auto;
+  height: 5rem;
+  margin-bottom: 2rem;
 }
 .sc-about__heading {
   font-family: var(--sc-serif);
@@ -975,17 +987,18 @@ textarea.sc-typeform__input {
   margin: 0 auto;
   padding-bottom: 0;
   margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 2rem;
 }
 .sc-footer__links {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-  text-align: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 .sc-footer__about p {
   font-size: 1.2rem;
@@ -1046,6 +1059,9 @@ textarea.sc-typeform__input {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem 1.5rem;
+  border-radius: var(--sc-radius);
 }
 .sc-footer__contact a.sc-footer__social svg {
   width: 42px;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote, ChevronLeft, ChevronRight, Martini } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
   Accordion,
@@ -29,6 +29,16 @@ import gallery3 from "@/assets/gallery-3.webp";
 import gallery4 from "@/assets/gallery-4.webp";
 import gallery5 from "@/assets/gallery-5.webp";
 import gallery6 from "@/assets/gallery-6.webp";
+import icon2 from "@/Icons/2.png";
+import icon3 from "@/Icons/3.png";
+import icon4 from "@/Icons/4.png";
+import icon5 from "@/Icons/5.png";
+import icon6 from "@/Icons/6.png";
+import icon7 from "@/Icons/7.png";
+import icon8 from "@/Icons/8.png";
+import icon9 from "@/Icons/Untitled design - 2026-04-24T113823.919.png";
+import icon10 from "@/Icons/10.png";
+import icon11 from "@/Icons/11.png";
 import brandPhoto1 from "@/assets/Photos/ferals-studio-8l45X115t9E-unsplash.webp";
 import brandPhoto2 from "@/assets/Photos/olivie-strauss-tZOpC47nebM-unsplash.webp";
 import brandPhoto3 from "@/assets/Photos/pinar-kucuk-_qf7KGWyAes-unsplash.webp";
@@ -71,12 +81,12 @@ const faqData = [
 ];
 
 const events = [
-  { name: "Weddings", desc: "Your most important day deserves a bar as beautiful as the moment.", img: weddingImg, icon: Heart },
-  { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg, icon: PartyPopper },
-  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg, icon: Briefcase },
-  { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink.", img: birthdayImg, icon: Cake },
-  { name: "Engagements & Showers", desc: "Celebrate love with custom cocktails and a stunning bar setup.", img: bridalImg, icon: Gem },
-  { name: "Private Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered.", img: girlsnightImg, icon: Wine },
+  { name: "Weddings", desc: "Your most important day deserves a bar as beautiful as the moment.", img: weddingImg, iconImg: icon2 },
+  { name: "Bachelorette Parties", desc: "Sip, celebrate, and make memories your group will talk about forever.", img: bacheloretteImg, iconImg: icon10 },
+  { name: "Corporate Events", desc: "Impress clients and teams with a polished, professional bar experience.", img: corporateImg, iconImg: icon4 },
+  { name: "Birthday Parties", desc: "Because every birthday deserves a signature drink.", img: birthdayImg, iconImg: icon6 },
+  { name: "Engagements & Showers", desc: "Celebrate love with custom cocktails and a stunning bar setup.", img: bridalImg, iconImg: icon5 },
+  { name: "Private Events & Girls' Nights", desc: "Mocktails, cocktails, good company — we've got the bar covered.", img: girlsnightImg, iconImg: icon3 },
 ];
 
 const testimonials = [
@@ -421,6 +431,8 @@ const Index = () => {
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
+            <button onClick={() => scrollTo("testimonials")}>Testimonials</button>
+            <button onClick={() => scrollTo("bartender")}>Meet Your Bartender</button>
             <button onClick={() => scrollTo("faq")}>FAQ</button>
           </div>
           <button className="sc-btn sc-btn--primary sc-nav__cta" onClick={() => scrollTo("quote")}>Request a Quote</button>
@@ -469,7 +481,7 @@ const Index = () => {
           {events.map((e, i) => (
             <div className="sc-services__card" key={i}>
               <div className="sc-services__card-desc">
-                <e.icon className="sc-services__card-icon" />
+                <img src={e.iconImg} alt="" className="sc-services__card-icon" style={e.name === "Engagements & Showers" ? { height: "6rem" } : undefined} />
                 <p>{e.desc}</p>
               </div>
               <div className="sc-services__card-front">
@@ -548,8 +560,9 @@ const Index = () => {
         </div>
         <div className="sc-mid-cta-grid__content" style={{ backgroundImage: `url(${reviewBgImg})` }}>
           <div className="sc-mid-cta-grid__inner">
+            <img src={icon9} alt="" className="sc-mid-cta-icon sc-mid-cta-icon--top-right" />
+            <img src={icon9} alt="" className="sc-mid-cta-icon sc-mid-cta-icon--bottom-right" />
             <div className="sc-mid-cta-grid__text">
-              <Sparkles className="sc-mid-cta-icon" />
               <h2>Ready to elevate your next event?</h2>
               <p>From intimate backyard parties to large-scale celebrations, we bring a fully curated bar — tailored to your style, your guests, and your vision.</p>
               <button className="sc-btn sc-btn--dark" onClick={() => scrollTo("quote")}>Request a Quote</button>
@@ -559,7 +572,7 @@ const Index = () => {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="sc-section sc-testimonials">
+      <section className="sc-section sc-testimonials" id="testimonials">
         <h2 className="sc-section__heading">What Our Clients Are Saying</h2>
         <div className="sc-testimonials__carousel">
           <button className="sc-testimonials__arrow sc-testimonials__arrow--left" onClick={() => setTestimonialIdx(Math.max(0, testimonialIdx - 1))} disabled={testimonialIdx === 0}>
@@ -597,12 +610,13 @@ const Index = () => {
       </section>
 
       {/* ── ABOUT ── */}
-      <section className="sc-section sc-about" id="about">
+      <section className="sc-section sc-about" id="bartender">
         <div className="sc-about__grid">
           <div className="sc-about__photo">
             <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
           </div>
           <div className="sc-about__content">
+            <img src={icon8} alt="" className="sc-about__icon" />
             <h2 className="sc-about__heading">Meet Your Bartender</h2>
             <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
             <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
@@ -616,7 +630,7 @@ const Index = () => {
       <div className="sc-brand-scroll" ref={brandSectionRef}>
         <div className="sc-brand-pin" ref={brandPinRef}>
           <div className="sc-brand-stage">
-            <h2 className="sc-brand-text">Elevated Experiences,<br />One Sip at a Time</h2>
+            <h2 className="sc-brand-text">Elevated Experiences<br />One Sip at a Time</h2>
             <div className="sc-brand-photos" ref={brandPhotosRef}>
               <div className="sc-brand-col sc-brand-col--left" data-start="0">
                 <div className="sc-brand-photo"><img src={brandPhoto1} alt="Cocktail" /></div>
@@ -673,10 +687,6 @@ const Index = () => {
           <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '12rem' }} />
         </div>
         <div className="sc-footer__inner">
-          <div className="sc-footer__about">
-            <p>Toronto & GTA's premier mobile bar service. We bring the bar to your event — from custom cocktails to stylish setups, we handle everything so you can enjoy the moment.</p>
-          </div>
-
           <div className="sc-footer__contact">
             <a
               href="https://instagram.com/thesipcart.to"
@@ -706,6 +716,8 @@ const Index = () => {
           <div className="sc-footer__links">
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
+            <button onClick={() => scrollTo("testimonials")}>Testimonials</button>
+            <button onClick={() => scrollTo("bartender")}>Meet Your Bartender</button>
             <button onClick={() => scrollTo("faq")}>FAQ</button>
             <button onClick={() => scrollTo("quote")}>Request a Quote</button>
           </div>
