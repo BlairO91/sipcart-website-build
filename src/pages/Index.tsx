@@ -105,7 +105,6 @@ const QuoteForm = () => {
     email: "",
     phone: "",
     eventDate: "",
-    address: "",
     eventType: "",
     guests: "",
     budget: "",
@@ -140,12 +139,6 @@ const QuoteForm = () => {
       field: "eventDate",
       type: "date",
       placeholder: "",
-    },
-    {
-      label: "Where is your event?",
-      field: "address",
-      type: "text",
-      placeholder: "Event address",
     },
     {
       label: "What type of event is it?",
@@ -201,8 +194,19 @@ const QuoteForm = () => {
     else handleSubmit();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
+    try {
+      const SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_URL";
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, timestamp: new Date().toISOString() }),
+        mode: "no-cors",
+      });
+    } catch (e) {
+      console.error("Form submission failed:", e);
+    }
   };
 
   if (submitted) {
@@ -709,7 +713,7 @@ const Index = () => {
         <div className="sc-footer__inner">
           <div className="sc-footer__contact">
             <a
-              href="https://instagram.com/thesipcart.to"
+              href="https://www.instagram.com/thesipcart.to"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -717,15 +721,8 @@ const Index = () => {
             >
               <Instagram />
             </a>
-            <a
-              href="tel:+16479899353"
-              aria-label="Call us"
-              className="sc-footer__social"
-            >
-              <Phone />
-            </a>
-            <a
-              href="mailto:sipnslush@gmail.com"
+<a
+              href="mailto:sipnslushto@gmail.com"
               aria-label="Email us"
               className="sc-footer__social"
             >
