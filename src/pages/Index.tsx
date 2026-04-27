@@ -721,6 +721,26 @@ const Index = () => {
         </div>
       </div>
 
+      {/* ── BRAND GRID (mobile/tablet) ── */}
+      <div className="sc-brand-grid">
+        <div className="sc-brand-grid__cell sc-brand-grid__text sc-brand-grid__text--left">
+          <span>Elevated</span>
+          <span>Experiences</span>
+        </div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto1} alt="" /></div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto2} alt="" /></div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto3} alt="" /></div>
+        <div className="sc-brand-grid__cell sc-brand-grid__text">
+          <span>One Sip</span>
+        </div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto4} alt="" /></div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto5} alt="" /></div>
+        <div className="sc-brand-grid__cell"><img src={brandPhoto6} alt="" /></div>
+        <div className="sc-brand-grid__cell sc-brand-grid__text">
+          <span>at a Time</span>
+        </div>
+      </div>
+
       {/* ── FAQ ── */}
       <section id="faq" className="sc-section sc-faq">
         <h2 className="sc-section__heading">Frequently Asked Questions</h2>
