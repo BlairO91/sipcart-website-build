@@ -1257,9 +1257,14 @@ textarea.sc-typeform__input {
   box-shadow: 0 16px 50px hsl(22 28% 16% / 0.4);
 }
 @media (max-width: 768px) {
-  .sc-brand-scroll { height: 360vh; }
-  .sc-brand-text { }
-  .sc-brand-col { width: min(38vw, 180px); gap: 0.75rem; }
-  .sc-brand-col--left { left: 4%; }
-  .sc-brand-col--right { right: 4%; }
+  .sc-brand-scroll { height: 250vh; }
+  .sc-brand-col { width: min(35vw, 140px); gap: 0.75rem; }
+  .sc-brand-col--left { left: 2%; }
+  .sc-brand-col--right { right: 2%; }
+  .sc-brand-col--left .sc-brand-photo:nth-child(1) { margin-left: -10px; }
+  .sc-brand-col--left .sc-brand-photo:nth-child(2) { margin-left: 20px; }
+  .sc-brand-col--left .sc-brand-photo:nth-child(3) { margin-left: -10px; }
+  .sc-brand-col--right .sc-brand-photo:nth-child(1) { transform: rotate(6deg) translateX(-20px) translateY(var(--parallax-y)); }
+  .sc-brand-col--right .sc-brand-photo:nth-child(3) { transform: rotate(3deg) translateX(-20px) translateY(var(--parallax-y)); }
+  .sc-brand-photo img { border-width: 2px; }
 }
