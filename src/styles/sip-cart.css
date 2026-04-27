@@ -143,6 +143,7 @@
   margin: 0 auto 48px;
   color: #222;
   font-size: 1.1rem;
+  text-wrap: balance;
 }
 
 /* ═══════════════════════════════════
