@@ -848,6 +848,8 @@ img.event-photo {
   .sc-modal-layout > .sc-modal-card {
     order: -1;
     flex-basis: 100%;
+    max-height: 60vh;
+    overflow-y: auto;
   }
   .sc-modal-layout > .sc-testimonials__arrow {
     margin: 0 0.5rem;
@@ -1192,7 +1194,11 @@ textarea.sc-typeform__input {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     transition: none;
-    gap: 0;
+    gap: 16px;
+  }
+  .sc-testimonials__track .sc-testimonial {
+    min-width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
   }
   .sc-testimonials__track--snap::-webkit-scrollbar { display: none; }
   .sc-testimonials__track--snap .sc-testimonial {
