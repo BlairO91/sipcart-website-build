@@ -217,7 +217,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 6rem;
+  padding-top: 4rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -245,7 +245,7 @@
 }
 .sc-mobile-menu__links button {
   font-family: var(--sc-body);
-  font-size: 1.5rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #222;
   letter-spacing: 0.08em;
@@ -518,9 +518,11 @@ img.event-photo {
   z-index: 1;
   transition: opacity 0.4s ease;
 }
-.sc-services__card:hover .sc-services__card-front {
+.sc-services__card:hover .sc-services__card-front,
+.sc-services__card--flipped .sc-services__card-front {
   opacity: 0;
 }
+.sc-services__card { cursor: pointer; }
 .sc-services__img-wrap {
   position: relative;
 }
@@ -785,7 +787,7 @@ img.event-photo {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(237, 184, 182, 0.5);
+  background: var(--sc-blush) !important;
   color: #fff;
   display: flex;
   align-items: center;
@@ -802,6 +804,10 @@ img.event-photo {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+.sc-scroll-top svg {
+  width: 28px;
+  height: 28px;
 }
 .sc-scroll-top:hover {
   background: var(--sc-espresso);
@@ -882,6 +888,7 @@ img.event-photo {
 
 @media (max-width: 768px) {
   .sc-about__grid { grid-template-columns: 1fr; gap: 24px; }
+  .sc-about__heading-row { margin-left: 0; }
   .sc-about__heading { text-align: center; }
   .sc-about__heading-row { justify-content: center; margin-left: 0; gap: 1rem; }
   .sc-about__icon { height: 3.5rem !important; top: 0 !important; margin-right: 0 !important; }
@@ -1056,7 +1063,7 @@ img.event-photo {
 }
 .sc-faq__item { border-color: rgba(0,0,0,0.08) !important; }
 .sc-faq__q {
-  font-family: var(--sc-serif) !important;
+  font-family: var(--sc-body) !important;
   font-size: 1.1rem !important;
   font-weight: 400 !important;
   color: #222 !important;
@@ -1064,6 +1071,9 @@ img.event-photo {
   
 }
 .sc-faq__q:hover { text-decoration: none !important; }
+.sc-faq__item[data-state="open"] .sc-faq__q {
+  border-bottom: 3px solid var(--sc-blush) !important;
+}
 @media (max-width: 480px) {
   .sc-faq__q { text-align: left !important; }
 }
