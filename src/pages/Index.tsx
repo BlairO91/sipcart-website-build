@@ -541,7 +541,7 @@ const Index = () => {
               <div className="sc-services__card-front">
                 <div className="sc-services__img-wrap">
                   {e.img ? (
-                    <img src={e.img} alt={e.name} className="event-photo" loading="lazy" />
+                    <img src={e.img} alt={e.name} className="event-photo" loading="lazy" style={e.name === "Private Events & Girls' Nights" ? { objectPosition: "center 30%" } : undefined} />
                   ) : (
                     <div className="event-photo photo-placeholder" />
                   )}
@@ -792,7 +792,7 @@ const Index = () => {
         <img src={footerTitle} alt="The Sip Cart" className="sc-footer__big-text" />
         <div className="sc-footer__bottom">
           <p>© 2026 The Sip Cart. All rights reserved.</p>
-          <p>Terms & Conditions</p>
+          <p><a href="/terms" style={{ textDecoration: 'underline' }}>Terms & Conditions</a></p>
           <p>Website designed by <a href="https://origincreative.ca" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Origin Creative</a></p>
         </div>
       </footer>
