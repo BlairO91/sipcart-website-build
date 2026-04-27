@@ -479,7 +479,7 @@ const Index = () => {
       <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""} sc-nav-reveal`}>
         <div className="sc-nav__inner">
           <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: 'clamp(3rem, 6vw, 5.5rem)' }} />
-          <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
+          <div className="sc-nav__links">
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
             <button onClick={() => scrollTo("testimonials")}>Testimonials</button>
@@ -492,6 +492,24 @@ const Index = () => {
           </button>
         </div>
       </nav>
+
+      {/* ── FULLSCREEN MOBILE MENU ── */}
+      <div className={`sc-mobile-menu${menuOpen ? " sc-mobile-menu--open" : ""}`}>
+        <button className="sc-mobile-menu__close" onClick={() => setMenuOpen(false)} aria-label="Close menu">×</button>
+        <div className="sc-mobile-menu__links">
+          <button onClick={() => { scrollTo("services"); setMenuOpen(false); }}>Services</button>
+          <button onClick={() => { scrollTo("packages"); setMenuOpen(false); }}>Packages</button>
+          <button onClick={() => { scrollTo("testimonials"); setMenuOpen(false); }}>Testimonials</button>
+          <button onClick={() => { scrollTo("bartender"); setMenuOpen(false); }}>Meet Your Bartender</button>
+          <button onClick={() => { scrollTo("faq"); setMenuOpen(false); }}>FAQ</button>
+          <button className="sc-btn sc-btn--primary" onClick={() => { scrollTo("quote"); setMenuOpen(false); }}>Request a Quote</button>
+        </div>
+        <div className="sc-mobile-menu__social">
+          <a href="https://www.instagram.com/thesipcart.to" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a>
+          <a href="mailto:sipnslushto@gmail.com" aria-label="Email"><Mail /></a>
+        </div>
+        <img src={logo} alt="The Sip Cart" className="sc-mobile-menu__logo" />
+      </div>
 
       {/* ── HERO ── */}
       <div className="sc-hero-split">
@@ -837,6 +855,15 @@ const Index = () => {
           </div>
         </div>
       )}
+
+      {/* Scroll to top */}
+      <button
+        className={`sc-scroll-top${scrolled ? " sc-scroll-top--visible" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+      >
+        <ChevronLeft style={{ transform: "rotate(90deg)" }} />
+      </button>
     </div>
   );
 };
