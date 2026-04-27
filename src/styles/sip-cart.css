@@ -1115,6 +1115,9 @@ img.event-photo {
   font-size: 1.1rem;
   color: #222;
   line-height: 1.7;
+  margin-top: 1rem !important;
+  padding-left: 1rem;
+  display: block;
 }
 
 /* ═══════════════════════════════════
