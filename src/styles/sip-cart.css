@@ -1378,6 +1378,7 @@ textarea.sc-typeform__input {
   .sc-brand-grid__cell {
     aspect-ratio: 1;
     overflow: hidden;
+    container-type: inline-size;
     outline: 2px solid var(--sc-cream);
   }
   .sc-brand-grid__cell img {
@@ -1391,17 +1392,31 @@ textarea.sc-typeform__input {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--sc-cream);
+    background: var(--sc-blush);
     font-family: var(--sc-serif);
-    font-size: clamp(1.2rem, 4vw, 2rem);
-    color: var(--sc-blush);
+    font-size: clamp(0.9rem, 3vw, 1.4rem);
+    color: #222;
     text-align: center;
     line-height: 1.2;
-    padding: 1rem;
+    padding: 0.5rem;
   }
   .sc-brand-grid__text--left {
     align-items: flex-start;
     text-align: left;
+  }
+  .sc-brand-grid__logo {
+    background: var(--sc-cream);
+    padding: 2rem;
+  }
+  .sc-brand-grid__logo-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+@media (max-width: 480px) {
+  .sc-brand-grid__logo {
+    padding: 1rem;
   }
 }
 

@@ -723,20 +723,22 @@ const Index = () => {
 
       {/* ── BRAND GRID (mobile/tablet) ── */}
       <div className="sc-brand-grid">
-        <div className="sc-brand-grid__cell sc-brand-grid__text sc-brand-grid__text--left">
+        <div className="sc-brand-grid__cell sc-brand-grid__text">
           <span>Elevated</span>
+        </div>
+        <div className="sc-brand-grid__cell sc-brand-grid__text">
           <span>Experiences</span>
         </div>
-        <div className="sc-brand-grid__cell"><img src={brandPhoto1} alt="" /></div>
         <div className="sc-brand-grid__cell"><img src={brandPhoto2} alt="" /></div>
         <div className="sc-brand-grid__cell"><img src={brandPhoto3} alt="" /></div>
-        <div className="sc-brand-grid__cell sc-brand-grid__text">
-          <span>One Sip</span>
+        <div className="sc-brand-grid__cell sc-brand-grid__text sc-brand-grid__logo">
+          <img src={logo} alt="The Sip Cart" className="sc-brand-grid__logo-img" />
         </div>
         <div className="sc-brand-grid__cell"><img src={brandPhoto4} alt="" /></div>
         <div className="sc-brand-grid__cell"><img src={brandPhoto5} alt="" /></div>
         <div className="sc-brand-grid__cell"><img src={brandPhoto6} alt="" /></div>
         <div className="sc-brand-grid__cell sc-brand-grid__text">
+          <span>One Sip</span>
           <span>at a Time</span>
         </div>
       </div>
