@@ -263,6 +263,11 @@
   white-space: nowrap;
   width: fit-content;
 }
+@media (max-width: 768px) {
+  .sc-hero__headline {
+    font-size: clamp(1.4rem, 7vw, 3rem) !important;
+  }
+}
 .sc-hero__sub {
   font-size: 1.1rem;
   color: #222;
