@@ -400,7 +400,7 @@
   }
   .sc-hero__mobile-banner--pink p {
     font-family: var(--sc-body);
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #fff;
