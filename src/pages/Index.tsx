@@ -297,6 +297,7 @@ const QuoteForm = () => {
 };
 
 const Index = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
@@ -355,6 +356,24 @@ const Index = () => {
     );
     headings.forEach((h) => observer.observe(h));
     return () => observer.disconnect();
+  }, []);
+
+  // Scroll reveal for content elements
+  useEffect(() => {
+    const els = document.querySelectorAll('.sc-reveal');
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('sc-reveal--in');
+            revealObserver.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    els.forEach((el) => revealObserver.observe(el));
+    return () => revealObserver.disconnect();
   }, []);
 
   // Brand text fade-in handled in scroll handler
@@ -509,7 +528,7 @@ const Index = () => {
       <section id="services" className="sc-section sc-services">
         <h2 className="sc-section__heading">We Make Every Event Unforgettable</h2>
         <p className="sc-section__sub">From intimate gatherings to <br className="sc-mobile-br" />grand celebrations — The Sip Cart <br className="sc-mobile-br" />brings the bar to you.</p>
-        <div className="sc-services__grid">
+        <div className="sc-services__grid sc-reveal">
           {events.map((e, i) => (
             <div className="sc-services__card" key={i}>
               <div className="sc-services__card-desc">
@@ -535,7 +554,7 @@ const Index = () => {
 
       {/* ── REVIEW SNIPPET ── */}
       <section className="sc-review-snippet" style={{ backgroundImage: `url(${reviewBgImg})` }}>
-        <div className="sc-review-snippet__card">
+        <div className="sc-review-snippet__card sc-reveal">
           <img src={quoteIcon} className="sc-review-snippet__quote-icon" alt="" />
           <blockquote>If you are looking for an elevated bartending experience with delicious and beautiful looking drinks, The Sip Cart is exactly what you need!</blockquote>
           <img src={quoteIcon} className="sc-review-snippet__quote-icon sc-review-snippet__quote-icon--end" alt="" />
@@ -547,7 +566,7 @@ const Index = () => {
       <section id="packages" className="sc-section sc-packages">
         <h2 className="sc-section__heading">Our Packages</h2>
         <p className="sc-section__sub">Every package is fully customized to your event. Packages starting at $650, with pricing based on guest count, event duration, and location.</p>
-        <div className="sc-packages__grid">
+        <div className="sc-packages__grid sc-reveal">
           {/* Essential */}
           <div className="sc-pkg">
             <h3 className="sc-pkg__name">The Classic Sip</h3>
@@ -584,8 +603,8 @@ const Index = () => {
           </div>
         </div>
 
-        <h4 className="sc-addons__sub">Customize your event with our add-ons</h4>
-        <div className="sc-addons__grid">
+        <h4 className="sc-addons__sub sc-reveal">Customize your event with our add-ons</h4>
+        <div className="sc-addons__grid sc-reveal sc-reveal--delay-1">
           {[
             "Extra Hour of Service",
             "Extra Signature Cocktail / Mocktail",
@@ -609,7 +628,7 @@ const Index = () => {
           <img src={sipCartHero} alt="The Sip Cart mobile bar setup" />
         </div>
         <div className="sc-mid-cta-grid__content" style={{ backgroundImage: `url(${reviewBgImg})` }}>
-          <div className="sc-mid-cta-grid__inner">
+          <div className="sc-mid-cta-grid__inner sc-reveal">
             <img src={icon9} alt="" className="sc-mid-cta-icon sc-mid-cta-icon--top-right" />
             <img src={icon9} alt="" className="sc-mid-cta-icon sc-mid-cta-icon--bottom-right" />
             <div className="sc-mid-cta-grid__text">
@@ -624,7 +643,7 @@ const Index = () => {
       {/* ── TESTIMONIALS ── */}
       <section className="sc-section sc-testimonials" id="testimonials">
         <h2 className="sc-section__heading">What Our Clients Are Saying</h2>
-        <div className="sc-testimonials__carousel">
+        <div className="sc-testimonials__carousel sc-reveal">
           <button className="sc-testimonials__arrow sc-testimonials__arrow--left" onClick={() => setTestimonialIdx(Math.max(0, testimonialIdx - 1))} disabled={testimonialIdx === 0}>
             <ChevronLeft />
           </button>
@@ -661,7 +680,7 @@ const Index = () => {
 
       {/* ── ABOUT ── */}
       <section className="sc-section sc-about" id="bartender">
-        <div className="sc-about__grid">
+        <div className="sc-about__grid sc-reveal">
           <div className="sc-about__photo">
             <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
           </div>
@@ -702,7 +721,7 @@ const Index = () => {
       {/* ── FAQ ── */}
       <section id="faq" className="sc-section sc-faq">
         <h2 className="sc-section__heading">Frequently Asked Questions</h2>
-        <div className="sc-faq__wrap">
+        <div className="sc-faq__wrap sc-reveal">
           <div className="sc-faq__col">
             <Accordion type="single" collapsible>
               {faqData.slice(0, Math.ceil(faqData.length / 2)).map((f, i) => (
@@ -730,7 +749,7 @@ const Index = () => {
       <section id="quote" className="sc-section sc-quote">
         <h2 className="sc-section__heading">Let's Make Your Event Unforgettable</h2>
         <p className="sc-section__sub">Tell us about your event and we'll craft the perfect bar experience for you.</p>
-        <QuoteForm />
+        <div className="sc-reveal"><QuoteForm /></div>
       </section>
 
       {/* ── FOOTER ── */}
