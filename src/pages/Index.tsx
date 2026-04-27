@@ -476,7 +476,7 @@ const Index = () => {
   return (
     <div className="sip-cart">
       {/* ── NAVBAR ── */}
-      <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""}`}>
+      <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""} sc-nav-reveal`}>
         <div className="sc-nav__inner">
           <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: 'clamp(3rem, 6vw, 5.5rem)' }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
@@ -495,7 +495,7 @@ const Index = () => {
 
       {/* ── HERO ── */}
       <div className="sc-hero-split">
-        <div className="sc-hero-video-wrap" style={{ position: "relative" }}>
+        <div className="sc-hero-video-wrap sc-wipe-reveal" style={{ position: "relative" }}>
           {heroSlides.map((src, i) => (
             <img
               key={i}
@@ -516,10 +516,13 @@ const Index = () => {
         </div>
         <div className="sc-hero__content" ref={heroContentRef}>
           <div className="sc-hero__content-inner">
-            <p className="sc-hero__eyebrow" style={{ color: "#000" }}>Toronto &amp; GTA Mobile Bar Service</p>
-            <h1 className="sc-hero__headline sc-fade-up"><span style={{ color: "var(--sc-blush)" }}>Elevated Experiences</span><br />One Sip at a Time</h1>
-            <p className="sc-hero__sub">We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
-            <button className="sc-btn sc-btn--gold" onClick={() => scrollTo("quote")}>Request a Quote</button>
+            <p className="sc-hero__eyebrow sc-slide-in" style={{ color: "#000", animationDelay: "1s" }}>Toronto &amp; GTA Mobile Bar Service</p>
+            <h1 className="sc-hero__headline">
+              <span className="sc-slide-in" style={{ display: "block", color: "var(--sc-blush)", animationDelay: "1.3s" }}>Elevated Experiences</span>
+              <span className="sc-slide-in" style={{ display: "block", animationDelay: "1.6s" }}>One Sip at a Time</span>
+            </h1>
+            <p className="sc-hero__sub sc-slide-in" style={{ animationDelay: "1.9s" }}>We design and deliver a fully curated bar experience — from custom cocktails to stylish setups. You bring the alcohol, we bring everything else.</p>
+            <button className="sc-btn sc-btn--gold sc-slide-in" style={{ animationDelay: "2.2s" }} onClick={() => scrollTo("quote")}>Request a Quote</button>
           </div>
         </div>
       </div>
