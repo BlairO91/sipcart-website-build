@@ -837,6 +837,21 @@ img.event-photo {
   display: flex;
   align-items: center;
   gap: 1rem;
+  max-width: 700px;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .sc-modal-layout {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .sc-modal-layout > .sc-modal-card {
+    order: -1;
+    flex-basis: 100%;
+  }
+  .sc-modal-layout > .sc-testimonials__arrow {
+    margin: 0 0.5rem;
+  }
 }
 .sc-modal-close {
   position: absolute;
@@ -1177,6 +1192,7 @@ textarea.sc-typeform__input {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     transition: none;
+    gap: 0;
   }
   .sc-testimonials__track--snap::-webkit-scrollbar { display: none; }
   .sc-testimonials__track--snap .sc-testimonial {
@@ -1190,6 +1206,7 @@ textarea.sc-typeform__input {
     order: -1;
     flex-basis: 100%;
     margin: 0;
+    padding: 0;
   }
   .sc-testimonials__carousel > .sc-testimonials__arrow {
     margin: 0 auto;
