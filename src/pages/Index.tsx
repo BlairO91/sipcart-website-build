@@ -313,6 +313,14 @@ const Index = () => {
       }
     }
   }, [testimonialIdx, isMobile]);
+  useEffect(() => {
+    if (testimonialModal !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [testimonialModal]);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const [heroSlide, setHeroSlide] = useState(0);
