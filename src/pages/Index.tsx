@@ -584,7 +584,7 @@ const Index = () => {
           </div>
         </div>
 
-        <h4 className="sc-addons__sub">Customize your event with our curated add-ons</h4>
+        <h4 className="sc-addons__sub">Customize your event with our add-ons</h4>
         <div className="sc-addons__grid">
           {[
             "Extra Hour of Service",
