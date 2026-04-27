@@ -279,7 +279,7 @@
 .sc-mobile-menu__logo {
   position: absolute;
   bottom: 2rem;
-  height: clamp(6rem, 15vw, 10rem);
+  height: clamp(8rem, 20vw, 14rem);
 }
 
 /* ═══════════════════════════════════
