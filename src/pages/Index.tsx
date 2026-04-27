@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { Instagram, Phone, Mail, Heart, PartyPopper, Briefcase, Cake, Gem, Wine, Sparkles, Quote, ChevronLeft, ChevronRight, Martini } from "lucide-react";
 import "../styles/sip-cart.css";
 import {
@@ -197,13 +198,16 @@ const QuoteForm = () => {
   const handleSubmit = async () => {
     setSubmitted(true);
     try {
-      const SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_URL";
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, timestamp: new Date().toISOString() }),
-        mode: "no-cors",
-      });
+      await emailjs.send("service_6g62zty", "template_cd13zac", {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        eventDate: formData.eventDate,
+        eventType: formData.eventType,
+        guests: formData.guests,
+        budget: formData.budget,
+        notes: formData.notes || "None",
+      }, "Emied8aa-JrZ-uZxp");
     } catch (e) {
       console.error("Form submission failed:", e);
     }
