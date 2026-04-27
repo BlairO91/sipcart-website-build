@@ -508,7 +508,7 @@ const Index = () => {
       {/* ── SERVICES ── */}
       <section id="services" className="sc-section sc-services">
         <h2 className="sc-section__heading">We Make Every Event Unforgettable</h2>
-        <p className="sc-section__sub">From intimate gatherings to grand celebrations — The&nbsp;Sip&nbsp;Cart brings the bar to&nbsp;you.</p>
+        <p className="sc-section__sub">From intimate gatherings to<br className="sc-mobile-br" />grand celebrations — The Sip Cart<br className="sc-mobile-br" />brings the bar to you.</p>
         <div className="sc-services__grid">
           {events.map((e, i) => (
             <div className="sc-services__card" key={i}>

@@ -96,6 +96,10 @@
   border: 1px solid var(--sc-cream);
 }
 .sc-btn--outline-light:hover { background: var(--sc-cream); color: var(--sc-espresso); }
+.sc-mobile-br { display: none; }
+@media (max-width: 480px) {
+  .sc-mobile-br { display: block; }
+}
 @media (max-width: 560px) {
   .sip-cart .sc-btn { padding: 8px 16px; font-size: 0.85rem; }
 }
