@@ -935,7 +935,7 @@ img.event-photo {
    FAQ
    ═══════════════════════════════════ */
 .sc-faq { background: var(--sc-white); }
-.sc-faq .sc-section__heading { margin-bottom: 4rem; }
+.sc-faq .sc-section__heading { margin-bottom: 2rem; }
 .sc-faq__wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -1374,6 +1374,7 @@ textarea.sc-typeform__input {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     background: var(--sc-cream);
+    margin-bottom: 0;
   }
   .sc-brand-grid__cell {
     aspect-ratio: 1;
@@ -1394,7 +1395,7 @@ textarea.sc-typeform__input {
     justify-content: center;
     background: var(--sc-blush);
     font-family: var(--sc-serif);
-    font-size: clamp(0.9rem, 3vw, 1.4rem);
+    font-size: clamp(1.2rem, 4.5vw, 2rem);
     color: #222;
     text-align: center;
     line-height: 1.2;
