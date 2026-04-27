@@ -297,6 +297,22 @@ const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [testimonialModal, setTestimonialModal] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const testimonialTrackRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  useEffect(() => {
+    if (isMobile && testimonialTrackRef.current) {
+      const card = testimonialTrackRef.current.children[testimonialIdx] as HTMLElement;
+      if (card) {
+        testimonialTrackRef.current.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+      }
+    }
+  }, [testimonialIdx, isMobile]);
   const photoBarRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const [heroSlide, setHeroSlide] = useState(0);
@@ -601,7 +617,7 @@ const Index = () => {
             <ChevronLeft />
           </button>
           <div className="sc-testimonials__viewport">
-            <div className="sc-testimonials__track" style={{ transform: `translateX(-${testimonialIdx * (100 / 3)}%)` }}>
+            <div className={`sc-testimonials__track${isMobile ? " sc-testimonials__track--snap" : ""}`} ref={isMobile ? testimonialTrackRef : undefined} style={isMobile ? undefined : { transform: `translateX(-${testimonialIdx * (100 / 3)}%)` }}>
               {testimonials.map((t, i) => (
                 <div className="sc-testimonial" key={i}>
                   <img src={quoteIcon} className="sc-testimonial__quote-icon" alt="" />
@@ -616,7 +632,7 @@ const Index = () => {
               ))}
             </div>
           </div>
-          <button className="sc-testimonials__arrow sc-testimonials__arrow--right" onClick={() => setTestimonialIdx(Math.min(testimonials.length - 3, testimonialIdx + 1))} disabled={testimonialIdx >= testimonials.length - 3}>
+          <button className="sc-testimonials__arrow sc-testimonials__arrow--right" onClick={() => setTestimonialIdx(Math.min(testimonials.length - (isMobile ? 1 : 3), testimonialIdx + 1))} disabled={testimonialIdx >= testimonials.length - (isMobile ? 1 : 3)}>
             <ChevronRight />
           </button>
         </div>
