@@ -46,8 +46,8 @@
   line-height: 1.15;
 }
 .sip-cart h1 { font-size: clamp(2.6rem, 5vw, 3.2rem); }
-.sip-cart h2 { font-size: 2.8rem; }
-.sip-cart h3 { font-size: 2rem; }
+.sip-cart h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+.sip-cart h3 { font-size: clamp(1.5rem, 4vw, 2rem); }
 .sip-cart h4 { font-size: 1.6rem; }
 .sip-cart h5 { font-size: 1.3rem; }
 .sip-cart h6 { font-size: 1.1rem; }
@@ -96,10 +96,13 @@
   border: 1px solid var(--sc-cream);
 }
 .sc-btn--outline-light:hover { background: var(--sc-cream); color: var(--sc-espresso); }
+@media (max-width: 560px) {
+  .sip-cart .sc-btn { padding: 8px 16px; font-size: 0.85rem; }
+}
 
 /* ── Section defaults ── */
 .sc-section {
-  padding: 100px 4%;
+  padding: clamp(40px, 8vw, 100px) 4%;
   background: var(--sc-cream);
 }
 .sc-section > .sc-section__heading,
@@ -119,7 +122,7 @@
 .sc-section__heading {
   font-family: var(--sc-serif);
   font-weight: 400;
-  font-size: 2.8rem;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
   text-align: center;
   margin-bottom: 16px;
   color: #222;
@@ -204,7 +207,7 @@
 .sc-photo-bar__track img {
   height: 100%;
   width: auto;
-  min-width: 200px;
+  min-width: clamp(120px, 30vw, 200px);
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -252,11 +255,13 @@
 }
 .sc-hero__headline {
   font-family: var(--sc-serif);
-  font-size: 4rem !important;
+  font-size: clamp(1.2rem, 3.2vw, 4rem) !important;
   font-weight: 400;
   color: #222;
   line-height: 1.15;
   margin-bottom: 24px;
+  white-space: nowrap;
+  width: fit-content;
 }
 .sc-hero__sub {
   font-size: 1.1rem;
@@ -271,8 +276,18 @@
   flex-wrap: wrap;
 }
 @media (max-width: 768px) {
+  .sc-hero-split {
+    flex-direction: column;
+    height: auto;
+  }
   .sc-hero__content {
+    width: 100%;
     padding: 32px 24px;
+    min-height: 60vh;
+  }
+  .sc-hero-video-wrap {
+    width: 100%;
+    height: 50vh;
   }
 }
 
@@ -308,7 +323,7 @@
 }
 .sc-how__title {
   font-family: var(--sc-serif);
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 4vw, 2rem);
   font-weight: 400;
   color: #222;
   margin-bottom: 12px;
@@ -362,10 +377,10 @@ img.event-photo {
 }
 .sc-services__card-icon {
   width: auto;
-  height: 5rem;
+  height: clamp(3rem, 8vw, 5rem);
 }
 .sc-services__card-desc p {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 3vw, 1.3rem);
   color: #222;
   margin: 0;
 }
@@ -391,6 +406,42 @@ img.event-photo {
   color: #222;
 }
 
+
+/* ═══════════════════════════════════
+   ADD-ONS
+   ═══════════════════════════════════ */
+.sc-addons__sub {
+  text-align: center;
+  margin: 5rem auto 2rem;
+  color: #222;
+  max-width: 90rem;
+}
+.sc-addons__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+.sc-addon {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--sc-radius);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sc-addon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.sc-addon__name {
+  font-family: var(--sc-body);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: #222;
+}
+@media (max-width: 900px) { .sc-addons__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .sc-addons__grid { grid-template-columns: 1fr; } }
 
 /* ═══════════════════════════════════
    MID CTA (2-grid)
@@ -466,7 +517,7 @@ img.event-photo {
 }
 .sc-mid-cta-grid__content h2 {
   font-family: var(--sc-serif);
-  font-size: 2.8rem;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
   font-weight: 400;
   color: #222;
   margin-bottom: 16px;
@@ -483,9 +534,11 @@ img.event-photo {
   align-self: flex-start;
 }
 @media (max-width: 768px) {
-  .sc-mid-cta-grid { grid-template-columns: 1fr; }
-  .sc-mid-cta-grid__img { min-height: 300px; }
-  .sc-mid-cta-grid__content { padding: 48px 24px; }
+  .sc-mid-cta-grid { grid-template-columns: 1fr; height: auto; }
+  .sc-mid-cta-grid__img { min-height: 300px; height: 50vh; }
+  .sc-mid-cta-grid__content { padding: 24px 16px; }
+  .sc-mid-cta-grid__inner { padding: 32px 24px; }
+  .sc-mid-cta-icon { height: 3rem; }
 }
 
 /* ═══════════════════════════════════
@@ -499,7 +552,7 @@ img.event-photo {
 }
 .sc-review-snippet__card {
   background: #fff;
-  padding: 80px 4%;
+  padding: clamp(32px, 6vw, 80px) 4%;
   max-width: 90rem;
   margin: 0 auto;
   border-radius: var(--sc-radius);
@@ -522,7 +575,7 @@ img.event-photo {
 }
 .sc-review-snippet blockquote {
   font-family: var(--sc-body);
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 400;
   color: #222;
   line-height: 1.4;
@@ -573,7 +626,7 @@ img.event-photo {
 }
 .sc-pkg__name {
   font-family: var(--sc-serif);
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 400;
   color: #222;
   margin-bottom: 8px;
@@ -600,7 +653,10 @@ img.event-photo {
 }
 .sc-pkg__list li:last-child { border-bottom: none; }
 
-@media (max-width: 768px) { .sc-packages__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+@media (max-width: 768px) {
+  .sc-packages__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .sc-pkg { padding: 28px 20px; }
+}
 
 /* ═══════════════════════════════════
    ABOUT
@@ -621,15 +677,26 @@ img.event-photo {
   border-radius: var(--sc-radius);
   display: block;
 }
+.sc-about__heading-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 24px;
+  margin-left: -1rem;
+}
 .sc-about__icon {
   width: auto;
-  height: 5rem;
-  margin-bottom: 2rem;
+  height: clamp(3.5rem, 10vw, 6rem);
+  position: relative;
+  top: -0.5rem;
+}
+.sc-about__heading-row .sc-about__heading {
+  margin-bottom: 0;
 }
 .sc-about__heading {
   font-family: var(--sc-serif);
   font-weight: 400;
-  font-size: 2.8rem;
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
   color: #222;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -644,8 +711,8 @@ img.event-photo {
 .sc-about__content p:last-child { margin-bottom: 0; }
 
 @media (max-width: 768px) {
-  .sc-about__grid { grid-template-columns: 1fr; gap: 32px; }
-  .sc-about__heading { font-size: 2.2rem; text-align: center; }
+  .sc-about__grid { grid-template-columns: 1fr; gap: 24px; }
+  .sc-about__heading { text-align: center; }
 }
 
 /* ═══════════════════════════════════
@@ -744,7 +811,7 @@ img.event-photo {
 .sc-modal-card {
   background: #fff;
   border-radius: var(--sc-radius);
-  padding: 48px 40px;
+  padding: clamp(24px, 5vw, 48px) clamp(16px, 4vw, 40px);
   max-width: 600px;
   width: 100%;
   position: relative;
@@ -874,7 +941,7 @@ img.event-photo {
 }
 .sc-typeform__label {
   font-family: var(--sc-serif);
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
   font-weight: 400;
   color: #222;
   margin-bottom: 24px;
@@ -947,7 +1014,7 @@ textarea.sc-typeform__input {
 .sc-footer {
   background: var(--sc-blush);
   color: #fff;
-  padding: 140px 24px 0;
+  padding: clamp(80px, 12vw, 140px) 24px 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1081,8 +1148,14 @@ textarea.sc-typeform__input {
 }
 
 @media (max-width: 768px) {
+  .sc-testimonials__track .sc-testimonial {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .sc-testimonial { padding: 24px 20px; }
   .sc-footer__links { flex-direction: column; align-items: center; gap: 12px; }
   .sc-footer__contact { flex-direction: column; align-items: center; gap: 8px; }
+  .sc-footer__bottom { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
 }
 
 /* ── Brand Statement / Scroll Gallery ── */
@@ -1126,7 +1199,7 @@ textarea.sc-typeform__input {
   padding: 0 24px;
   text-align: center;
   font-family: var(--sc-serif);
-  font-size: 5.5rem !important;
+  font-size: clamp(2rem, 7vw, 5.5rem) !important;
   font-weight: 400;
   line-height: 1.15;
   color: var(--sc-blush) !important;
@@ -1173,7 +1246,7 @@ textarea.sc-typeform__input {
 }
 @media (max-width: 768px) {
   .sc-brand-scroll { height: 360vh; }
-  .sc-brand-text { font-size: 2.8rem; }
+  .sc-brand-text { }
   .sc-brand-col { width: min(38vw, 180px); gap: 0.75rem; }
   .sc-brand-col--left { left: 4%; }
   .sc-brand-col--right { right: 4%; }

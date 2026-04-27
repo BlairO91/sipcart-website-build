@@ -427,7 +427,7 @@ const Index = () => {
       {/* ── NAVBAR ── */}
       <nav className={`sc-nav${scrolled ? " sc-nav--scrolled" : ""}`}>
         <div className="sc-nav__inner">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: '5.5rem' }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img" style={{ height: 'clamp(3rem, 6vw, 5.5rem)' }} />
           <div className={`sc-nav__links${menuOpen ? " open" : ""}`}>
             <button onClick={() => scrollTo("services")}>Services</button>
             <button onClick={() => scrollTo("packages")}>Packages</button>
@@ -514,14 +514,14 @@ const Index = () => {
       {/* ── PACKAGES ── */}
       <section id="packages" className="sc-section sc-packages">
         <h2 className="sc-section__heading">Our Packages</h2>
-        <p className="sc-section__sub">Every package is fully customized to your event. Pricing is based on guest count, event duration, and location — reach out for your personalized quote.</p>
+        <p className="sc-section__sub">Every package is fully customized to your event. Packages starting at $650, with pricing based on guest count, event duration, and location.</p>
         <div className="sc-packages__grid">
           {/* Essential */}
           <div className="sc-pkg">
-            <h3 className="sc-pkg__name">Essential</h3>
+            <h3 className="sc-pkg__name">The Classic Sip</h3>
             <p className="sc-pkg__best">Best for: intimate events, small gatherings</p>
             <ul className="sc-pkg__list">
-              <li>Up to 4 hours of service</li><li>1 bartender</li><li>Custom drink menu</li>
+              <li>Minimum 4 hours of service</li><li>1 bartender</li><li>Custom drink menu</li>
               <li>Premium mixers &amp; garnishes</li><li>Bar essentials (cups, napkins, ice, straws)</li>
               <li>Professional setup &amp; breakdown</li>
             </ul>
@@ -530,7 +530,7 @@ const Index = () => {
           {/* Signature */}
           <div className="sc-pkg sc-pkg--popular">
             <span className="sc-pkg__badge">Most Popular</span>
-            <h3 className="sc-pkg__name">Signature</h3>
+            <h3 className="sc-pkg__name">The Signature Sip</h3>
             <p className="sc-pkg__best">Best for: bachelorettes, birthday parties, bridal showers</p>
             <ul className="sc-pkg__list">
               <li>Everything in Essential +</li><li>Custom signage</li>
@@ -541,15 +541,33 @@ const Index = () => {
           </div>
           {/* Luxe */}
           <div className="sc-pkg">
-            <h3 className="sc-pkg__name">Luxe</h3>
+            <h3 className="sc-pkg__name">The Deluxe Sip</h3>
             <p className="sc-pkg__best">Best for: weddings, corporate events, large-scale celebrations</p>
             <ul className="sc-pkg__list">
-              <li>Everything in Signature +</li><li>Multiple bartenders</li>
+              <li>Everything in The Signature Sip +</li><li>Multiple bartenders</li>
               <li>Extended service hours</li><li>Full creative consultation</li>
               <li>Premium branded setup</li><li>Priority booking</li>
             </ul>
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Get a Quote</button>
           </div>
+        </div>
+
+        <h4 className="sc-addons__sub">Customize your event with our curated add-ons</h4>
+        <div className="sc-addons__grid">
+          {[
+            "Extra Hour of Service",
+            "Extra Signature Cocktail / Mocktail",
+            "Espresso Martini Station",
+            "Hydration Station",
+            "Customized Framed Menu",
+            "Themed Bar Decor",
+            "Floral Styling",
+            "Glassware Rental",
+          ].map((addon, i) => (
+            <div className="sc-addon" key={i}>
+              <p className="sc-addon__name">{addon}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -616,8 +634,10 @@ const Index = () => {
             <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
           </div>
           <div className="sc-about__content">
-            <img src={icon8} alt="" className="sc-about__icon" />
-            <h2 className="sc-about__heading">Meet Your Bartender</h2>
+            <div className="sc-about__heading-row">
+              <img src={icon8} alt="" className="sc-about__icon" />
+              <h2 className="sc-about__heading">Meet Your Bartender</h2>
+            </div>
             <p>Hi, I'm Fernanda, the founder and owner of The Sip Cart, a proudly Latina-owned mobile bar experience based in Toronto.</p>
             <p>With over a decade in hospitality, I've been part of countless celebrations, mastering the art of creating moments that feel as good as they look. The Sip Cart was born from that passion: a vision to bring a stylish, elevated, and completely seamless bar experience to every event.</p>
             <p>From curated cocktails to thoughtful details, every setup is designed to impress, set the tone, and keep the energy flowing all night long.</p>
@@ -684,7 +704,7 @@ const Index = () => {
       {/* ── FOOTER ── */}
       <footer className="sc-footer">
         <div className="sc-footer__brand-overlay">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: '12rem' }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 'clamp(5rem, 12vw, 12rem)' }} />
         </div>
         <div className="sc-footer__inner">
           <div className="sc-footer__contact">
