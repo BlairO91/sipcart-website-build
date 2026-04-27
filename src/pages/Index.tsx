@@ -534,10 +534,10 @@ const Index = () => {
           ))}
         </div>
         <div className="sc-hero__mobile-banners">
-          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--white">
+          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--white sc-slide-in" style={{ animationDelay: "1.2s" }}>
             <h1>The Sip Cart</h1>
           </div>
-          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--pink">
+          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--pink sc-slide-in" style={{ animationDelay: "1.5s" }}>
             <p>Toronto &amp; GTA Mobile Bar Service</p>
           </div>
         </div>

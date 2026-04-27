@@ -385,6 +385,9 @@
     padding: 6px 8px;
   }
   .sc-hero__mobile-banner--white {
+    padding-top: calc(6px + 0.5rem);
+  }
+  .sc-hero__mobile-banner--white {
     background: var(--sc-white);
   }
   .sc-hero__mobile-banner--white h6 {
@@ -397,7 +400,7 @@
   }
   .sc-hero__mobile-banner--pink p {
     font-family: var(--sc-body);
-    font-size: clamp(0.9rem, 4.5vw, 1.4rem);
+    font-size: 1.1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #fff;
@@ -410,7 +413,7 @@
   }
   .sc-hero__content {
     width: 100%;
-    padding: 32px 24px 32px;
+    padding: 48px 24px 32px;
     min-height: auto;
   }
   .sc-hero__eyebrow { display: none; }
