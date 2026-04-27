@@ -533,6 +533,14 @@ const Index = () => {
             />
           ))}
         </div>
+        <div className="sc-hero__mobile-banners">
+          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--white">
+            <h1>The Sip Cart</h1>
+          </div>
+          <div className="sc-hero__mobile-banner sc-hero__mobile-banner--pink">
+            <p>Toronto &amp; GTA Mobile Bar Service</p>
+          </div>
+        </div>
         <div className="sc-hero__content" ref={heroContentRef}>
           <div className="sc-hero__content-inner">
             <p className="sc-hero__eyebrow sc-slide-in" style={{ color: "#000", animationDelay: "1s" }}>Toronto &amp; GTA Mobile Bar Service</p>
