@@ -3,7 +3,8 @@ import "../styles/sip-cart.css";
 const Terms = () => (
   <div className="sip-cart" style={{ background: "var(--sc-white)", minHeight: "100vh" }}>
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 24px 80px" }}>
-      <h1 style={{ fontFamily: "var(--sc-serif)", fontSize: "2.4rem", color: "#222", marginBottom: "2rem" }}>
+      <a href="/" style={{ fontFamily: "var(--sc-body)", color: "var(--sc-espresso)", textDecoration: "underline", fontSize: "0.9rem" }}>← Back to Home</a>
+      <h1 style={{ fontFamily: "var(--sc-serif)", fontSize: "2.4rem", color: "#222", marginBottom: "2rem", marginTop: "1.5rem" }}>
         Terms &amp; Conditions
       </h1>
       <p style={{ fontFamily: "var(--sc-body)", fontSize: "0.9rem", color: "#999", marginBottom: "2rem" }}>
