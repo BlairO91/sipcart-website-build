@@ -565,7 +565,7 @@ const Index = () => {
         <p className="sc-section__sub">From intimate gatherings to <br className="sc-mobile-br" />grand celebrations — The Sip Cart <br className="sc-mobile-br" />brings the bar to you.</p>
         <div className="sc-services__grid">
           {events.map((e, i) => (
-            <div className={`sc-services__card sc-reveal${flippedCard === i ? " sc-services__card--flipped" : ""}`} key={i} onClick={() => setFlippedCard(flippedCard === i ? null : i)}>
+            <div className="sc-reveal" key={i}><div className={`sc-services__card${flippedCard === i ? " sc-services__card--flipped" : ""}`} onClick={() => setFlippedCard(flippedCard === i ? null : i)}>
               <div className="sc-services__card-desc" onClick={(ev) => { ev.stopPropagation(); setFlippedCard(flippedCard === i ? null : i); }}>
                 <img src={e.iconImg} alt="" className="sc-services__card-icon" style={e.name === "Engagements & Showers" ? { height: "6rem" } : undefined} />
                 <p>{e.desc}</p>
@@ -582,7 +582,7 @@ const Index = () => {
                   <h5>{e.name}</h5>
                 </div>
               </div>
-            </div>
+            </div></div>
           ))}
         </div>
       </section>

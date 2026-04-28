@@ -576,7 +576,7 @@ img.event-photo {
   color: #222;
 }
 @media (max-width: 768px) {
-  .sc-services__card-body h5 { font-size: 1.2rem; }
+  .sc-services__card-body h5 { font-size: 1.1rem; }
 }
 
 
