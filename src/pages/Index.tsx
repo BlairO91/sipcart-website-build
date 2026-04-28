@@ -561,7 +561,7 @@ const Index = () => {
         <div className="sc-services__grid sc-reveal">
           {events.map((e, i) => (
             <div className={`sc-services__card${flippedCard === i ? " sc-services__card--flipped" : ""}`} key={i} onClick={() => setFlippedCard(flippedCard === i ? null : i)}>
-              <div className="sc-services__card-desc">
+              <div className="sc-services__card-desc" onClick={(ev) => { ev.stopPropagation(); setFlippedCard(flippedCard === i ? null : i); }}>
                 <img src={e.iconImg} alt="" className="sc-services__card-icon" style={e.name === "Engagements & Showers" ? { height: "6rem" } : undefined} />
                 <p>{e.desc}</p>
               </div>
@@ -633,7 +633,7 @@ const Index = () => {
           </div>
         </div>
 
-        <h4 className="sc-addons__sub sc-reveal">Customize your event with our add-ons</h4>
+        <h4 className="sc-addons__sub sc-reveal">Customize your event with an add-on</h4>
         <div className="sc-addons__grid sc-reveal sc-reveal--delay-1">
           {[
             "Extra Hour of Service",

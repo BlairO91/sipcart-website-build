@@ -536,7 +536,7 @@ img.event-photo {
   margin: 0;
   text-align: center;
   gap: 1rem;
-  pointer-events: none;
+  z-index: 0;
 }
 .sc-services__card-icon {
   width: auto;
@@ -556,7 +556,6 @@ img.event-photo {
 .sc-services__card:hover .sc-services__card-front,
 .sc-services__card--flipped .sc-services__card-front {
   opacity: 0;
-  pointer-events: none;
 }
 .sc-services__card { cursor: pointer; }
 .sc-services__img-wrap {
