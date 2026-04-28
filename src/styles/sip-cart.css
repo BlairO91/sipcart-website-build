@@ -553,7 +553,11 @@ img.event-photo {
   z-index: 1;
   transition: opacity 0.4s ease;
 }
-.sc-services__card:hover .sc-services__card-front,
+@media (hover: hover) {
+  .sc-services__card:hover .sc-services__card-front {
+    opacity: 0;
+  }
+}
 .sc-services__card--flipped .sc-services__card-front {
   opacity: 0;
 }
