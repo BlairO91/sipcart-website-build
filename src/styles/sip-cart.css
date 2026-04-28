@@ -419,6 +419,7 @@
     min-height: auto;
   }
   .sc-hero__eyebrow { display: none; }
+  .sc-nav-reveal .sc-nav__inner { animation-delay: 1.3s !important; }
   .sc-hero-video-wrap {
     width: 100%;
     height: 40vh;
