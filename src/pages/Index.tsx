@@ -305,6 +305,7 @@ const Index = () => {
   const [testimonialModal, setTestimonialModal] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const testimonialTrackRef = useRef<HTMLDivElement>(null);
+  const modalTouchStart = useRef<number | null>(null);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
     check();
@@ -849,7 +850,15 @@ const Index = () => {
 
       {testimonialModal !== null && (
         <div className="sc-modal-overlay" onClick={() => setTestimonialModal(null)}>
-          <div className="sc-modal-layout" onClick={(e) => e.stopPropagation()}>
+          <div className="sc-modal-layout" onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => { modalTouchStart.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              if (modalTouchStart.current === null || testimonialModal === null) return;
+              const diff = modalTouchStart.current - e.changedTouches[0].clientX;
+              if (diff > 50 && testimonialModal < testimonials.length - 1) setTestimonialModal(testimonialModal + 1);
+              if (diff < -50 && testimonialModal > 0) setTestimonialModal(testimonialModal - 1);
+              modalTouchStart.current = null;
+            }}>
             <button className="sc-testimonials__arrow" onClick={() => setTestimonialModal(testimonialModal - 1)} disabled={testimonialModal === 0}>
               <ChevronLeft />
             </button>
