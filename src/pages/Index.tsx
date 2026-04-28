@@ -471,7 +471,12 @@ const Index = () => {
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (el) {
+      const navHeight = document.querySelector('.sc-nav')?.getBoundingClientRect().height || 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   return (
@@ -807,7 +812,7 @@ const Index = () => {
       {/* ── FOOTER ── */}
       <footer className="sc-footer">
         <div className="sc-footer__brand-overlay">
-          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 'clamp(5rem, 12vw, 12rem)' }} />
+          <img src={logo} alt="The Sip Cart logo" className="logo-img-footer" style={{ height: 'clamp(8rem, 20vw, 12rem)' }} />
         </div>
         <div className="sc-footer__inner">
           <div className="sc-footer__contact">
