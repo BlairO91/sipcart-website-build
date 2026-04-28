@@ -939,7 +939,7 @@ img.event-photo {
    TESTIMONIALS
    ═══════════════════════════════════ */
 .sc-testimonials { background: var(--sc-cream); }
-.sc-testimonials .sc-section__heading { margin-bottom: 4rem; }
+.sc-testimonials .sc-section__heading { margin-bottom: 2rem; }
 .sc-testimonials__carousel {
   max-width: 90rem;
   margin: 0 auto;
@@ -1119,6 +1119,7 @@ img.event-photo {
   line-height: 1.7;
   margin-top: 1rem !important;
   padding-left: 1rem;
+  padding-right: 1rem;
   display: block;
 }
 
