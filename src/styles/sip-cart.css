@@ -764,7 +764,7 @@ img.event-photo {
   font-style: normal;
 }
 .sc-review-snippet__name {
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
   font-size: 0.85rem;
   color: #222;
   letter-spacing: 0.1em;
@@ -1309,8 +1309,8 @@ textarea.sc-typeform__input {
   width: 100%;
   margin: 0 auto;
   padding-bottom: 0;
-  margin-bottom: 4rem;
-  padding-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;

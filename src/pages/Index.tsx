@@ -715,12 +715,12 @@ const Index = () => {
 
       {/* ── ABOUT ── */}
       <section className="sc-section sc-about" id="bartender">
-        <div className="sc-about__grid sc-reveal">
+        <div className="sc-about__grid">
           <div className="sc-about__photo">
             <img src={fernandaImg} alt="Fernanda, founder of The Sip Cart" />
           </div>
           <div className="sc-about__content">
-            <div className="sc-about__heading-row">
+            <div className="sc-about__heading-row sc-reveal">
               <img src={icon8} alt="" className="sc-about__icon" />
               <h2 className="sc-about__heading">Meet Your Bartender</h2>
             </div>
