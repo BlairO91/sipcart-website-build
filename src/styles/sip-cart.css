@@ -575,6 +575,9 @@ img.event-photo {
   font-size: 1rem;
   color: #222;
 }
+@media (max-width: 768px) {
+  .sc-services__card-body h5 { font-size: 1.2rem; }
+}
 
 
 /* ═══════════════════════════════════
@@ -762,7 +765,7 @@ img.event-photo {
 }
 .sc-review-snippet__name {
   margin-top: 1.5rem;
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #222;
   letter-spacing: 0.1em;
 }
@@ -1267,7 +1270,7 @@ textarea.sc-typeform__input {
 .sc-footer {
   background: var(--sc-blush);
   color: #fff;
-  padding: clamp(80px, 12vw, 140px) 24px 24px;
+  padding: clamp(80px, 12vw, 140px) 24px 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1440,7 +1443,7 @@ textarea.sc-typeform__input {
   .sc-footer__contact { flex-direction: row; justify-content: center; gap: 12px; flex-wrap: nowrap; }
   .sc-footer__contact a.sc-footer__social { padding: 0.8rem 1.2rem; }
   .sc-footer__big-text { display: none; }
-  .sc-footer__bottom { flex-direction: column; align-items: center; gap: 8px; text-align: center; width: 100%; margin: 0; padding-bottom: 2rem; }
+  .sc-footer__bottom { flex-direction: column; align-items: center; gap: 8px; text-align: center; width: 100%; margin: 0; }
 }
 
 /* ── Brand Statement / Scroll Gallery ── */

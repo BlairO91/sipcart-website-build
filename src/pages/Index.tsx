@@ -563,9 +563,9 @@ const Index = () => {
       <section id="services" className="sc-section sc-services">
         <h2 className="sc-section__heading">We Make Every Event Unforgettable</h2>
         <p className="sc-section__sub">From intimate gatherings to <br className="sc-mobile-br" />grand celebrations — The Sip Cart <br className="sc-mobile-br" />brings the bar to you.</p>
-        <div className="sc-services__grid sc-reveal">
+        <div className="sc-services__grid">
           {events.map((e, i) => (
-            <div className={`sc-services__card${flippedCard === i ? " sc-services__card--flipped" : ""}`} key={i} onClick={() => setFlippedCard(flippedCard === i ? null : i)}>
+            <div className={`sc-services__card sc-reveal${flippedCard === i ? " sc-services__card--flipped" : ""}`} key={i} onClick={() => setFlippedCard(flippedCard === i ? null : i)}>
               <div className="sc-services__card-desc" onClick={(ev) => { ev.stopPropagation(); setFlippedCard(flippedCard === i ? null : i); }}>
                 <img src={e.iconImg} alt="" className="sc-services__card-icon" style={e.name === "Engagements & Showers" ? { height: "6rem" } : undefined} />
                 <p>{e.desc}</p>
@@ -601,9 +601,9 @@ const Index = () => {
       <section id="packages" className="sc-section sc-packages">
         <h2 className="sc-section__heading">Our Packages</h2>
         <p className="sc-section__sub">Every package is fully customized to your event. Packages starting at $650, with pricing based on guest count, event duration, and location.</p>
-        <div className="sc-packages__grid sc-reveal">
+        <div className="sc-packages__grid">
           {/* Essential */}
-          <div className="sc-pkg">
+          <div className="sc-pkg sc-reveal">
             <h3 className="sc-pkg__name">The Classic Sip</h3>
             <p className="sc-pkg__best">Best for: intimate events, small gatherings</p>
             <ul className="sc-pkg__list">
@@ -614,7 +614,7 @@ const Index = () => {
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Get a Quote</button>
           </div>
           {/* Signature */}
-          <div className="sc-pkg sc-pkg--popular">
+          <div className="sc-pkg sc-pkg--popular sc-reveal sc-reveal--delay-1">
             <span className="sc-pkg__badge">Most Popular</span>
             <h3 className="sc-pkg__name">The Signature Sip</h3>
             <p className="sc-pkg__best">Best for: bachelorettes, birthday parties, bridal showers</p>
@@ -626,7 +626,7 @@ const Index = () => {
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Get a Quote</button>
           </div>
           {/* Luxe */}
-          <div className="sc-pkg">
+          <div className="sc-pkg sc-reveal sc-reveal--delay-2">
             <h3 className="sc-pkg__name">The Deluxe Sip</h3>
             <p className="sc-pkg__best">Best for: weddings, corporate events, large-scale celebrations</p>
             <ul className="sc-pkg__list">
