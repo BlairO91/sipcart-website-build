@@ -778,28 +778,24 @@ const Index = () => {
       {/* ── FAQ ── */}
       <section id="faq" className="sc-section sc-faq">
         <h2 className="sc-section__heading">Frequently Asked Questions</h2>
-        <div className="sc-faq__wrap sc-reveal">
+        <Accordion type="single" collapsible className="sc-faq__wrap sc-reveal">
           <div className="sc-faq__col">
-            <Accordion type="single" collapsible>
-              {faqData.slice(0, Math.ceil(faqData.length / 2)).map((f, i) => (
-                <AccordionItem value={`faq-${i}`} key={i} className="sc-faq__item">
-                  <AccordionTrigger className="sc-faq__q">{f.q}</AccordionTrigger>
-                  <AccordionContent className="sc-faq__a">{f.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            {faqData.slice(0, Math.ceil(faqData.length / 2)).map((f, i) => (
+              <AccordionItem value={`faq-${i}`} key={i} className="sc-faq__item">
+                <AccordionTrigger className="sc-faq__q">{f.q}</AccordionTrigger>
+                <AccordionContent className="sc-faq__a">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
           </div>
           <div className="sc-faq__col">
-            <Accordion type="single" collapsible>
-              {faqData.slice(Math.ceil(faqData.length / 2)).map((f, i) => (
-                <AccordionItem value={`faq-b-${i}`} key={i} className="sc-faq__item">
-                  <AccordionTrigger className="sc-faq__q">{f.q}</AccordionTrigger>
-                  <AccordionContent className="sc-faq__a">{f.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            {faqData.slice(Math.ceil(faqData.length / 2)).map((f, i) => (
+              <AccordionItem value={`faq-b-${i}`} key={i} className="sc-faq__item">
+                <AccordionTrigger className="sc-faq__q">{f.q}</AccordionTrigger>
+                <AccordionContent className="sc-faq__a">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
           </div>
-        </div>
+        </Accordion>
       </section>
 
       {/* ── FINAL CTA + QUOTE FORM ── */}
