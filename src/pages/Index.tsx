@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/accordion";
 import logo from "@/assets/logo.png";
 import sipCartHero from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
-import heroSlide1 from "@/assets/Photos/ferals-studio-8l45X115t9E-unsplash.jpg";
-import heroSlide2 from "@/assets/Photos/IMG_1366.jpg";
-import heroSlide3 from "@/assets/Photos/jacqueline-a-hernandez-MRHG1DvP46I-unsplash.jpg";
+import heroSlide1 from "@/assets/Photos/ferals-studio-8l45X115t9E-unsplash.webp";
+import heroSlide2 from "@/assets/Photos/IMG_1366.webp";
+import heroSlide3 from "@/assets/Photos/jacqueline-a-hernandez-MRHG1DvP46I-unsplash.webp";
 import heroSlide4 from "@/assets/Photos/pinar-kucuk-_qf7KGWyAes-unsplash.webp";
 import fernandaImg from "@/assets/fernanda.webp";
-import reviewBgImg from "@/assets/Photos/patrycja-jadach-qpR8meHYWKc-unsplash.jpg";
+import reviewBgImg from "@/assets/Photos/patrycja-jadach-qpR8meHYWKc-unsplash.webp";
 import quoteIcon from "@/assets/Photos/Untitled design - 2026-04-19T182505.669.webp";
 import footerTitle from "@/assets/Photos/Title (1920 x 400 px) (1920 x 250 px).webp";
 import weddingImg from "@/assets/wedding.webp";
