@@ -1127,6 +1127,9 @@ img.event-photo {
    QUOTE / FORM
    ═══════════════════════════════════ */
 .sc-quote { background: var(--sc-cream); text-align: center; padding-bottom: 164px; }
+@media (max-width: 768px) {
+  .sc-quote { padding-bottom: 6rem; }
+}
 .sc-quote .sc-section__heading { margin-bottom: 1rem; }
 .sc-quote__btns {
   display: flex;
