@@ -512,7 +512,7 @@ const Index = () => {
           <button className="sc-btn sc-btn--primary" onClick={() => { scrollTo("quote"); setMenuOpen(false); }}>Request a Quote</button>
         </div>
         <div className="sc-mobile-menu__social">
-          <a href="https://www.instagram.com/thesipcart.to" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a>
+          <a href="https://www.instagram.com/thesipcarttoronto" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a>
           <a href="mailto:sipnslushto@gmail.com" aria-label="Email"><Mail /></a>
         </div>
         <img src={logo} alt="The Sip Cart" className="sc-mobile-menu__logo" />
@@ -814,7 +814,7 @@ const Index = () => {
         <div className="sc-footer__inner">
           <div className="sc-footer__contact">
             <a
-              href="https://www.instagram.com/thesipcart.to"
+              href="https://www.instagram.com/thesipcarttoronto"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
