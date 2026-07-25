@@ -101,6 +101,8 @@ const testimonials = [
 const QuoteForm = () => {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -196,20 +198,41 @@ const QuoteForm = () => {
   };
 
   const handleSubmit = async () => {
-    setSubmitted(true);
-    try {
-      await emailjs.send("service_6g62zty", "template_cd13zac", {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        eventDate: formData.eventDate,
-        eventType: formData.eventType,
-        guests: formData.guests,
-        budget: formData.budget,
-        notes: formData.notes || "None",
-      }, "Emied8aa-JrZ-uZxp");
-    } catch (e) {
-      console.error("Form submission failed:", e);
+    if (submitting) return;
+    setSubmitting(true);
+    setSubmitError(false);
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      eventDate: formData.eventDate,
+      eventType: formData.eventType,
+      guests: formData.guests,
+      budget: formData.budget,
+      notes: formData.notes || "None",
+    };
+
+    // Netlify Forms keeps a server-side copy of every inquiry; EmailJS sends the
+    // notification email. Either one succeeding means the inquiry wasn't lost.
+    const sendToNetlify = fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ "form-name": "quote", "bot-field": "", ...payload }).toString(),
+    }).then((res) => {
+      if (!res.ok) throw new Error(`Netlify form responded ${res.status}`);
+    });
+
+    const sendToEmailJs = emailjs.send("service_6g62zty", "template_cd13zac", payload, "Emied8aa-JrZ-uZxp");
+
+    const results = await Promise.allSettled([sendToNetlify, sendToEmailJs]);
+    setSubmitting(false);
+
+    if (results.some((r) => r.status === "fulfilled")) {
+      setSubmitted(true);
+    } else {
+      results.forEach((r) => r.status === "rejected" && console.error("Form submission failed:", r.reason));
+      setSubmitError(true);
     }
   };
 
@@ -276,19 +299,30 @@ const QuoteForm = () => {
           />
         )}
 
+        {submitError && (
+          <p style={{ fontFamily: "var(--sc-body)", color: "#a4442e", margin: "1rem 0 0" }}>
+            Sorry, something went wrong sending your inquiry. Please try again, or email us
+            directly at{" "}
+            <a href="mailto:sipnslushto@gmail.com" style={{ color: "#a4442e", textDecoration: "underline" }}>
+              sipnslushto@gmail.com
+            </a>{" "}
+            and we'll get right back to you.
+          </p>
+        )}
+
         <div className="sc-typeform__nav">
           {step > 0 && (
-            <button className="sc-btn sc-btn--outline" onClick={() => setStep(step - 1)}>
+            <button className="sc-btn sc-btn--outline" onClick={() => setStep(step - 1)} disabled={submitting}>
               Back
             </button>
           )}
           <button
             className="sc-btn sc-btn--gold"
             onClick={next}
-            disabled={!canNext}
-            style={{ opacity: canNext ? 1 : 0.5 }}
+            disabled={!canNext || submitting}
+            style={{ opacity: canNext && !submitting ? 1 : 0.5 }}
           >
-            {step === steps.length - 1 ? "Submit" : "Next"}
+            {step === steps.length - 1 ? (submitting ? "Sending…" : "Submit") : "Next"}
           </button>
         </div>
       </div>
