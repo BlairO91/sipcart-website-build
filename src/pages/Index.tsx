@@ -67,6 +67,23 @@ import photo12 from "@/assets/Photos/olivie-strauss-tZOpC47nebM-unsplash.webp";
 import photo13 from "@/assets/Photos/alyona-yankovska-7EbGkOm8pWM-unsplash.webp";
 import photo14 from "@/assets/Photos/ecaterina-tanase-9Bth_LiiMoo-unsplash.webp";
 import photo15 from "@/assets/Photos/trinh-minh-th-9cPdsa-_7PI-unsplash.webp";
+import logoDior from "@/assets/logos/dior.webp";
+import logoHolt from "@/assets/logos/holt-renfrew.svg";
+import logoShoppers from "@/assets/logos/shoppers-drug-mart.webp";
+import logoLandRover from "@/assets/logos/land-rover.webp";
+import logoBayview from "@/assets/logos/bayview-village.svg";
+import logoFreshWines from "@/assets/logos/fresh-wines.webp";
+import logoJoie from "@/assets/logos/joie-de-vivre.webp";
+
+const brandLogos = [
+  { src: logoDior, name: "Dior", h: "2rem" },
+  { src: logoHolt, name: "Holt Renfrew", h: "1.15rem" },
+  { src: logoShoppers, name: "Shoppers Drug Mart", h: "1.6rem" },
+  { src: logoLandRover, name: "Land Rover", h: "2.6rem" },
+  { src: logoBayview, name: "Bayview Village", h: "2.8rem" },
+  { src: logoFreshWines, name: "Fresh Wines", h: "2rem" },
+  { src: logoJoie, name: "Joie de Vivre Pink Gin", h: "2.6rem" },
+];
 
 const galleryImages = [photo3, photo8, photo1, photo5, photo9, photo11, photo4, photo14, photo2, photo7, photo15, photo6, photo12, photo10, photo13];
 
@@ -168,7 +185,6 @@ const QuoteForm = () => {
       field: "budget",
       type: "select",
       options: [
-        "$500 – $1,000",
         "$1,000 – $1,500",
         "$1,500 – $2,000",
         "$3,000 – $4,000",
@@ -593,6 +609,20 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* ── BRAND LOGO BAR ── */}
+      <section className="sc-logo-bar" aria-label="Brands we've worked with">
+        <p className="sc-logo-bar__label">Trusted by</p>
+        <div className="sc-logo-bar__viewport">
+          <ul className="sc-logo-bar__track">
+            {[...brandLogos, ...brandLogos].map((b, i) => (
+              <li key={i} className={i >= brandLogos.length ? "sc-logo-bar__dupe" : undefined} aria-hidden={i >= brandLogos.length || undefined}>
+                <img src={b.src} alt={i >= brandLogos.length ? "" : b.name} style={{ height: b.h }} loading="lazy" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* ── SERVICES ── */}
       <section id="services" className="sc-section sc-services">
