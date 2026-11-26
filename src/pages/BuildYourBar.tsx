@@ -4,6 +4,19 @@ import "../styles/sip-cart.css";
 import "../styles/build-your-bar.css";
 import logo from "@/assets/logo.png";
 import cartPhoto from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
+import pkgTwo from "@/assets/byb/pkg-two.webp";
+import pkgThree from "@/assets/byb/pkg-three.webp";
+import pkgOpen from "@/assets/byb/pkg-open.webp";
+import deco1 from "@/assets/byb/deco-1.webp";
+import deco2 from "@/assets/byb/deco-2.webp";
+import deco3 from "@/assets/byb/deco-3.webp";
+import deco4 from "@/assets/byb/deco-4.webp";
+import deco5 from "@/assets/byb/deco-5.webp";
+import deco6 from "@/assets/byb/deco-6.webp";
+
+const PACKAGE_PHOTOS: Record<string, string> = { "two-signature": pkgTwo, "three-signature": pkgThree, "open-bar": pkgOpen };
+// Decorative photos scattered behind the card (desktop only), positioned in build-your-bar.css
+const DECO = [deco1, deco2, deco3, deco4, deco5, deco6];
 import {
   ADD_ONS,
   DISCLAIMER,
@@ -77,8 +90,8 @@ const BuildYourBar = () => {
     document.title = "Build Your Bar Experience | The Sip Cart";
   }, []);
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [step, submitted]);
+    if (submitted) window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [submitted]);
 
   const stepValid = [
     !!d.eventType,
@@ -275,6 +288,12 @@ const BuildYourBar = () => {
           </a>
         </main>
       ) : (
+        <div className="byb-stage">
+        <div className="byb-deco" aria-hidden="true">
+          {DECO.map((src, i) => (
+            <img key={i} src={src} alt="" className={`byb-deco__img byb-deco__img--${i + 1}`} loading="lazy" />
+          ))}
+        </div>
         <main className="byb-layout">
           <div className="byb-main">
             <ol className="byb-progress" aria-label="Steps">
@@ -349,6 +368,7 @@ const BuildYourBar = () => {
                 <div className="byb-cards">
                   {PACKAGES.map((p) => (
                     <button type="button" key={p.id} className={`byb-card${d.packageId === p.id ? " is-on" : ""}`} aria-pressed={d.packageId === p.id} onClick={() => set("packageId", p.id)}>
+                      <img src={PACKAGE_PHOTOS[p.id]} alt="" className="byb-card__img" loading="lazy" />
                       <span className="byb-card__name">{p.name}</span>
                       <span className="byb-card__price">${p.perGuest} per guest</span>
                       <span className="byb-card__blurb">{p.blurb}</span>
@@ -356,7 +376,11 @@ const BuildYourBar = () => {
                   ))}
                 </div>
                 {err(!d.packageId, "Choose a bar package.")}
-                <p className="byb-hint">You supply the alcohol and we'll send you a custom shopping list. We bring everything else.</p>
+                <p className="byb-hint byb-hint--center">
+                  You supply the alcohol and we'll send you a custom shopping list.
+                  <br />
+                  We bring everything else.
+                </p>
               </div>
             )}
 
@@ -391,8 +415,7 @@ const BuildYourBar = () => {
                     </button>
                   </div>
                   <p className="byb-hint">
-                    {money(QUOTE_SETTINGS.bartenderRate)} each for {QUOTE_SETTINGS.includedHours} hours
-                    {d.hours > QUOTE_SETTINGS.includedHours && `, plus ${money(QUOTE_SETTINGS.extraHourRate)} per extra hour`}. We recommend {suggested} for {guests || "your"} guests.
+                    We recommend {suggested} bartender{suggested > 1 ? "s" : ""} for {guests || "your"} guests.
                     {d.bartenders !== null && d.bartenders !== suggested && (
                       <>
                         {" "}
@@ -479,8 +502,8 @@ const BuildYourBar = () => {
               )}
             </div>
           </div>
-
         </main>
+        </div>
       )}
     </div>
   );
