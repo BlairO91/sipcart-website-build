@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import emailjs from "@emailjs/browser";
+import * as Popover from "@radix-ui/react-popover";
+import * as Select from "@radix-ui/react-select";
+import { DayPicker } from "react-day-picker";
+import { format, parseISO, startOfToday } from "date-fns";
+import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import "../styles/sip-cart.css";
 import "../styles/build-your-bar.css";
 import logo from "@/assets/logo.png";
@@ -67,6 +72,7 @@ const BuildYourBar = () => {
   const [submitError, setSubmitError] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const [openInfo, setOpenInfo] = useState<string | null>(null);
+  const [dateOpen, setDateOpen] = useState(false);
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((prev) => ({ ...prev, [k]: v }));
 
@@ -328,20 +334,84 @@ const BuildYourBar = () => {
                     <input type="number" inputMode="numeric" min={1} placeholder="e.g. 75" value={d.guests} onChange={(e) => set("guests", e.target.value)} autoFocus />
                     {err(guests <= 0, "Enter your guest count.")}
                   </label>
-                  <label className="byb-field">
-                    <span>Hours of bar service</span>
-                    <select value={d.hours} onChange={(e) => set("hours", Number(e.target.value))}>
-                      {Array.from({ length: QUOTE_SETTINGS.maxHours - QUOTE_SETTINGS.includedHours + 1 }, (_, i) => QUOTE_SETTINGS.includedHours + i).map((h) => (
-                        <option key={h} value={h}>
-                          {h} hours{h === QUOTE_SETTINGS.includedHours ? " (included)" : ""}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className="byb-field">
-                    <span>Event date</span>
-                    <input type="date" value={d.eventDate} onChange={(e) => set("eventDate", e.target.value)} />
-                  </label>
+                  <div className="byb-field">
+                    <span className="byb-label" id="byb-hours-label">Hours of bar service</span>
+                    <Select.Root value={String(d.hours)} onValueChange={(v) => set("hours", Number(v))}>
+                      <Select.Trigger className="byb-trigger" aria-labelledby="byb-hours-label">
+                        <Select.Value />
+                        <Select.Icon className="byb-trigger__icon">
+                          <ChevronDown size={18} />
+                        </Select.Icon>
+                      </Select.Trigger>
+                      <Select.Portal>
+                        <Select.Content className="byb-pop byb-select" position="popper" sideOffset={6}>
+                          <Select.Viewport>
+                            {Array.from({ length: QUOTE_SETTINGS.maxHours - QUOTE_SETTINGS.includedHours + 1 }, (_, i) => QUOTE_SETTINGS.includedHours + i).map((h) => (
+                              <Select.Item key={h} value={String(h)} className="byb-select__item">
+                                <Select.ItemText>
+                                  {h} hours{h === QUOTE_SETTINGS.includedHours ? " (included)" : ""}
+                                </Select.ItemText>
+                                <Select.ItemIndicator className="byb-select__check">
+                                  <Check size={16} />
+                                </Select.ItemIndicator>
+                              </Select.Item>
+                            ))}
+                          </Select.Viewport>
+                        </Select.Content>
+                      </Select.Portal>
+                    </Select.Root>
+                  </div>
+                  <div className="byb-field">
+                    <span className="byb-label" id="byb-date-label">Event date</span>
+                    <Popover.Root open={dateOpen} onOpenChange={setDateOpen}>
+                      <Popover.Trigger className="byb-trigger" aria-labelledby="byb-date-label">
+                        <span className={d.eventDate ? "" : "byb-trigger__placeholder"}>
+                          {d.eventDate ? format(parseISO(d.eventDate), "EEE, MMMM d, yyyy") : "Choose a date"}
+                        </span>
+                        <CalendarDays size={18} className="byb-trigger__icon" />
+                      </Popover.Trigger>
+                      <Popover.Portal>
+                        <Popover.Content className="byb-pop byb-cal" align="start" sideOffset={6} collisionPadding={12}>
+                          <DayPicker
+                            mode="single"
+                            selected={d.eventDate ? parseISO(d.eventDate) : undefined}
+                            defaultMonth={d.eventDate ? parseISO(d.eventDate) : undefined}
+                            onSelect={(day) => {
+                              set("eventDate", day ? format(day, "yyyy-MM-dd") : "");
+                              if (day) setDateOpen(false);
+                            }}
+                            disabled={{ before: startOfToday() }}
+                            showOutsideDays
+                            weekStartsOn={0}
+                            classNames={{
+                              months: "byb-cal__months",
+                              month: "byb-cal__month",
+                              caption: "byb-cal__caption",
+                              caption_label: "byb-cal__title",
+                              nav: "byb-cal__nav",
+                              nav_button: "byb-cal__navbtn",
+                              nav_button_previous: "byb-cal__prev",
+                              nav_button_next: "byb-cal__next",
+                              table: "byb-cal__table",
+                              head_row: "byb-cal__headrow",
+                              head_cell: "byb-cal__headcell",
+                              row: "byb-cal__row",
+                              cell: "byb-cal__cell",
+                              day: "byb-cal__day",
+                              day_selected: "is-selected",
+                              day_today: "is-today",
+                              day_outside: "is-outside",
+                              day_disabled: "is-disabled",
+                            }}
+                            components={{
+                              IconLeft: () => <ChevronLeft size={18} />,
+                              IconRight: () => <ChevronRight size={18} />,
+                            }}
+                          />
+                        </Popover.Content>
+                      </Popover.Portal>
+                    </Popover.Root>
+                  </div>
                   <label className="byb-field">
                     <span>Event location</span>
                     <input type="text" placeholder="City or venue" value={d.location} onChange={(e) => set("location", e.target.value)} />
