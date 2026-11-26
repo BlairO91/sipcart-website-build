@@ -536,28 +536,35 @@ const BuildYourBar = () => {
             {step === 5 && (
               <div className="byb-step">
                 <h2>Where should we send your estimate?</h2>
-                <p className="byb-hint">Your estimate appears as soon as you press the button below, and Fern will follow up within 24–48 hours.</p>
-                <div className="byb-stack">
-                  <label className="byb-field">
-                    <span>Full name</span>
-                    <input type="text" autoComplete="name" value={d.name} onChange={(e) => set("name", e.target.value)} />
-                    {err(!d.name.trim(), "Enter your name.")}
-                  </label>
-                  <label className="byb-field">
-                    <span>Email</span>
-                    <input type="email" autoComplete="email" value={d.email} onChange={(e) => set("email", e.target.value)} />
-                    {err(!isEmail(d.email), "Enter a valid email.")}
-                  </label>
-                  <label className="byb-field">
-                    <span>Phone</span>
-                    <input type="tel" autoComplete="tel" value={d.phone} onChange={(e) => set("phone", e.target.value)} />
-                    {err(d.phone.replace(/\D/g, "").length < 10, "Enter a phone number.")}
-                  </label>
+                <p className="byb-hint">Press “See my estimate” to view your estimate right away. Fern will follow up within 24–48 hours.</p>
+                <div className="byb-contact">
+                  <div className="byb-stack">
+                    <label className="byb-field">
+                      <span>Full name</span>
+                      <input type="text" autoComplete="name" value={d.name} onChange={(e) => set("name", e.target.value)} />
+                      {err(!d.name.trim(), "Enter your name.")}
+                    </label>
+                    <label className="byb-field">
+                      <span>Email</span>
+                      <input type="email" autoComplete="email" value={d.email} onChange={(e) => set("email", e.target.value)} />
+                      {err(!isEmail(d.email), "Enter a valid email.")}
+                    </label>
+                    <label className="byb-field">
+                      <span>Phone</span>
+                      <input type="tel" autoComplete="tel" value={d.phone} onChange={(e) => set("phone", e.target.value)} />
+                      {err(d.phone.replace(/\D/g, "").length < 10, "Enter a phone number.")}
+                    </label>
+                  </div>
+                  <div className="byb-contact__side">
+                    <label className="byb-field byb-field--grow">
+                      <span>Anything else we should know?</span>
+                      <textarea rows={6} placeholder="Theme, colours, favourite drinks, timing…" value={d.notes} onChange={(e) => set("notes", e.target.value)} />
+                    </label>
+                    <button type="button" className="sc-btn sc-btn--dark byb-contact__submit" onClick={submit} disabled={submitting}>
+                      {submitting ? "One moment…" : "See my estimate"}
+                    </button>
+                  </div>
                 </div>
-                <label className="byb-field">
-                  <span>Anything else we should know?</span>
-                  <textarea rows={4} placeholder="Theme, colours, favourite drinks, timing…" value={d.notes} onChange={(e) => set("notes", e.target.value)} />
-                </label>
                 {submitError && (
                   <p className="byb-error">
                     Sorry, something went wrong. Please try again, or email{" "}
@@ -577,11 +584,7 @@ const BuildYourBar = () => {
                 <button type="button" className="sc-btn sc-btn--dark" onClick={next}>
                   Next: {STEPS[step + 1]}
                 </button>
-              ) : (
-                <button type="button" className="sc-btn sc-btn--dark" onClick={submit} disabled={submitting}>
-                  {submitting ? "One moment…" : "See my estimate"}
-                </button>
-              )}
+              ) : null}
             </div>
           </div>
         </main>

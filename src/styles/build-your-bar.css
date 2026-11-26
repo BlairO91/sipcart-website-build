@@ -247,3 +247,14 @@
   .byb-split .byb-photo { position: static; }
   .byb-split .byb-photo img { max-width: 380px; margin: 0 auto; }
 }
+
+/* Contact step: fields left, notes + button right */
+.byb-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 clamp(1rem, 3vw, 2rem); align-items: stretch; }
+.byb-contact__side { display: flex; flex-direction: column; }
+.byb-field--grow { flex: 1; display: flex !important; flex-direction: column; }
+.byb-field--grow textarea { flex: 1; min-height: 120px; }
+.byb-contact__submit { align-self: stretch; text-align: center; margin-bottom: 1.25rem; }
+.byb-contact__submit:disabled { opacity: 0.55; cursor: default; }
+@media (max-width: 760px) {
+  .byb-contact { grid-template-columns: minmax(0, 1fr); }
+}
