@@ -262,13 +262,15 @@ const BuildYourBar = () => {
         </a>
       </header>
 
-      <section className="byb-hero">
-        <p className="byb-eyebrow">Create your own experience</p>
-        <h1>Build Your Bar Experience</h1>
-        <p className="byb-hero__sub">
-          Choose your package, setup and extras, then get your estimate instantly. Fern will follow up within 24–48 hours to confirm the details.
-        </p>
-      </section>
+      {!submitted && (
+        <section className="byb-hero">
+          <p className="byb-eyebrow">Create your own experience</p>
+          <h1>Build Your Bar Experience</h1>
+          <p className="byb-hero__sub">
+            Choose your package, setup and extras, then get your estimate instantly. Fern will follow up within 24–48 hours to confirm the details.
+          </p>
+        </section>
+      )}
 
       {submitted ? (
         <main className="byb-done">
@@ -278,10 +280,10 @@ const BuildYourBar = () => {
             {guests ? ` · ${guests} guests` : ""} · {d.hours} hours
             {d.location ? ` · ${d.location}` : ""}
           </p>
-          <p>
+          <Estimate full />
+          <p className="byb-done__msg">
             A copy is on its way to Fern. She'll review your details and get back to you within 24–48 hours to confirm availability and your final quote.
           </p>
-          <Estimate full />
           <p className="byb-disclaimer">{DISCLAIMER}</p>
           <a className="sc-btn sc-btn--dark" href="/">
             Back to The Sip Cart
