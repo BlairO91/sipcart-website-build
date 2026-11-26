@@ -16,8 +16,7 @@
 .byb-hero__sub { max-width: 40rem; margin: 0.9rem auto 0; color: #555; line-height: 1.6; text-wrap: balance; }
 
 .byb-layout {
-  max-width: 72rem; margin: 0 auto; padding: 1.5rem max(4vw, 16px) 6rem;
-  display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 2rem; align-items: start;
+  max-width: 50rem; margin: 0 auto; padding: 1.5rem max(4vw, 16px) 5rem;
 }
 .byb-main { min-width: 0; background: var(--sc-white); border-radius: 18px; padding: clamp(1.25rem, 3vw, 2.25rem); box-shadow: 0 6px 30px rgba(118, 75, 54, 0.07); }
 
@@ -108,6 +107,7 @@
 .byb-notes { margin-top: 1rem; font-size: 0.9rem; color: #5c4a3e; }
 .byb-notes p { margin: 0.4rem 0 0; line-height: 1.5; }
 .byb-summary { color: #6b5a4e; margin: -0.6rem 0 1rem; }
+.byb-summary--center { margin: 0 0 0.75rem; text-align: center; }
 .byb-disclaimer { font-size: 0.8rem; color: #8a776a; line-height: 1.55; margin: 1.5rem 0 0; }
 
 .byb-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 2rem; }

@@ -54,7 +54,9 @@ export const ADD_ONS: AddOn[] = [
   { id: "hydration", name: "Hydration Station", price: 150 },
 ];
 
-// Offered, but priced case by case: shown as "Custom Quote Required".
+// NOT SHOWN in the generator for now (Nov 26): Blair felt these are better handled on
+// Fern's call. Kept here so they can be re-added if Fern wants them (her doc lists them
+// as "Custom Quote Required" items in Phase 2).
 export const CUSTOM_GROUPS: { title: string; items: string[] }[] = [
   {
     title: "Experiences",

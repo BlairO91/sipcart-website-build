@@ -6,7 +6,6 @@ import logo from "@/assets/logo.png";
 import cartPhoto from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
 import {
   ADD_ONS,
-  CUSTOM_GROUPS,
   DISCLAIMER,
   EVENT_TYPES,
   PACKAGES,
@@ -29,7 +28,6 @@ type Data = {
   barCart: boolean;
   bartenders: number | null; // null = follow the suggestion
   addOnIds: string[];
-  customItems: string[];
   name: string;
   email: string;
   phone: string;
@@ -46,7 +44,6 @@ const EMPTY: Data = {
   barCart: true,
   bartenders: null,
   addOnIds: [],
-  customItems: [],
   name: "",
   email: "",
   phone: "",
@@ -112,7 +109,6 @@ const BuildYourBar = () => {
       `Subtotal: ${money(quote.subtotal)}`,
       `HST (${QUOTE_SETTINGS.hstRate * 100}%): ${money(quote.hst)}`,
       `Estimated total: ${money(quote.total)}`,
-      d.customItems.length ? `Custom quote requested for: ${d.customItems.join(", ")}` : "",
     ]
       .filter(Boolean)
       .join("\n");
@@ -140,7 +136,6 @@ const BuildYourBar = () => {
       barCart: d.barCart ? "Yes" : "No (venue has a bar)",
       bartenders: String(bartenders),
       addOns: d.addOnIds.map((id) => ADD_ONS.find((a) => a.id === id)?.name).filter(Boolean).join(", ") || "None",
-      customRequests: d.customItems.join(", ") || "None",
       estimateTotal: money(quote.total),
       breakdown: breakdownText(),
       notes: d.notes.trim() || "None",
@@ -230,11 +225,6 @@ const BuildYourBar = () => {
           </div>
           {full && (
             <div className="byb-notes">
-              {d.customItems.length > 0 && (
-                <p>
-                  <strong>Custom quote:</strong> {d.customItems.join(", ")}. Fern will price these with you.
-                </p>
-              )}
               {quote.belowMinimum && (
                 <p>
                   <strong>Note:</strong> events typically start at {money(QUOTE_SETTINGS.minimumBooking)} before tax. Fern will work with you on the details.
@@ -263,15 +253,20 @@ const BuildYourBar = () => {
         <p className="byb-eyebrow">Create your own experience</p>
         <h1>Build Your Bar Experience</h1>
         <p className="byb-hero__sub">
-          Pick your package, setup and extras, and watch your estimate update as you go. Send it over and Fern will be in touch within 24–48 hours.
+          Choose your package, setup and extras, then get your estimate instantly. Fern will follow up within 24–48 hours to confirm the details.
         </p>
       </section>
 
       {submitted ? (
         <main className="byb-done">
-          <h2>Thank you, {d.name.split(" ")[0]}!</h2>
+          <h2>Here's your estimate, {d.name.trim().split(" ")[0]}!</h2>
+          <p className="byb-summary byb-summary--center">
+            {d.eventType}
+            {guests ? ` · ${guests} guests` : ""} · {d.hours} hours
+            {d.location ? ` · ${d.location}` : ""}
+          </p>
           <p>
-            Your bar experience is on its way to Fern. She'll review the details and get back to you within 24–48 hours to confirm availability and next steps.
+            A copy is on its way to Fern. She'll review your details and get back to you within 24–48 hours to confirm availability and your final quote.
           </p>
           <Estimate full />
           <p className="byb-disclaimer">{DISCLAIMER}</p>
@@ -357,7 +352,6 @@ const BuildYourBar = () => {
                       <span className="byb-card__name">{p.name}</span>
                       <span className="byb-card__price">${p.perGuest} per guest</span>
                       <span className="byb-card__blurb">{p.blurb}</span>
-                      {guests > 0 && <span className="byb-card__calc">{money(p.perGuest * guests)} for {guests} guests</span>}
                     </button>
                   ))}
                 </div>
@@ -431,37 +425,13 @@ const BuildYourBar = () => {
                     );
                   })}
                 </div>
-                <h3 className="byb-sub">Custom touches</h3>
-                <p className="byb-hint">These are priced to your event. Select any you'd like and Fern will include them in your final quote.</p>
-                {CUSTOM_GROUPS.map((g) => (
-                  <fieldset className="byb-field" key={g.title}>
-                    <legend>{g.title}</legend>
-                    <div className="byb-chips">
-                      {g.items.map((item) => {
-                        const on = d.customItems.includes(item);
-                        return (
-                          <button type="button" key={item} className={`byb-chip${on ? " is-on" : ""}`} aria-pressed={on} onClick={() => set("customItems", toggle(d.customItems, item))}>
-                            {item}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </fieldset>
-                ))}
               </div>
             )}
 
             {step === 5 && (
               <div className="byb-step">
-                <h2>Your estimate</h2>
-                <p className="byb-summary">
-                  {d.eventType}
-                  {guests ? ` · ${guests} guests` : ""} · {d.hours} hours
-                  {d.location ? ` · ${d.location}` : ""}
-                </p>
-                <Estimate full />
-                <h3 className="byb-sub">Send it to Fern</h3>
-                <p className="byb-hint">You'll hear back within 24–48 hours to confirm availability and your final quote.</p>
+                <h2>Where should we send your estimate?</h2>
+                <p className="byb-hint">Your estimate appears as soon as you press the button below, and Fern will follow up within 24–48 hours.</p>
                 <div className="byb-grid2">
                   <label className="byb-field">
                     <span>Full name</span>
@@ -485,11 +455,10 @@ const BuildYourBar = () => {
                 </label>
                 {submitError && (
                   <p className="byb-error">
-                    Sorry, something went wrong sending your request. Please try again, or email{" "}
+                    Sorry, something went wrong. Please try again, or email{" "}
                     <a href="mailto:sipnslushto@gmail.com">sipnslushto@gmail.com</a>.
                   </p>
                 )}
-                <p className="byb-disclaimer">{DISCLAIMER}</p>
               </div>
             )}
 
@@ -505,34 +474,12 @@ const BuildYourBar = () => {
                 </button>
               ) : (
                 <button type="button" className="sc-btn sc-btn--dark" onClick={submit} disabled={submitting}>
-                  {submitting ? "Sending…" : "Send my estimate"}
+                  {submitting ? "One moment…" : "See my estimate"}
                 </button>
               )}
             </div>
           </div>
 
-          {step < LAST && (
-            <aside className="byb-side" aria-label="Your estimate">
-              <h2 className="byb-side__title">Your estimate</h2>
-              <Estimate />
-              <p className="byb-side__note">Estimate only. Final pricing is confirmed by Fern.</p>
-            </aside>
-          )}
-          {step < LAST && (
-            <div className="byb-mobilebar" aria-hidden="true">
-              <span>Estimated total</span>
-              <strong>
-                {ready ? (
-                  <>
-                    {quote.hasFromPrices && <small>from </small>}
-                    {money(quote.total)}
-                  </>
-                ) : (
-                  "—"
-                )}
-              </strong>
-            </div>
-          )}
         </main>
       )}
     </div>
