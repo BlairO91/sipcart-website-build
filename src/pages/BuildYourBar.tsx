@@ -3,11 +3,11 @@ import emailjs from "@emailjs/browser";
 import "../styles/sip-cart.css";
 import "../styles/build-your-bar.css";
 import logo from "@/assets/logo.png";
+import cartPhoto from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
 import {
   ADD_ONS,
   CUSTOM_GROUPS,
   DISCLAIMER,
-  DRINK_STYLES,
   EVENT_TYPES,
   PACKAGES,
   QUOTE_SETTINGS,
@@ -16,17 +16,16 @@ import {
   suggestedBartenders,
 } from "@/lib/quoteConfig";
 
-const STEPS = ["Your event", "Your bar", "Your setup", "Extras", "Your estimate"];
+const STEPS = ["Celebration", "Details", "Your bar", "Your setup", "Extras", "Your estimate"];
+const LAST = STEPS.length - 1;
 
 type Data = {
   eventType: string;
   eventDate: string;
   location: string;
-  outsideRadius: boolean;
   guests: string;
   hours: number;
   packageId: string;
-  drinkStyle: string;
   barCart: boolean;
   bartenders: number | null; // null = follow the suggestion
   addOnIds: string[];
@@ -41,11 +40,9 @@ const EMPTY: Data = {
   eventType: "",
   eventDate: "",
   location: "",
-  outsideRadius: false,
   guests: "",
   hours: QUOTE_SETTINGS.includedHours,
   packageId: "",
-  drinkStyle: "Cocktails",
   barCart: true,
   bartenders: null,
   addOnIds: [],
@@ -87,7 +84,8 @@ const BuildYourBar = () => {
   }, [step, submitted]);
 
   const stepValid = [
-    !!d.eventType && guests > 0,
+    !!d.eventType,
+    guests > 0,
     !!d.packageId,
     true,
     true,
@@ -100,7 +98,7 @@ const BuildYourBar = () => {
       return;
     }
     setShowErrors(false);
-    setStep((s) => Math.min(STEPS.length - 1, s + 1));
+    setStep((s) => Math.min(LAST, s + 1));
   };
   const back = () => {
     setShowErrors(false);
@@ -115,14 +113,13 @@ const BuildYourBar = () => {
       `HST (${QUOTE_SETTINGS.hstRate * 100}%): ${money(quote.hst)}`,
       `Estimated total: ${money(quote.total)}`,
       d.customItems.length ? `Custom quote requested for: ${d.customItems.join(", ")}` : "",
-      d.outsideRadius ? `Event is more than ${QUOTE_SETTINGS.travelIncludedKm} km away: travel to be quoted` : "",
     ]
       .filter(Boolean)
       .join("\n");
   };
 
   const submit = async () => {
-    if (!stepValid[4]) {
+    if (!stepValid[LAST]) {
       setShowErrors(true);
       return;
     }
@@ -137,11 +134,9 @@ const BuildYourBar = () => {
       eventType: d.eventType,
       eventDate: d.eventDate,
       location: d.location,
-      outsideRadius: d.outsideRadius ? "Yes" : "No",
       guests: String(guests),
       hours: String(d.hours),
       package: pkg?.name ?? "",
-      drinkStyle: d.drinkStyle,
       barCart: d.barCart ? "Yes" : "No (venue has a bar)",
       bartenders: String(bartenders),
       addOns: d.addOnIds.map((id) => ADD_ONS.find((a) => a.id === id)?.name).filter(Boolean).join(", ") || "None",
@@ -174,7 +169,7 @@ const BuildYourBar = () => {
         notes: [
           `BUILD YOUR BAR ESTIMATE`,
           `Location: ${fields.location || "Not given"}`,
-          `Hours: ${fields.hours} · Drinks: ${fields.drinkStyle} · Bartenders: ${fields.bartenders} · Bar cart: ${fields.barCart}`,
+          `Hours: ${fields.hours} · Bartenders: ${fields.bartenders} · Bar cart: ${fields.barCart}`,
           "",
           fields.breakdown,
           "",
@@ -240,11 +235,6 @@ const BuildYourBar = () => {
                   <strong>Custom quote:</strong> {d.customItems.join(", ")}. Fern will price these with you.
                 </p>
               )}
-              {d.outsideRadius && (
-                <p>
-                  <strong>Travel:</strong> your event is more than {QUOTE_SETTINGS.travelIncludedKm} km away, so travel will be quoted separately.
-                </p>
-              )}
               {quote.belowMinimum && (
                 <p>
                   <strong>Note:</strong> events typically start at {money(QUOTE_SETTINGS.minimumBooking)} before tax. Fern will work with you on the details.
@@ -305,22 +295,35 @@ const BuildYourBar = () => {
 
             {step === 0 && (
               <div className="byb-step">
+                <h2>What are you celebrating?</h2>
+                <div className="byb-chips byb-chips--lg">
+                  {EVENT_TYPES.map((t) => (
+                    <button
+                      type="button"
+                      key={t}
+                      className={`byb-chip${d.eventType === t ? " is-on" : ""}`}
+                      aria-pressed={d.eventType === t}
+                      onClick={() => {
+                        set("eventType", t);
+                        setShowErrors(false);
+                        setTimeout(() => setStep(1), 250);
+                      }}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+                {err(!d.eventType, "Choose what you're celebrating.")}
+              </div>
+            )}
+
+            {step === 1 && (
+              <div className="byb-step">
                 <h2>Tell us about your event</h2>
-                <fieldset className="byb-field">
-                  <legend>What are you celebrating?</legend>
-                  <div className="byb-chips">
-                    {EVENT_TYPES.map((t) => (
-                      <button type="button" key={t} className={`byb-chip${d.eventType === t ? " is-on" : ""}`} aria-pressed={d.eventType === t} onClick={() => set("eventType", t)}>
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                  {err(!d.eventType, "Choose an event type.")}
-                </fieldset>
                 <div className="byb-grid2">
                   <label className="byb-field">
                     <span>Number of guests</span>
-                    <input type="number" inputMode="numeric" min={1} placeholder="e.g. 75" value={d.guests} onChange={(e) => set("guests", e.target.value)} />
+                    <input type="number" inputMode="numeric" min={1} placeholder="e.g. 75" value={d.guests} onChange={(e) => set("guests", e.target.value)} autoFocus />
                     {err(guests <= 0, "Enter your guest count.")}
                   </label>
                   <label className="byb-field">
@@ -342,14 +345,10 @@ const BuildYourBar = () => {
                     <input type="text" placeholder="City or venue" value={d.location} onChange={(e) => set("location", e.target.value)} />
                   </label>
                 </div>
-                <label className="byb-check">
-                  <input type="checkbox" checked={d.outsideRadius} onChange={(e) => set("outsideRadius", e.target.checked)} />
-                  <span>My event is more than {QUOTE_SETTINGS.travelIncludedKm} km from Toronto</span>
-                </label>
               </div>
             )}
 
-            {step === 1 && (
+            {step === 2 && (
               <div className="byb-step">
                 <h2>Choose your bar</h2>
                 <div className="byb-cards">
@@ -363,23 +362,16 @@ const BuildYourBar = () => {
                   ))}
                 </div>
                 {err(!d.packageId, "Choose a bar package.")}
-                <fieldset className="byb-field">
-                  <legend>What will you be serving?</legend>
-                  <div className="byb-chips">
-                    {DRINK_STYLES.map((s) => (
-                      <button type="button" key={s} className={`byb-chip${d.drinkStyle === s ? " is-on" : ""}`} aria-pressed={d.drinkStyle === s} onClick={() => set("drinkStyle", s)}>
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
                 <p className="byb-hint">You supply the alcohol and we'll send you a custom shopping list. We bring everything else.</p>
               </div>
             )}
 
-            {step === 2 && (
+            {step === 3 && (
               <div className="byb-step">
                 <h2>Set up your bar</h2>
+                <figure className="byb-photo">
+                  <img src={cartPhoto} alt="The Sip Cart mobile bar with umbrella, florals and cocktails" loading="lazy" />
+                </figure>
                 <fieldset className="byb-field">
                   <legend>Do you need our mobile bar cart?</legend>
                   <div className="byb-cards byb-cards--two">
@@ -420,7 +412,7 @@ const BuildYourBar = () => {
               </div>
             )}
 
-            {step === 3 && (
+            {step === 4 && (
               <div className="byb-step">
                 <h2>Add something extra</h2>
                 <div className="byb-cards byb-cards--addons">
@@ -459,12 +451,12 @@ const BuildYourBar = () => {
               </div>
             )}
 
-            {step === 4 && (
+            {step === 5 && (
               <div className="byb-step">
                 <h2>Your estimate</h2>
                 <p className="byb-summary">
                   {d.eventType}
-                  {guests ? ` · ${guests} guests` : ""} · {d.hours} hours · {d.drinkStyle}
+                  {guests ? ` · ${guests} guests` : ""} · {d.hours} hours
                   {d.location ? ` · ${d.location}` : ""}
                 </p>
                 <Estimate full />
@@ -507,7 +499,7 @@ const BuildYourBar = () => {
                   Back
                 </button>
               )}
-              {step < STEPS.length - 1 ? (
+              {step < LAST ? (
                 <button type="button" className="sc-btn sc-btn--dark" onClick={next}>
                   Next: {STEPS[step + 1]}
                 </button>
@@ -519,14 +511,14 @@ const BuildYourBar = () => {
             </div>
           </div>
 
-          {step < 4 && (
+          {step < LAST && (
             <aside className="byb-side" aria-label="Your estimate">
               <h2 className="byb-side__title">Your estimate</h2>
               <Estimate />
               <p className="byb-side__note">Estimate only. Final pricing is confirmed by Fern.</p>
             </aside>
           )}
-          {step < 4 && (
+          {step < LAST && (
             <div className="byb-mobilebar" aria-hidden="true">
               <span>Estimated total</span>
               <strong>

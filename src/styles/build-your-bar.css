@@ -63,6 +63,12 @@
 .byb-check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; cursor: pointer; }
 .byb-check input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--sc-espresso); flex: none; }
 
+.byb-chips--lg { gap: 10px; }
+.byb-chips--lg .byb-chip { min-height: 52px; padding: 12px 22px; font-size: 1rem; }
+
+.byb-photo { margin: 0 0 1.5rem; border-radius: 14px; overflow: hidden; background: #efe6dd; }
+.byb-photo img { width: 100%; height: clamp(200px, 32vw, 320px); object-fit: cover; object-position: center 45%; }
+
 /* Selectable cards */
 .byb-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.25rem; }
 .byb-cards--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -95,7 +101,7 @@
 .byb-amt small { display: inline !important; }
 .byb-total { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 2px solid var(--sc-espresso); }
 .byb-total span { font-weight: 600; }
-.byb-total strong { font-family: var(--sc-serif); font-weight: normal; font-size: clamp(1.7rem, 3vw, 2.1rem); color: var(--sc-espresso); white-space: nowrap; }
+.byb-total strong { font-family: var(--sc-body); font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 1.85rem); letter-spacing: -0.01em; color: var(--sc-espresso); white-space: nowrap; }
 .byb-total small { font-family: var(--sc-body); font-size: 0.85rem; }
 .byb-estimate__empty { color: #8a776a; font-size: 0.92rem; margin: 0; }
 .byb-estimate--full { background: #fdf8f4; border-radius: 14px; padding: 1rem 1.25rem 1.25rem; }
@@ -128,7 +134,7 @@
     background: var(--sc-espresso); color: var(--sc-cream); box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
   }
   .byb-mobilebar span { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .byb-mobilebar strong { font-family: var(--sc-serif); font-weight: normal; font-size: 1.5rem; white-space: nowrap; }
+  .byb-mobilebar strong { font-family: var(--sc-body); font-weight: 700; font-size: 1.35rem; white-space: nowrap; }
   .byb-mobilebar small { font-family: var(--sc-body); font-size: 0.8rem; }
   .byb-cards, .byb-cards--addons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
