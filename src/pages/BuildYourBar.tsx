@@ -7,16 +7,9 @@ import cartPhoto from "@/assets/Untitled design - 2026-04-19T094229.357.webp";
 import pkgTwo from "@/assets/byb/pkg-two.webp";
 import pkgThree from "@/assets/byb/pkg-three.webp";
 import pkgOpen from "@/assets/byb/pkg-open.webp";
-import deco1 from "@/assets/byb/deco-1.webp";
-import deco2 from "@/assets/byb/deco-2.webp";
-import deco3 from "@/assets/byb/deco-3.webp";
-import deco4 from "@/assets/byb/deco-4.webp";
-import deco5 from "@/assets/byb/deco-5.webp";
-import deco6 from "@/assets/byb/deco-6.webp";
 
 const PACKAGE_PHOTOS: Record<string, string> = { "two-signature": pkgTwo, "three-signature": pkgThree, "open-bar": pkgOpen };
-// Decorative photos scattered behind the card (desktop only), positioned in build-your-bar.css
-const DECO = [deco1, deco2, deco3, deco4, deco5, deco6];
+
 import {
   ADD_ONS,
   DISCLAIMER,
@@ -73,6 +66,7 @@ const BuildYourBar = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
+  const [openInfo, setOpenInfo] = useState<string | null>(null);
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((prev) => ({ ...prev, [k]: v }));
 
@@ -288,12 +282,6 @@ const BuildYourBar = () => {
           </a>
         </main>
       ) : (
-        <div className="byb-stage">
-        <div className="byb-deco" aria-hidden="true">
-          {DECO.map((src, i) => (
-            <img key={i} src={src} alt="" className={`byb-deco__img byb-deco__img--${i + 1}`} loading="lazy" />
-          ))}
-        </div>
         <main className="byb-layout">
           <div className="byb-main">
             <ol className="byb-progress" aria-label="Steps">
@@ -435,16 +423,34 @@ const BuildYourBar = () => {
                 <div className="byb-cards byb-cards--addons">
                   {ADD_ONS.map((a) => {
                     const on = d.addOnIds.includes(a.id);
+                    const tipId = `byb-tip-${a.id}`;
                     return (
-                      <button type="button" key={a.id} className={`byb-card${on ? " is-on" : ""}`} aria-pressed={on} onClick={() => set("addOnIds", toggle(d.addOnIds, a.id))}>
-                        <span className="byb-card__name">{a.name}</span>
-                        <span className="byb-card__price">
-                          {a.from ? "From " : ""}
-                          {money(a.price)}
+                      <div key={a.id} className={`byb-addon${openInfo === a.id ? " is-info" : ""}`}>
+                        <button type="button" className={`byb-card${on ? " is-on" : ""}`} aria-pressed={on} aria-describedby={tipId} onClick={() => set("addOnIds", toggle(d.addOnIds, a.id))}>
+                          <span className="byb-card__name">{a.name}</span>
+                          <span className="byb-card__price">
+                            {a.from ? "From " : ""}
+                            {money(a.price)}
+                          </span>
+                          {a.note && <span className="byb-card__blurb">{a.note}</span>}
+                          <span className="byb-card__tick" aria-hidden="true">{on ? "Added" : "Add"}</span>
+                        </button>
+                        <button
+                          type="button"
+                          className="byb-info"
+                          aria-label={`About ${a.name}`}
+                          aria-expanded={openInfo === a.id}
+                          onClick={() => setOpenInfo(openInfo === a.id ? null : a.id)}
+                          onMouseEnter={() => setOpenInfo(a.id)}
+                          onMouseLeave={() => setOpenInfo((cur) => (cur === a.id ? null : cur))}
+                          onBlur={() => setOpenInfo((cur) => (cur === a.id ? null : cur))}
+                        >
+                          i
+                        </button>
+                        <span role="tooltip" id={tipId} className="byb-tip">
+                          {a.info}
                         </span>
-                        {a.note && <span className="byb-card__blurb">{a.note}</span>}
-                        <span className="byb-card__tick" aria-hidden="true">{on ? "Added" : "Add"}</span>
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
@@ -455,7 +461,7 @@ const BuildYourBar = () => {
               <div className="byb-step">
                 <h2>Where should we send your estimate?</h2>
                 <p className="byb-hint">Your estimate appears as soon as you press the button below, and Fern will follow up within 24–48 hours.</p>
-                <div className="byb-grid2">
+                <div className="byb-stack">
                   <label className="byb-field">
                     <span>Full name</span>
                     <input type="text" autoComplete="name" value={d.name} onChange={(e) => set("name", e.target.value)} />
@@ -503,7 +509,6 @@ const BuildYourBar = () => {
             </div>
           </div>
         </main>
-        </div>
       )}
     </div>
   );

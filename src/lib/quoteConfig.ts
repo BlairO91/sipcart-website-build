@@ -43,15 +43,16 @@ export const PACKAGES: BarPackage[] = [
 
 export const DRINK_STYLES = ["Cocktails", "Mocktails", "A mix of both"];
 
-export type AddOn = { id: string; name: string; price: number; from?: boolean; note?: string };
+export type AddOn = { id: string; name: string; price: number; from?: boolean; note?: string; info: string };
 
+// CONFIRM: info descriptions were drafted by Blair/Claude; check wording with Fern.
 export const ADD_ONS: AddOn[] = [
-  { id: "michelada", name: "Michelada Station", price: 300 },
-  { id: "champagne-wall", name: "Champagne Wall Experience", price: 400 },
-  { id: "shot-cart", name: "Shot Cart", price: 400 },
-  { id: "tequila-tasting", name: "Tequila Tasting", price: 300, from: true, note: "Up to 25 guests" },
-  { id: "smoked-cocktails", name: "Smoked Cocktails", price: 200, from: true },
-  { id: "hydration", name: "Hydration Station", price: 150 },
+  { id: "michelada", name: "Michelada Station", price: 300, info: "A michelada bar with rimmed glasses, our house mix, hot sauces and fresh garnishes. You supply the beer." },
+  { id: "champagne-wall", name: "Champagne Wall Experience", price: 400, info: "A styled wall of pre-poured glasses of bubbly for guests to grab as they arrive. A real showstopper for photos." },
+  { id: "shot-cart", name: "Shot Cart", price: 400, info: "A dedicated cart serving shots to your guests, perfect for toasts and big moments on the dance floor." },
+  { id: "tequila-tasting", name: "Tequila Tasting", price: 300, from: true, note: "Up to 25 guests", info: "A guided tasting of different tequilas with notes on each one, for up to 25 guests." },
+  { id: "smoked-cocktails", name: "Smoked Cocktails", price: 200, from: true, info: "Cocktails finished with aromatic wood smoke right at the bar, for a little theatre with every pour." },
+  { id: "hydration", name: "Hydration Station", price: 150, info: "Infused water and refreshing non-alcoholic sips to keep everyone feeling good all night." },
 ];
 
 // NOT SHOWN in the generator for now (Nov 26): Blair felt these are better handled on

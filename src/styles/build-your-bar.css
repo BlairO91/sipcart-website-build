@@ -16,27 +16,31 @@
 .byb-hero__sub { max-width: 40rem; margin: 0.9rem auto 0; color: #555; line-height: 1.6; text-wrap: balance; }
 
 .byb-layout {
-  max-width: 50rem; margin: 0 auto; padding: 1.5rem max(4vw, 16px) 5rem;
+  max-width: 64rem; margin: 0 auto; padding: 1.5rem max(4vw, 16px) 5rem;
 }
-.byb-main { min-width: 0; background: var(--sc-white); border-radius: 18px; padding: clamp(1.25rem, 3vw, 2.25rem); box-shadow: 0 6px 30px rgba(118, 75, 54, 0.07); }
+.byb-main { min-width: 0; background: var(--sc-white); border-radius: 18px; padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 6vw, 4.5rem); box-shadow: 0 6px 30px rgba(118, 75, 54, 0.07); }
 
-/* Decorative photos behind the card (wide screens only) */
-.byb-stage { position: relative; }
-.byb-layout { position: relative; z-index: 1; }
-.byb-deco { position: absolute; inset: 0; pointer-events: none; z-index: 0; display: none; }
-.byb-deco__img {
-  position: absolute; display: block; object-fit: cover; border-radius: 12px;
-  box-shadow: 0 14px 34px rgba(118, 75, 54, 0.16); background: #efe6dd;
+.byb-stack { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+/* Add-on info button + tooltip */
+.byb-addon { position: relative; display: flex; }
+.byb-addon > .byb-card { flex: 1; padding-right: 2.6rem; }
+.byb-info {
+  position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid #cdbcae !important; background: #fff !important; color: var(--sc-espresso);
+  font-family: Georgia, serif; font-style: italic; font-weight: 700; font-size: 0.95rem; line-height: 1;
+  display: grid; place-items: center; z-index: 2;
 }
-/* left side */
-.byb-deco__img--1 { left: 2.5%; top: 40px; width: clamp(150px, 13vw, 230px); aspect-ratio: 1; transform: rotate(-15deg); }
-.byb-deco__img--2 { left: 15%; top: 520px; width: clamp(140px, 11.5vw, 210px); aspect-ratio: 1; }
-.byb-deco__img--3 { left: calc(50% - 25rem - 70px); top: 70px; width: 170px; height: 280px; transform: rotate(-2deg); }
-/* right side */
-.byb-deco__img--4 { right: calc(50% - 25rem - 80px); top: 330px; width: 180px; height: 270px; transform: rotate(2deg); }
-.byb-deco__img--5 { right: 6%; top: 40px; width: clamp(150px, 13vw, 230px); aspect-ratio: 1; }
-.byb-deco__img--6 { right: 1.5%; top: 560px; width: clamp(150px, 13vw, 230px); aspect-ratio: 1; transform: rotate(-15deg); }
-@media (min-width: 1100px) { .byb-deco { display: block; } }
+.byb-info::after { content: ""; position: absolute; inset: -8px; } /* bigger tap target */
+.byb-info:hover, .byb-addon.is-info .byb-info { background: var(--sc-espresso) !important; color: #fff; border-color: var(--sc-espresso) !important; }
+.byb-tip {
+  position: absolute; z-index: 5; top: 46px; right: 8px; width: min(260px, calc(100% - 16px));
+  background: #3b2619; color: #fff; font-size: 0.85rem; line-height: 1.45; padding: 10px 12px; border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18); opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s; pointer-events: none;
+}
+.byb-tip::before { content: ""; position: absolute; top: -6px; right: 18px; border: 6px solid transparent; border-top: 0; border-bottom-color: #3b2619; }
+.byb-addon.is-info .byb-tip, .byb-info:focus-visible + .byb-tip { opacity: 1; visibility: visible; transform: none; }
 
 /* Progress */
 .byb-progress { list-style: none; margin: 0 0 1.75rem; padding: 0; display: flex; gap: 6px; }
@@ -84,8 +88,8 @@
 .byb-chips--lg { gap: 10px; }
 .byb-chips--lg .byb-chip { min-height: 52px; padding: 12px 22px; font-size: 1rem; }
 
-.byb-photo { margin: 0 0 1.5rem; border-radius: 14px; overflow: hidden; background: #efe6dd; }
-.byb-photo img { width: 100%; height: clamp(200px, 32vw, 320px); object-fit: cover; object-position: center 45%; }
+.byb-photo { margin: 0 0 1.5rem; }
+.byb-photo img { display: block; width: 100%; max-width: 380px; height: auto; margin: 0 auto; border-radius: 14px; }
 
 /* Selectable cards */
 .byb-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.25rem; }
