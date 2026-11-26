@@ -1668,3 +1668,7 @@ textarea.sc-typeform__input {
   .sc-logo-bar__track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; gap: 1rem 0; }
   .sc-logo-bar__dupe { display: none !important; }
 }
+
+/* ── Packages → quote generator link ── */
+.sc-packages__builder { text-align: center; margin: 2.5rem auto 0; max-width: 40rem; }
+.sc-packages__builder p { margin: 0 0 1rem; color: #555; text-wrap: balance; }

@@ -1,0 +1,550 @@
+import { useEffect, useMemo, useState } from "react";
+import emailjs from "@emailjs/browser";
+import "../styles/sip-cart.css";
+import "../styles/build-your-bar.css";
+import logo from "@/assets/logo.png";
+import {
+  ADD_ONS,
+  CUSTOM_GROUPS,
+  DISCLAIMER,
+  DRINK_STYLES,
+  EVENT_TYPES,
+  PACKAGES,
+  QUOTE_SETTINGS,
+  calculateQuote,
+  money,
+  suggestedBartenders,
+} from "@/lib/quoteConfig";
+
+const STEPS = ["Your event", "Your bar", "Your setup", "Extras", "Your estimate"];
+
+type Data = {
+  eventType: string;
+  eventDate: string;
+  location: string;
+  outsideRadius: boolean;
+  guests: string;
+  hours: number;
+  packageId: string;
+  drinkStyle: string;
+  barCart: boolean;
+  bartenders: number | null; // null = follow the suggestion
+  addOnIds: string[];
+  customItems: string[];
+  name: string;
+  email: string;
+  phone: string;
+  notes: string;
+};
+
+const EMPTY: Data = {
+  eventType: "",
+  eventDate: "",
+  location: "",
+  outsideRadius: false,
+  guests: "",
+  hours: QUOTE_SETTINGS.includedHours,
+  packageId: "",
+  drinkStyle: "Cocktails",
+  barCart: true,
+  bartenders: null,
+  addOnIds: [],
+  customItems: [],
+  name: "",
+  email: "",
+  phone: "",
+  notes: "",
+};
+
+const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+const toggle = (list: string[], v: string) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+
+const BuildYourBar = () => {
+  const [step, setStep] = useState(0);
+  const [d, setD] = useState<Data>(EMPTY);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+
+  const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((prev) => ({ ...prev, [k]: v }));
+
+  const guests = Math.max(0, parseInt(d.guests, 10) || 0);
+  const suggested = suggestedBartenders(guests);
+  const bartenders = d.bartenders ?? suggested;
+  const quote = useMemo(
+    () => calculateQuote({ guests, hours: d.hours, packageId: d.packageId, barCart: d.barCart, bartenders, addOnIds: d.addOnIds }),
+    [guests, d.hours, d.packageId, d.barCart, bartenders, d.addOnIds],
+  );
+  const pkg = PACKAGES.find((p) => p.id === d.packageId);
+  const ready = !!pkg && guests > 0;
+
+  useEffect(() => {
+    document.title = "Build Your Bar Experience | The Sip Cart";
+  }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step, submitted]);
+
+  const stepValid = [
+    !!d.eventType && guests > 0,
+    !!d.packageId,
+    true,
+    true,
+    !!d.name.trim() && isEmail(d.email) && d.phone.replace(/\D/g, "").length >= 10,
+  ];
+
+  const next = () => {
+    if (!stepValid[step]) {
+      setShowErrors(true);
+      return;
+    }
+    setShowErrors(false);
+    setStep((s) => Math.min(STEPS.length - 1, s + 1));
+  };
+  const back = () => {
+    setShowErrors(false);
+    setStep((s) => Math.max(0, s - 1));
+  };
+
+  const breakdownText = () => {
+    const rows = quote.lines.map((l) => `${l.label}${l.detail ? ` (${l.detail})` : ""}: ${l.from ? "from " : ""}${money(l.amount)}`);
+    return [
+      ...rows,
+      `Subtotal: ${money(quote.subtotal)}`,
+      `HST (${QUOTE_SETTINGS.hstRate * 100}%): ${money(quote.hst)}`,
+      `Estimated total: ${money(quote.total)}`,
+      d.customItems.length ? `Custom quote requested for: ${d.customItems.join(", ")}` : "",
+      d.outsideRadius ? `Event is more than ${QUOTE_SETTINGS.travelIncludedKm} km away: travel to be quoted` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+  };
+
+  const submit = async () => {
+    if (!stepValid[4]) {
+      setShowErrors(true);
+      return;
+    }
+    if (submitting) return;
+    setSubmitting(true);
+    setSubmitError(false);
+
+    const fields = {
+      name: d.name.trim(),
+      email: d.email.trim(),
+      phone: d.phone.trim(),
+      eventType: d.eventType,
+      eventDate: d.eventDate,
+      location: d.location,
+      outsideRadius: d.outsideRadius ? "Yes" : "No",
+      guests: String(guests),
+      hours: String(d.hours),
+      package: pkg?.name ?? "",
+      drinkStyle: d.drinkStyle,
+      barCart: d.barCart ? "Yes" : "No (venue has a bar)",
+      bartenders: String(bartenders),
+      addOns: d.addOnIds.map((id) => ADD_ONS.find((a) => a.id === id)?.name).filter(Boolean).join(", ") || "None",
+      customRequests: d.customItems.join(", ") || "None",
+      estimateTotal: money(quote.total),
+      breakdown: breakdownText(),
+      notes: d.notes.trim() || "None",
+    };
+
+    // Netlify Forms keeps a copy of every request; EmailJS notifies Fern using the
+    // existing inquiry template. Either one succeeding means the request wasn't lost.
+    const toNetlify = fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ "form-name": "build-your-bar", "bot-field": "", ...fields }).toString(),
+    }).then((res) => {
+      if (!res.ok) throw new Error(`Netlify form responded ${res.status}`);
+    });
+    const toEmail = emailjs.send(
+      "service_6g62zty",
+      "template_cd13zac",
+      {
+        name: fields.name,
+        email: fields.email,
+        phone: fields.phone,
+        eventDate: fields.eventDate || "Not set",
+        eventType: `${fields.eventType} (Build Your Bar)`,
+        guests: fields.guests,
+        budget: `Estimate ${fields.estimateTotal}`,
+        notes: [
+          `BUILD YOUR BAR ESTIMATE`,
+          `Location: ${fields.location || "Not given"}`,
+          `Hours: ${fields.hours} · Drinks: ${fields.drinkStyle} · Bartenders: ${fields.bartenders} · Bar cart: ${fields.barCart}`,
+          "",
+          fields.breakdown,
+          "",
+          `Client notes: ${fields.notes}`,
+        ].join("\n"),
+      },
+      "Emied8aa-JrZ-uZxp",
+    );
+
+    const results = await Promise.allSettled([toNetlify, toEmail]);
+    setSubmitting(false);
+    if (results.some((r) => r.status === "fulfilled")) {
+      setSubmitted(true);
+    } else {
+      results.forEach((r) => r.status === "rejected" && console.error("Quote submission failed:", r.reason));
+      setSubmitError(true);
+    }
+  };
+
+  const err = (cond: boolean, msg: string) => (showErrors && cond ? <p className="byb-error">{msg}</p> : null);
+
+  const Estimate = ({ full }: { full?: boolean }) => (
+    <div className={`byb-estimate${full ? " byb-estimate--full" : ""}`}>
+      {!ready ? (
+        <p className="byb-estimate__empty">
+          {guests > 0 ? "Choose a bar package to see your estimate." : "Enter your guest count and choose a bar package to see your estimate."}
+        </p>
+      ) : (
+        <>
+          <ul className="byb-lines">
+            {quote.lines.map((l, i) => (
+              <li key={i}>
+                <span>
+                  {l.label}
+                  {full && l.detail && <small>{l.detail}</small>}
+                </span>
+                <span className="byb-amt">
+                  {l.from && <small>from </small>}
+                  {money(l.amount)}
+                </span>
+              </li>
+            ))}
+            <li className="byb-lines__sub">
+              <span>Subtotal</span>
+              <span className="byb-amt">{money(quote.subtotal)}</span>
+            </li>
+            <li>
+              <span>HST ({QUOTE_SETTINGS.hstRate * 100}%)</span>
+              <span className="byb-amt">{money(quote.hst)}</span>
+            </li>
+          </ul>
+          <div className="byb-total">
+            <span>Estimated total</span>
+            <strong>
+              {quote.hasFromPrices && <small>from </small>}
+              {money(quote.total)}
+            </strong>
+          </div>
+          {full && (
+            <div className="byb-notes">
+              {d.customItems.length > 0 && (
+                <p>
+                  <strong>Custom quote:</strong> {d.customItems.join(", ")}. Fern will price these with you.
+                </p>
+              )}
+              {d.outsideRadius && (
+                <p>
+                  <strong>Travel:</strong> your event is more than {QUOTE_SETTINGS.travelIncludedKm} km away, so travel will be quoted separately.
+                </p>
+              )}
+              {quote.belowMinimum && (
+                <p>
+                  <strong>Note:</strong> events typically start at {money(QUOTE_SETTINGS.minimumBooking)} before tax. Fern will work with you on the details.
+                </p>
+              )}
+              {QUOTE_SETTINGS.gratuityNote && <p>{QUOTE_SETTINGS.gratuityNote}</p>}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="sip-cart byb">
+      <header className="byb-top">
+        <a href="/" className="byb-top__logo" aria-label="The Sip Cart home">
+          <img src={logo} alt="The Sip Cart" />
+        </a>
+        <a href="/" className="byb-top__back">
+          ← Back to site
+        </a>
+      </header>
+
+      <section className="byb-hero">
+        <p className="byb-eyebrow">Create your own experience</p>
+        <h1>Build Your Bar Experience</h1>
+        <p className="byb-hero__sub">
+          Pick your package, setup and extras, and watch your estimate update as you go. Send it over and Fern will be in touch within 24–48 hours.
+        </p>
+      </section>
+
+      {submitted ? (
+        <main className="byb-done">
+          <h2>Thank you, {d.name.split(" ")[0]}!</h2>
+          <p>
+            Your bar experience is on its way to Fern. She'll review the details and get back to you within 24–48 hours to confirm availability and next steps.
+          </p>
+          <Estimate full />
+          <p className="byb-disclaimer">{DISCLAIMER}</p>
+          <a className="sc-btn sc-btn--dark" href="/">
+            Back to The Sip Cart
+          </a>
+        </main>
+      ) : (
+        <main className="byb-layout">
+          <div className="byb-main">
+            <ol className="byb-progress" aria-label="Steps">
+              {STEPS.map((s, i) => (
+                <li key={s} className={i === step ? "is-current" : i < step ? "is-done" : ""} aria-current={i === step ? "step" : undefined}>
+                  <button type="button" onClick={() => i < step && setStep(i)} disabled={i >= step}>
+                    <span className="byb-progress__n">{i + 1}</span>
+                    <span className="byb-progress__label">{s}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+
+            {step === 0 && (
+              <div className="byb-step">
+                <h2>Tell us about your event</h2>
+                <fieldset className="byb-field">
+                  <legend>What are you celebrating?</legend>
+                  <div className="byb-chips">
+                    {EVENT_TYPES.map((t) => (
+                      <button type="button" key={t} className={`byb-chip${d.eventType === t ? " is-on" : ""}`} aria-pressed={d.eventType === t} onClick={() => set("eventType", t)}>
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                  {err(!d.eventType, "Choose an event type.")}
+                </fieldset>
+                <div className="byb-grid2">
+                  <label className="byb-field">
+                    <span>Number of guests</span>
+                    <input type="number" inputMode="numeric" min={1} placeholder="e.g. 75" value={d.guests} onChange={(e) => set("guests", e.target.value)} />
+                    {err(guests <= 0, "Enter your guest count.")}
+                  </label>
+                  <label className="byb-field">
+                    <span>Hours of bar service</span>
+                    <select value={d.hours} onChange={(e) => set("hours", Number(e.target.value))}>
+                      {Array.from({ length: QUOTE_SETTINGS.maxHours - QUOTE_SETTINGS.includedHours + 1 }, (_, i) => QUOTE_SETTINGS.includedHours + i).map((h) => (
+                        <option key={h} value={h}>
+                          {h} hours{h === QUOTE_SETTINGS.includedHours ? " (included)" : ""}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="byb-field">
+                    <span>Event date</span>
+                    <input type="date" value={d.eventDate} onChange={(e) => set("eventDate", e.target.value)} />
+                  </label>
+                  <label className="byb-field">
+                    <span>Event location</span>
+                    <input type="text" placeholder="City or venue" value={d.location} onChange={(e) => set("location", e.target.value)} />
+                  </label>
+                </div>
+                <label className="byb-check">
+                  <input type="checkbox" checked={d.outsideRadius} onChange={(e) => set("outsideRadius", e.target.checked)} />
+                  <span>My event is more than {QUOTE_SETTINGS.travelIncludedKm} km from Toronto</span>
+                </label>
+              </div>
+            )}
+
+            {step === 1 && (
+              <div className="byb-step">
+                <h2>Choose your bar</h2>
+                <div className="byb-cards">
+                  {PACKAGES.map((p) => (
+                    <button type="button" key={p.id} className={`byb-card${d.packageId === p.id ? " is-on" : ""}`} aria-pressed={d.packageId === p.id} onClick={() => set("packageId", p.id)}>
+                      <span className="byb-card__name">{p.name}</span>
+                      <span className="byb-card__price">${p.perGuest} per guest</span>
+                      <span className="byb-card__blurb">{p.blurb}</span>
+                      {guests > 0 && <span className="byb-card__calc">{money(p.perGuest * guests)} for {guests} guests</span>}
+                    </button>
+                  ))}
+                </div>
+                {err(!d.packageId, "Choose a bar package.")}
+                <fieldset className="byb-field">
+                  <legend>What will you be serving?</legend>
+                  <div className="byb-chips">
+                    {DRINK_STYLES.map((s) => (
+                      <button type="button" key={s} className={`byb-chip${d.drinkStyle === s ? " is-on" : ""}`} aria-pressed={d.drinkStyle === s} onClick={() => set("drinkStyle", s)}>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+                <p className="byb-hint">You supply the alcohol and we'll send you a custom shopping list. We bring everything else.</p>
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className="byb-step">
+                <h2>Set up your bar</h2>
+                <fieldset className="byb-field">
+                  <legend>Do you need our mobile bar cart?</legend>
+                  <div className="byb-cards byb-cards--two">
+                    <button type="button" className={`byb-card${d.barCart ? " is-on" : ""}`} aria-pressed={d.barCart} onClick={() => set("barCart", true)}>
+                      <span className="byb-card__name">Yes, bring The Sip Cart</span>
+                      <span className="byb-card__price">{money(QUOTE_SETTINGS.barCartRate)}</span>
+                    </button>
+                    <button type="button" className={`byb-card${!d.barCart ? " is-on" : ""}`} aria-pressed={!d.barCart} onClick={() => set("barCart", false)}>
+                      <span className="byb-card__name">No, our venue has a bar</span>
+                      <span className="byb-card__price">$0</span>
+                    </button>
+                  </div>
+                </fieldset>
+                <div className="byb-field">
+                  <span className="byb-label">Bartenders</span>
+                  <div className="byb-stepper">
+                    <button type="button" aria-label="Fewer bartenders" onClick={() => set("bartenders", Math.max(1, bartenders - 1))} disabled={bartenders <= 1}>
+                      −
+                    </button>
+                    <output aria-live="polite">{bartenders}</output>
+                    <button type="button" aria-label="More bartenders" onClick={() => set("bartenders", Math.min(QUOTE_SETTINGS.maxBartenders, bartenders + 1))} disabled={bartenders >= QUOTE_SETTINGS.maxBartenders}>
+                      +
+                    </button>
+                  </div>
+                  <p className="byb-hint">
+                    {money(QUOTE_SETTINGS.bartenderRate)} each for {QUOTE_SETTINGS.includedHours} hours
+                    {d.hours > QUOTE_SETTINGS.includedHours && `, plus ${money(QUOTE_SETTINGS.extraHourRate)} per extra hour`}. We recommend {suggested} for {guests || "your"} guests.
+                    {d.bartenders !== null && d.bartenders !== suggested && (
+                      <>
+                        {" "}
+                        <button type="button" className="byb-link" onClick={() => set("bartenders", null)}>
+                          Use recommended
+                        </button>
+                      </>
+                    )}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className="byb-step">
+                <h2>Add something extra</h2>
+                <div className="byb-cards byb-cards--addons">
+                  {ADD_ONS.map((a) => {
+                    const on = d.addOnIds.includes(a.id);
+                    return (
+                      <button type="button" key={a.id} className={`byb-card${on ? " is-on" : ""}`} aria-pressed={on} onClick={() => set("addOnIds", toggle(d.addOnIds, a.id))}>
+                        <span className="byb-card__name">{a.name}</span>
+                        <span className="byb-card__price">
+                          {a.from ? "From " : ""}
+                          {money(a.price)}
+                        </span>
+                        {a.note && <span className="byb-card__blurb">{a.note}</span>}
+                        <span className="byb-card__tick" aria-hidden="true">{on ? "Added" : "Add"}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <h3 className="byb-sub">Custom touches</h3>
+                <p className="byb-hint">These are priced to your event. Select any you'd like and Fern will include them in your final quote.</p>
+                {CUSTOM_GROUPS.map((g) => (
+                  <fieldset className="byb-field" key={g.title}>
+                    <legend>{g.title}</legend>
+                    <div className="byb-chips">
+                      {g.items.map((item) => {
+                        const on = d.customItems.includes(item);
+                        return (
+                          <button type="button" key={item} className={`byb-chip${on ? " is-on" : ""}`} aria-pressed={on} onClick={() => set("customItems", toggle(d.customItems, item))}>
+                            {item}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                ))}
+              </div>
+            )}
+
+            {step === 4 && (
+              <div className="byb-step">
+                <h2>Your estimate</h2>
+                <p className="byb-summary">
+                  {d.eventType}
+                  {guests ? ` · ${guests} guests` : ""} · {d.hours} hours · {d.drinkStyle}
+                  {d.location ? ` · ${d.location}` : ""}
+                </p>
+                <Estimate full />
+                <h3 className="byb-sub">Send it to Fern</h3>
+                <p className="byb-hint">You'll hear back within 24–48 hours to confirm availability and your final quote.</p>
+                <div className="byb-grid2">
+                  <label className="byb-field">
+                    <span>Full name</span>
+                    <input type="text" autoComplete="name" value={d.name} onChange={(e) => set("name", e.target.value)} />
+                    {err(!d.name.trim(), "Enter your name.")}
+                  </label>
+                  <label className="byb-field">
+                    <span>Email</span>
+                    <input type="email" autoComplete="email" value={d.email} onChange={(e) => set("email", e.target.value)} />
+                    {err(!isEmail(d.email), "Enter a valid email.")}
+                  </label>
+                  <label className="byb-field">
+                    <span>Phone</span>
+                    <input type="tel" autoComplete="tel" value={d.phone} onChange={(e) => set("phone", e.target.value)} />
+                    {err(d.phone.replace(/\D/g, "").length < 10, "Enter a phone number.")}
+                  </label>
+                </div>
+                <label className="byb-field">
+                  <span>Anything else we should know?</span>
+                  <textarea rows={4} placeholder="Theme, colours, favourite drinks, timing…" value={d.notes} onChange={(e) => set("notes", e.target.value)} />
+                </label>
+                {submitError && (
+                  <p className="byb-error">
+                    Sorry, something went wrong sending your request. Please try again, or email{" "}
+                    <a href="mailto:sipnslushto@gmail.com">sipnslushto@gmail.com</a>.
+                  </p>
+                )}
+                <p className="byb-disclaimer">{DISCLAIMER}</p>
+              </div>
+            )}
+
+            <div className="byb-nav">
+              {step > 0 && (
+                <button type="button" className="sc-btn sc-btn--outline" onClick={back} disabled={submitting}>
+                  Back
+                </button>
+              )}
+              {step < STEPS.length - 1 ? (
+                <button type="button" className="sc-btn sc-btn--dark" onClick={next}>
+                  Next: {STEPS[step + 1]}
+                </button>
+              ) : (
+                <button type="button" className="sc-btn sc-btn--dark" onClick={submit} disabled={submitting}>
+                  {submitting ? "Sending…" : "Send my estimate"}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {step < 4 && (
+            <aside className="byb-side" aria-label="Your estimate">
+              <h2 className="byb-side__title">Your estimate</h2>
+              <Estimate />
+              <p className="byb-side__note">Estimate only. Final pricing is confirmed by Fern.</p>
+            </aside>
+          )}
+          {step < 4 && (
+            <div className="byb-mobilebar" aria-hidden="true">
+              <span>Estimated total</span>
+              <strong>
+                {ready ? (
+                  <>
+                    {quote.hasFromPrices && <small>from </small>}
+                    {money(quote.total)}
+                  </>
+                ) : (
+                  "—"
+                )}
+              </strong>
+            </div>
+          )}
+        </main>
+      )}
+    </div>
+  );
+};
+
+export default BuildYourBar;

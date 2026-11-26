@@ -35,6 +35,28 @@
       <input type="text" name="budget" />
       <textarea name="notes"></textarea>
     </form>
+    <!-- Hidden form so Netlify registers "build-your-bar" at build time; the quote generator posts to it via fetch -->
+    <form name="build-your-bar" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="eventType" />
+      <input type="text" name="eventDate" />
+      <input type="text" name="location" />
+      <input type="text" name="outsideRadius" />
+      <input type="text" name="guests" />
+      <input type="text" name="hours" />
+      <input type="text" name="package" />
+      <input type="text" name="drinkStyle" />
+      <input type="text" name="barCart" />
+      <input type="text" name="bartenders" />
+      <input type="text" name="addOns" />
+      <input type="text" name="customRequests" />
+      <input type="text" name="estimateTotal" />
+      <textarea name="breakdown"></textarea>
+      <textarea name="notes"></textarea>
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

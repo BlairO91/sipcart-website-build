@@ -702,6 +702,10 @@ const Index = () => {
             <button className="sc-btn sc-btn--primary" onClick={() => scrollTo("quote")}>Get a Quote</button>
           </div>
         </div>
+        <div className="sc-packages__builder sc-reveal">
+          <p>Want to see pricing right away? Build your own bar and get an instant estimate.</p>
+          <a className="sc-btn sc-btn--dark" href="/build-your-bar">Build Your Bar Experience</a>
+        </div>
 
         <h4 className="sc-addons__sub sc-reveal">Customize your event with an add-on</h4>
         <div className="sc-addons__grid sc-reveal sc-reveal--delay-1">
