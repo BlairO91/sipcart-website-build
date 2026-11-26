@@ -445,44 +445,48 @@ const BuildYourBar = () => {
             {step === 3 && (
               <div className="byb-step">
                 <h2>Set up your bar</h2>
-                <figure className="byb-photo">
-                  <img src={cartPhoto} alt="The Sip Cart mobile bar with umbrella, florals and cocktails" loading="lazy" />
-                </figure>
-                <fieldset className="byb-field">
-                  <legend>Do you need our mobile bar cart?</legend>
-                  <div className="byb-cards byb-cards--two">
-                    <button type="button" className={`byb-card${d.barCart ? " is-on" : ""}`} aria-pressed={d.barCart} onClick={() => set("barCart", true)}>
-                      <span className="byb-card__name">Yes, bring The Sip Cart</span>
-                      <span className="byb-card__price">{money(QUOTE_SETTINGS.barCartRate)}</span>
-                    </button>
-                    <button type="button" className={`byb-card${!d.barCart ? " is-on" : ""}`} aria-pressed={!d.barCart} onClick={() => set("barCart", false)}>
-                      <span className="byb-card__name">No, our venue has a bar</span>
-                      <span className="byb-card__price">$0</span>
-                    </button>
-                  </div>
-                </fieldset>
-                <div className="byb-field">
-                  <span className="byb-label">Bartenders</span>
-                  <div className="byb-stepper">
-                    <button type="button" aria-label="Fewer bartenders" onClick={() => set("bartenders", Math.max(1, bartenders - 1))} disabled={bartenders <= 1}>
-                      −
-                    </button>
-                    <output aria-live="polite">{bartenders}</output>
-                    <button type="button" aria-label="More bartenders" onClick={() => set("bartenders", Math.min(QUOTE_SETTINGS.maxBartenders, bartenders + 1))} disabled={bartenders >= QUOTE_SETTINGS.maxBartenders}>
-                      +
-                    </button>
-                  </div>
-                  <p className="byb-hint">
-                    We recommend {suggested} bartender{suggested > 1 ? "s" : ""} for {guests || "your"} guests.
-                    {d.bartenders !== null && d.bartenders !== suggested && (
-                      <>
-                        {" "}
-                        <button type="button" className="byb-link" onClick={() => set("bartenders", null)}>
-                          Use recommended
+                <div className="byb-split">
+                  <figure className="byb-photo">
+                    <img src={cartPhoto} alt="The Sip Cart mobile bar with umbrella, florals and cocktails" loading="lazy" />
+                  </figure>
+                  <div className="byb-split__body">
+                    <fieldset className="byb-field">
+                      <legend>Do you need our mobile bar cart?</legend>
+                      <div className="byb-cards byb-cards--two">
+                        <button type="button" className={`byb-card${d.barCart ? " is-on" : ""}`} aria-pressed={d.barCart} onClick={() => set("barCart", true)}>
+                          <span className="byb-card__name">Yes, bring The Sip Cart</span>
+                          <span className="byb-card__price">{money(QUOTE_SETTINGS.barCartRate)}</span>
                         </button>
-                      </>
-                    )}
-                  </p>
+                        <button type="button" className={`byb-card${!d.barCart ? " is-on" : ""}`} aria-pressed={!d.barCart} onClick={() => set("barCart", false)}>
+                          <span className="byb-card__name">No, our venue has a bar</span>
+                          <span className="byb-card__price">$0</span>
+                        </button>
+                      </div>
+                    </fieldset>
+                    <div className="byb-field">
+                      <span className="byb-label">Bartenders</span>
+                      <div className="byb-stepper">
+                        <button type="button" aria-label="Fewer bartenders" onClick={() => set("bartenders", Math.max(1, bartenders - 1))} disabled={bartenders <= 1}>
+                          −
+                        </button>
+                        <output aria-live="polite">{bartenders}</output>
+                        <button type="button" aria-label="More bartenders" onClick={() => set("bartenders", Math.min(QUOTE_SETTINGS.maxBartenders, bartenders + 1))} disabled={bartenders >= QUOTE_SETTINGS.maxBartenders}>
+                          +
+                        </button>
+                      </div>
+                      <p className="byb-hint">
+                        We recommend {suggested} bartender{suggested > 1 ? "s" : ""} for {guests || "your"} guests.
+                        {d.bartenders !== null && d.bartenders !== suggested && (
+                          <>
+                            {" "}
+                            <button type="button" className="byb-link" onClick={() => set("bartenders", null)}>
+                              Use recommended
+                            </button>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

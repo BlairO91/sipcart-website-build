@@ -26,20 +26,20 @@
 .byb-addon { position: relative; display: flex; }
 .byb-addon > .byb-card { flex: 1; padding-right: 2.6rem; }
 .byb-info {
-  position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%;
+  position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%;
   border: 1px solid #cdbcae !important; background: #fff !important; color: var(--sc-espresso);
-  font-family: Georgia, serif; font-style: italic; font-weight: 700; font-size: 0.95rem; line-height: 1;
+  font-family: var(--sc-body); font-style: normal; font-weight: 700; font-size: 11px; line-height: 1;
   display: grid; place-items: center; z-index: 2;
 }
-.byb-info::after { content: ""; position: absolute; inset: -8px; } /* bigger tap target */
+.byb-info::after { content: ""; position: absolute; inset: -12px; } /* bigger tap target */
 .byb-info:hover, .byb-addon.is-info .byb-info { background: var(--sc-espresso) !important; color: #fff; border-color: var(--sc-espresso) !important; }
 .byb-tip {
-  position: absolute; z-index: 5; top: 46px; right: 8px; width: min(260px, calc(100% - 16px));
+  position: absolute; z-index: 5; top: 40px; right: 8px; width: min(260px, calc(100% - 16px));
   background: #3b2619; color: #fff; font-size: 0.85rem; line-height: 1.45; padding: 10px 12px; border-radius: 10px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18); opacity: 0; visibility: hidden; transform: translateY(-4px);
   transition: opacity 0.15s, transform 0.15s, visibility 0.15s; pointer-events: none;
 }
-.byb-tip::before { content: ""; position: absolute; top: -6px; right: 18px; border: 6px solid transparent; border-top: 0; border-bottom-color: #3b2619; }
+.byb-tip::before { content: ""; position: absolute; top: -6px; right: 12px; border: 6px solid transparent; border-top: 0; border-bottom-color: #3b2619; }
 .byb-addon.is-info .byb-tip, .byb-info:focus-visible + .byb-tip { opacity: 1; visibility: visible; transform: none; }
 
 /* Progress */
@@ -234,4 +234,15 @@
 @media (max-width: 380px) {
   .byb-cal__headcell { width: 36px; }
   .byb-cal__day { width: 34px; height: 34px; }
+}
+
+/* Setup step: photo left, choices right */
+.byb-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2.5rem); align-items: start; }
+.byb-split .byb-photo { margin: 0; position: sticky; top: 1.5rem; }
+.byb-split .byb-photo img { max-width: none; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.byb-split .byb-cards--two { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (max-width: 760px) {
+  .byb-split { grid-template-columns: minmax(0, 1fr); }
+  .byb-split .byb-photo { position: static; }
+  .byb-split .byb-photo img { max-width: 380px; margin: 0 auto; }
 }
