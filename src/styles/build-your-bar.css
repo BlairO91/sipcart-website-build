@@ -55,7 +55,7 @@
 .byb-progress .is-done button:hover .byb-progress__label { color: var(--sc-espresso); text-decoration: underline; }
 
 /* Step content */
-.byb-step h2 { margin: 0 0 1.25rem; }
+.byb-step h2 { margin: 0 0 1.25rem; font-size: clamp(1.5rem, 4vw, 2rem); } /* one step below the page title */
 .byb-sub { margin: 2rem 0 0.4rem; font-size: 1.5rem !important; }
 .byb-field { display: block; border: 0; margin: 0 0 1.25rem; padding: 0; min-width: 0; }
 .byb-field > span, .byb-field legend, .byb-label { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; padding: 0; }
